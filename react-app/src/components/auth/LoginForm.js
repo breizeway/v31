@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { Redirect, Link } from "react-router-dom";
-import * as sessionActions from "../../store/session"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, Link } from 'react-router-dom';
+
 import './UpForms.css'
+import * as sessionActions from '../../store/session'
+
 
 const LoginForm = () => {
     const authenticated = useSelector(state => state.session.user)
@@ -10,8 +12,8 @@ const LoginForm = () => {
 
     const dispatch = useDispatch()
     const [errors, setErrors] = useState([]);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -28,11 +30,11 @@ const LoginForm = () => {
     };
 
     if (authenticated) {
-        return <Redirect to="/" />;
+        return <Redirect to='/' />;
     }
 
     return (
-        <div className="container">
+        <div className='container'>
             <h2>Login</h2>
             <form onSubmit={onLogin}>
                 <div>
@@ -42,33 +44,34 @@ const LoginForm = () => {
                 </div>
                 <div>
                     <input
-                        className="input-top"
-                        name="username"
-                        type="text"
-                        placeholder="Username"
+                        className='input-top'
+                        name='username'
+                        type='text'
+                        placeholder='Username'
                         value={username}
                         onChange={updateUsername}
                     />
                 </div>
                 <div>
                     <input
-                        className="input-bottom"
-                        name="password"
-                        type="password"
-                        placeholder="Password"
+                        className='input-bottom'
+                        name='password'
+                        type='password'
+                        placeholder='Password'
                         value={password}
                         onChange={updatePassword}
                     />
                 </div>
                 <div>
-                    <input type="submit" className="button" value="Login" />
+                    <input type='submit' className='button' value='Login' />
                 </div>
             </form>
-            <div className="footer">
-                <Link className="lnk" to="/sign-up">New User? Sign up</Link>
+            <div className='footer'>
+                <Link className='lnk' to='/sign-up'>New User? Sign up</Link>
             </div>
         </div>
     );
 };
+
 
 export default LoginForm;
