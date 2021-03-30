@@ -22,9 +22,9 @@ export const login = async (username, password) => {
 }
 
 export const logout = async () => {
-  const response = await fetch("/api/auth/logout", {
+  const response = await fetch('/api/auth/logout', {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     }
   });
   return await response.json();
@@ -32,10 +32,10 @@ export const logout = async () => {
 
 
 export const signup = async (username, firstName, lastName, email, password) => {
-  const response = await fetch("/api/auth/signup", {
-    method: "POST",
+  const response = await fetch('/api/auth/signup', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username,
