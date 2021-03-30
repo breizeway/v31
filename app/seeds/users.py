@@ -11,6 +11,12 @@ def seed_users():
                 last_name='User',
                 password='password')
     db.session.add(demo)
+    demo2 = User(username='tbreitigam',
+                 email='tyler.breitigam@gmail.com',
+                 first_name='Tyler',
+                 last_name='Breitigam',
+                 password='tyfighter')
+    db.session.add(demo2)
     db.session.commit()
 
 

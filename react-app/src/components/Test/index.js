@@ -19,7 +19,7 @@ const Test = () => {
 
     const resource = `/${'movie'}`
     const detail = `/${''}`
-    const url = `https://api.themoviedb.org/3${resource}${`/${movieId}`}`
+    const url = `https://api.themoviedb.org/3${resource}/${movieId}`
     useEffect(() => {
         (async () => {
             const response = await fetch(url, {
