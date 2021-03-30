@@ -105,7 +105,7 @@ const SignUpForm = () => {
                 </div>
             </form>
             <div className='footer'>
-                <Link className='lnk' to='/login'>Existing User? Login</Link>
+                <Link className='lnk' to='/login'>Already have an account? Login</Link>
             </div>
         </div>
     );

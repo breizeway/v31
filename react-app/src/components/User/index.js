@@ -18,17 +18,17 @@ const User = () => {
     if (!user) return null;
 
     return (
-        <ul>
-        <li>
-            <strong>User Id</strong> {userId}
-        </li>
-        <li>
-            <strong>Username</strong> {user.username}
-        </li>
-        <li>
-            <strong>Email</strong> {user.email}
-        </li>
-        </ul>
+        <div>
+            <div>
+                <strong>User Id</strong> {userId}
+            </div>
+            <div>
+                <strong>Username</strong> {user.username}
+            </div>
+            <div>
+                <strong>Email</strong> {user.email}
+            </div>
+        </div>
     );
 }
 

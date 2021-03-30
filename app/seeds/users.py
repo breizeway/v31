@@ -1,4 +1,5 @@
 from werkzeug.security import generate_password_hash
+
 from app.models import db, User
 
 
@@ -9,9 +10,7 @@ def seed_users():
                 first_name='Demo',
                 last_name='User',
                 password='password')
-    print('HERE')
     db.session.add(demo)
-
     db.session.commit()
 
 
