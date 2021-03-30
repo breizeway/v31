@@ -6,20 +6,21 @@ from flask_login import UserMixin
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(500), nullable=False)
-    first_name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(50), nullable = False, unique = True)
+    email = db.Column(db.String(100), nullable = False, unique = True)
+    hashed_password = db.Column(db.String(500), nullable = False)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
 
     @property
     def password(self):
-        return self.password
+        return self.hashed_password
+
 
     @password.setter
-    def password(self, password_text):
-        self.password = generate_password_hash(password_text)
+    def password(self, password):
+        self.hashed_password = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -27,4 +28,6 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {"id": self.id,
                 "username": self.username,
-                "email": self.email}
+                "email": self.email,
+                "first_name": self.first_name,
+                "last_name": self.last_name}
