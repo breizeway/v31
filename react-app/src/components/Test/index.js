@@ -55,7 +55,7 @@ const Test = () => {
                 />
                 <button type='submit'>update</button>
             </form>
-            {/* <img src={`${'https://image.tmdb.org/t/p/original'}${data.posters[0].file_path}`} style={{width: '200px', height: 'auto'}}></img> */}
+            <img src={`${'https://image.tmdb.org/t/p/'}${data.poster_path}`} style={{width: '200px', height: 'auto'}}></img>
             {Object.keys(data).map(key => (
                 <div>
                     <strong>{key}:&nbsp;</strong>
