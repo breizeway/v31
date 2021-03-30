@@ -13,7 +13,6 @@ import * as sessionActions from './store/session'
 
 function App() {
     const dispatch = useDispatch()
-    const [authenticated, setAuthenticated] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {

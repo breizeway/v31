@@ -1,3 +1,7 @@
+:root {
+  --color-1: #FFF
+}
+
 * {
   box-sizing: border-box;
 }
