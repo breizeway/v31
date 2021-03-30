@@ -15,4 +15,4 @@ class List(db.Model):
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     user = db.relationship('User', back_populates='lists')
-    picks = db.relationship('Pick', back_populates='lists')
+    picks = db.relationship('Pick', back_populates='parent_list')
