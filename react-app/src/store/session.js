@@ -22,14 +22,14 @@ export const restore = () => async dispatch => {
     return user
 }
 
-export const login = (email, password) => async dispatch => {
-    const user = await auth.login(email, password)
+export const login = (username, password) => async dispatch => {
+    const user = await auth.login(username, password)
     if (user.id) dispatch(setUser(user)) // only set the user state if the route doesn't return errors
     return user
 }
 
-export const signup = (username, email, password) => async dispatch => {
-    const user = await auth.signup(username, email, password)
+export const signup = (username, firstName, lastName, email, password) => async dispatch => {
+    const user = await auth.signup(username, firstName, lastName, email, password)
     if (user.id) dispatch(setUser(user)) // only set the user state if the route doesn't return errors
     return user
 }
