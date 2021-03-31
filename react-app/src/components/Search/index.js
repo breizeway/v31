@@ -41,6 +41,7 @@ const Search = () => {
         e.preventDefault()
         setQueried(query)
         setQuery('')
+        setChosen(null)
     }
 
     return (
@@ -54,7 +55,7 @@ const Search = () => {
                 <button type='submit'>Search</button>
             </form>
             <div className='search__chosen'>
-                <h2>{chosen.title}</h2>
+                <h2>{chosen?.title}</h2>
                 {chosen && Object.keys(chosen).map((key, i) => (
                     <div key={i}>
                         <strong>{key}&nbsp;</strong><span>{JSON.stringify(chosen[key])}</span>
@@ -74,7 +75,7 @@ const Search = () => {
                             <span><strong>ID:&nbsp;</strong>{film.id}</span>
                         </div>
                         <div>
-                            <span><strong>Overview:&nbsp;</strong>{film.overview}</span>
+                            <span><strong>Overview:&nbsp;</strong>{film.overview.slice(0, 200)}...</span>
                         </div>
                         {/* {Object.keys(film).map((key, i) => (
                             <div key={i}>
