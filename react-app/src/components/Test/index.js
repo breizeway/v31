@@ -8,7 +8,7 @@ const Test = () => {
     const dispatch = useDispatch()
     const [loaded, setLoaded] = useState(false);
 
-    const [movieId, setMovieId] = useState('10000');
+    const [movieId, setMovieId] = useState('10057');
     const [chosenMovieId, setChosenMovieId] = useState(movieId);
 
 
@@ -18,7 +18,6 @@ const Test = () => {
     // /3/configuration
 
     const resource = `/${'movie'}`
-    const detail = `/${''}`
     const url = `https://api.themoviedb.org/3${resource}/${movieId}`
     useEffect(() => {
         (async () => {
@@ -32,7 +31,6 @@ const Test = () => {
             if (response.ok) {
                 const movie = await response.json(); // get both standardized and raw rss feed
                 setData(movie)
-                console.log(`   :::MOVIE${detail}:::   `, movie);
             }
             setLoaded(true);
         })();
@@ -53,11 +51,15 @@ const Test = () => {
                     value={movieId}
                     onChange={e => setMovieId(e.target.value)}
                 />
-                <button type='submit'>update</button>
+                <button type='submit'>Update Movie</button>
             </form>
-            <img src={`${'https://image.tmdb.org/t/p/original'}${data.poster_path}`} style={{width: '200px', height: 'auto'}}></img>
-            {Object.keys(data).map(key => (
-                <div>
+            <img
+                src={`${'https://image.tmdb.org/t/p/original'}${data.poster_path}`}
+                style={{width: '200px', height: 'auto'}}
+                alt='Original movie poster for the chosen film'
+            />
+            {Object.keys(data).map((key, i) => (
+                <div key={i}>
                     <strong>{key}:&nbsp;</strong>
                     <span>{JSON.stringify(data[key])}</span>
                 </div>
