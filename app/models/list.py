@@ -16,3 +16,11 @@ class List(db.Model):
 
     user = db.relationship('User', back_populates='lists')
     picks = db.relationship('Pick', back_populates='parent_list')
+
+    def to_dict(self):
+        return {'id': self.id,
+                'title': self.title,
+                'description': self.description,
+                'start_date': self.start_date,
+                'end_date': self.end_date,
+                'user_id': self.user_id}

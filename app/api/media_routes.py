@@ -22,5 +22,4 @@ def search():
         return
 
     searched = tmdb.search(query=query)
-    print('   :::SEARCHED:::   ', searched)
     return searched
