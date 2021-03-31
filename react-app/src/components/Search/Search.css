@@ -1,6 +1,25 @@
+.search__results {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search__chosen {
+  border: 2px solid blue;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
 .search__film {
   border: 2px solid chocolate;
   border-radius: 5px;
-  margin: 5px 0;
+  margin: 5px;
   padding: 5px;
+  width: 200px;
+}
+
+.search__film:hover {
+  background-color: lightcyan;
+  cursor: pointer;
 }
