@@ -12,8 +12,6 @@ def get(resource_id, resource='movie'):
                'content-type': 'application/json;charset=utf-8'}
 
     response = requests.get(url, headers=headers)
-
-    print('   :::RESPONSE.JSON:::   ', response.json())
     return response.json()
 
 
@@ -26,8 +24,6 @@ def search(query, resource='movie'):
                'content-type': 'application/json;charset=utf-8'}
 
     response = requests.get(url, headers=headers)
-
-    print('   :::RESPONSE.JSON:::   ', response.json())
     return response.json()
 
 

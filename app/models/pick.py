@@ -16,3 +16,12 @@ class Pick(db.Model):
     list_id = db.Column(db.Integer, ForeignKey("lists.id"), nullable=False)
 
     parent_list = db.relationship('List', back_populates='picks')
+
+    def to_dict(self):
+        return {'id': self.id,
+                'title': self.title,
+                'description': self.description,
+                'date': self.date,
+                'tmdb_id': self.tmdb_id,
+                'imdb_id': self.imdb_id,
+                'list_id': self.list_id}

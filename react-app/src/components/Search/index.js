@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
 
 import './Search.css';
 
@@ -21,6 +20,8 @@ const Search = () => {
                     const movies = await response.json(); // get both standardized and raw rss feed
                     setData(movies)
                 }
+                setQuery('')
+                setChosen(null)
             })();
         }
     }, [queried]);
@@ -40,8 +41,6 @@ const Search = () => {
     const search = e => {
         e.preventDefault()
         setQueried(query)
-        setQuery('')
-        setChosen(null)
     }
 
     return (
