@@ -76,12 +76,6 @@ const Search = () => {
                         <div>
                             <span><strong>Overview:&nbsp;</strong>{film.overview.slice(0, 200)}...</span>
                         </div>
-                        {/* {Object.keys(film).map((key, i) => (
-                            <div key={i}>
-                                <strong>{key}:&nbsp;</strong>
-                                <span>{JSON.stringify(film[key])}</span>
-                            </div>
-                        ))} */}
                     </div>
                 ))}
             </div>
