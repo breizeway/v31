@@ -23,7 +23,7 @@ const NavBar = () => {
             <NavLink to='/sign-up' exact={true} activeClassName='nav__active'>
                 Sign Up
             </NavLink>
-            &nbsp;
+            &nbsp;|&nbsp;
             <LogoutButton />
         </nav>
     );

@@ -1,15 +1,19 @@
 :root {
   --color-theme-1: #fff;
-  --color-text: #000;
   --color-navbar: #eee;
+
+  --color-background: default;
+  --color-text: default;
   --color-a: default;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-theme-1: #223;
-    --color-text: #eee;
     --color-navbar: #334;
+
+    --color-background: #223;
+    --color-text: #eee;
     --color-a: #ddf
   }
 }
@@ -36,7 +40,7 @@ div,
 html,
 nav,
 button {
-  background-color: var(--color-theme-1);
+  background-color: var(--color-background);
   color: var(--color-text);
 }
 
