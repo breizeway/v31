@@ -8,6 +8,15 @@ from app.requests import tmdb
 list_routes = Blueprint('lists', __name__)
 # user_id = current_user.to_dict().id
 
+
+@list_routes.route('/next/<int:num>')
+def get_next_lists(num):
+    lists = List.query.order_by('lists.start_date').limit(num).all()
+    list_dict = [lst.to_dict() for lst in lists]
+    print('   :::LSTs:::   ', list_dict)
+    return list_dict
+
+
 @list_routes.route('/<int:list_id>')
 def get_list(list_id):
     lst = List.query.get(list_id)
