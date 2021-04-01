@@ -15,7 +15,7 @@ const addData = (slice, lists) => {
     }
 }
 
-export const addNext = (num, slice='next', add=false) => async dispatch => {
+export const addNext = (num, slice='next', addMovieData=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const addNext = (num, slice='next', add=false) => async dispatch => {
     const { lists } = await response.json()
     dispatch(setNext(lists))
 
-    if (add) dispatch(addPickData(num, slice))
+    if (addMovieData) dispatch(addPickData(num, slice))
 
     return lists
 }
