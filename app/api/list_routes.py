@@ -6,7 +6,6 @@ from app.requests import tmdb
 
 
 list_routes = Blueprint('lists', __name__)
-# user_id = current_user.to_dict().id
 
 
 @list_routes.route('/next/<int:num>')
