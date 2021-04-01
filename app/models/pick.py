@@ -35,4 +35,4 @@ class Pick(db.Model):
                 'tmdb_id': self.tmdb_id,
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id,
-                'tmdb_data': tmdb.get(resource_id=self.tmdb_id)}
+                'movie_data': tmdb.get(resource_id=self.tmdb_id)}

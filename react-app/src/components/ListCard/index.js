@@ -13,7 +13,7 @@ const ListCard = ({ list }) => {
             <div className='list-card__title'>
                 {list.title}
             </div>
-            <div className='list-card__dates'>{dates}</div>
+            <div className='list-card__date'>{dates}</div>
             <ListCardUser user={list.user} />
             <div className='list-card__description'>
                 {list.description}

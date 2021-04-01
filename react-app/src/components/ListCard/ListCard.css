@@ -13,3 +13,7 @@
   font-size: var(--size__text-1);
   padding-bottom: 5px;
 }
+
+.list-card__date {
+  padding-bottom: 5px;
+}
