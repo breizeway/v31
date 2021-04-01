@@ -2,6 +2,7 @@ import React from 'react'
 
 import './ListCard.css'
 import ListCardUser from './ListCardUser'
+import PosterGoRound from '../images/PosterGoRound'
 import { formatListDate } from '../../services/dates'
 
 
@@ -19,13 +20,9 @@ const ListCard = ({ list }) => {
                 {list.description}
             </div>
             {Object.keys(list.picks[0]).includes('media_data') && (
-                <img
-                    src={`${list.picks[0].media_data.secure_image_base_url}original${list.picks[0].media_data.poster_path}`}
-                    style={{
-                        width: 'auto',
-                        height: '200px'
-                    }}
-                />
+                <PosterGoRound sources={list.picks.map(pick => {
+                    return `${pick.media_data.secure_image_base_url}original${pick.media_data.poster_path}`
+                })}/>
             )}
         </div>
     )
