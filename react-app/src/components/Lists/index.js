@@ -8,7 +8,7 @@ import ListCard from '../ListCard';
 
 const Lists = ({ slice }) => {
     const dispatch = useDispatch()
-    const lists = useSelector(state => state.lists[slice])
+    const lists = useSelector(state => Object.values(state.lists[slice]))
 
     useEffect(() => {
         switch (slice) {
@@ -24,7 +24,7 @@ const Lists = ({ slice }) => {
 
     return (
         <div className='lists'>
-            {lists && Object.values(lists).map(list => (
+            {lists && lists.map(list => (
                 <ListCard key={list.id} list={list}/>
             ))}
         </div>

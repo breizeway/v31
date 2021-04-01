@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from app.requests import tmdb
+from app.requests import media_db
 
 
 media_routes = Blueprint('media', __name__)
@@ -8,7 +8,7 @@ media_routes = Blueprint('media', __name__)
 
 @media_routes.route('/<int:id>')
 def get(id):
-    film = tmdb.get(resource_id=id)
+    film = media_db.get(resource_id=id)
     return film
 
 
@@ -21,5 +21,5 @@ def search():
     else:
         return
 
-    searched = tmdb.search(query=query)
+    searched = media_db.search(query=query)
     return searched

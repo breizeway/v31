@@ -15,7 +15,7 @@ const ListCard = ({ list }) => {
             </div>
             <div className='list-card__date'>{dates}</div>
             <ListCardUser user={list.user} />
-            <div className='list-card__description'>
+            <div className='list-card__description card-fade'>
                 {list.description}
             </div>
         </div>

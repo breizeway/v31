@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
 
 from app.models import List, db
-from app.requests import tmdb
 
 
 list_routes = Blueprint('lists', __name__)

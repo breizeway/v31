@@ -2,7 +2,7 @@ from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
 from .db import db
-from app.requests import tmdb
+from app.requests import media_db
 
 
 class Pick(db.Model):
@@ -12,7 +12,7 @@ class Pick(db.Model):
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text)
     date = db.Column(db.Date, nullable=False)
-    tmdb_id = db.Column(db.Integer, nullable=False)
+    media_id = db.Column(db.Integer, nullable=False)
     imdb_id = db.Column(db.String(50))
     list_id = db.Column(db.Integer, ForeignKey("lists.id"), nullable=False)
 
@@ -23,7 +23,7 @@ class Pick(db.Model):
                 'title': self.title,
                 'description': self.description,
                 'date': self.date,
-                'tmdb_id': self.tmdb_id,
+                'media_id': self.media_id,
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id}
 
@@ -32,7 +32,7 @@ class Pick(db.Model):
                 'title': self.title,
                 'description': self.description,
                 'date': self.date,
-                'tmdb_id': self.tmdb_id,
+                'media_id': self.media_id,
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id,
-                'movie_data': tmdb.get(resource_id=self.tmdb_id)}
+                'media_data': media_db.get(resource_id=self.media_id)}
