@@ -14,7 +14,7 @@ const Lists = ({ slice }) => {
         switch (slice) {
             case 'next':
                 (async () => {
-                    dispatch(listActions.addNext(20))
+                    dispatch(listActions.addNext(20, slice, true))
                 })()
                 break;
             default:
@@ -24,7 +24,7 @@ const Lists = ({ slice }) => {
 
     return (
         <div className='lists'>
-            {lists && lists.map(list => (
+            {lists && Object.values(lists).map(list => (
                 <ListCard key={list.id} list={list}/>
             ))}
         </div>

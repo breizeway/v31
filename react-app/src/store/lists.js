@@ -1,4 +1,5 @@
-const SET_NEXT = "lists/setNext"
+const SET_NEXT = 'lists/setNext'
+const ADD_DATA = 'lists/addData'
 
 const setNext = lists => {
     return {
@@ -7,7 +8,14 @@ const setNext = lists => {
     }
 }
 
-export const addNext = num => async dispatch => {
+const addData = (slice, lists) => {
+    return {
+        type: ADD_DATA,
+        payload: {slice, lists}
+    }
+}
+
+export const addNext = (num, slice='next', add=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -15,11 +23,24 @@ export const addNext = num => async dispatch => {
     })
     const { lists } = await response.json()
     dispatch(setNext(lists))
+
+    if (add) dispatch(addPickData(num, slice))
+
     return lists
 }
 
+export const addPickData = (num, slice) => async dispatch => {
+    const response = await fetch(`/api/lists/next/${num}/add`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+    })
+    const { lists } = await response.json()
+    dispatch(addData(slice, lists))
+}
+
 const initialState = {
-    next: null
+    next: {}
 }
 
 const listReducer = (state = initialState, action) => {
@@ -27,10 +48,22 @@ const listReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_NEXT:
             newState = {...state}
-            newState.next = action.lists
+            const lists = {}
+            action.lists.forEach(list => {
+                lists[list.id] = list
+            })
+            newState.next = lists
+            return newState
+        case ADD_DATA:
+            newState = {...state}
+            const addLists = {}
+            action.payload.lists.forEach(list => {
+                addLists[list.id] = list
+            })
+            newState[action.payload.slice] = addLists
             return newState
         default:
-            return state;
+            return state
     }
 }
 

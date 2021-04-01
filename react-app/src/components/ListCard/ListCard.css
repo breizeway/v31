@@ -1,5 +1,8 @@
 .list-card {
+  --list-card-margin: 5px;
+  padding: 20px;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 5px;
+  /* width: calc(100% - calc(var(--list-card-margin)*2)); */
+  margin: var(--list-card-margin);
 }
