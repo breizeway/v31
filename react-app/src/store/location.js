@@ -1,5 +1,6 @@
-const SET_REDIRECT = "location/setRedirect"
-const REMOVE_REDIRECT = "location/removeRedirect"
+const SET_REDIRECT = 'location/setRedirect'
+const REMOVE_REDIRECT = 'location/removeRedirect'
+const SET_CURRENT_PATH = 'location/setCurrentPath'
 
 const setRedirect = path => {
     return {
@@ -14,6 +15,13 @@ const removeRedirect = () => {
     }
 }
 
+const setCurrentPath = path => {
+    return {
+        type: SET_CURRENT_PATH,
+        path
+    }
+}
+
 export const addRedirect = path => async dispatch => {
     dispatch(setRedirect(path))
     return path
@@ -24,8 +32,14 @@ export const resetRedirect = () => async dispatch => {
     return '/'
 }
 
+export const addCurrentPath = path => async dispatch => {
+    dispatch(setCurrentPath(path))
+    return path
+}
+
 const initialState = {
-    redirect: '/'
+    redirect: '/',
+    currentPath: null
 }
 
 const locationReducer = (state = initialState, action) => {
@@ -37,6 +51,10 @@ const locationReducer = (state = initialState, action) => {
             return newState
         case REMOVE_REDIRECT:
             return {...initialState}
+        case SET_CURRENT_PATH:
+            newState = {...state}
+            newState.currentPath = action.path
+            return newState
         default:
             return state;
     }
