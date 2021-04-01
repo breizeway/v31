@@ -8,19 +8,20 @@
   max-width: 800px;
 }
 
-.list-card__title {
-  font-size: var(--size__text-1);
-  padding-bottom: 5px;
+.list-card > *:not(.list-card > *:first-child) {
+  margin-top: 10px;
 }
 
-.list-card__date {
-  padding-bottom: 5px;
+.list-card__title {
+  font-size: var(--size__text-1);
+  font-weight: bold;
 }
 
 .card-fade {
   --max-lines: 2;
   overflow: hidden;
   position: relative;
+  line-height: var(--size__line-height);
   height: calc(var(--size__line-height) * var(--max-lines)); /* exactly three lines */
 }
 .card-fade:after {
