@@ -8,6 +8,7 @@ import * as sessionActions from '../../store/session'
 
 const SignUpForm = () => {
     const authenticated = useSelector(state => state.session.user)
+    const redirect = useSelector(state => state.location.redirect)
 
     const dispatch = useDispatch()
     const [errors, setErrors] = useState([]);
@@ -27,7 +28,7 @@ const SignUpForm = () => {
     };
 
     if (authenticated) {
-        return <Redirect to='/' />;
+        return <Redirect to={redirect} />;
     }
 
     return (

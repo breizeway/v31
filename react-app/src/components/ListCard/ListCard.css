@@ -1,5 +1,19 @@
 .list-card {
+  --list-card-margin: 20px;
+  padding: 20px;
   border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 20px;
+  /* width: calc(100% - calc(var(--list-card-margin)*2)); */
+  margin: var(--list-card-margin);
+  background-color: var(--color__card);
+  max-width: 800px;
+}
+
+.list-card__title {
+  font-size: var(--size__text-1);
+  padding-bottom: 5px;
+}
+
+.list-card__date {
+  padding-bottom: 5px;
 }

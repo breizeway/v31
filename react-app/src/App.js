@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 
 import LoginForm from './components/auth/LoginForm';
@@ -10,10 +10,13 @@ import User from './components/User';
 import Search from './components/Search';
 import Lists from './components/Lists';
 import * as sessionActions from './store/session'
+import * as locationActions from './store/location'
 
 
 function App() {
     const dispatch = useDispatch()
+    dispatch(locationActions.addCurrentPath(useLocation().pathname))
+
     const [loaded, setLoaded] = useState(false);
     const authenticated = useSelector(state => state.session.user)
 

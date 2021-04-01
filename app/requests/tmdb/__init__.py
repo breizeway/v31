@@ -12,7 +12,9 @@ def get(resource_id, resource='movie'):
                'content-type': 'application/json;charset=utf-8'}
 
     response = requests.get(url, headers=headers)
-    return response.json()
+    json = response.json()
+    json['secure_image_base_url'] = Meta.secure_image_base_url[0]
+    return json
 
 
 def search(query, resource='movie'):
@@ -24,7 +26,9 @@ def search(query, resource='movie'):
                'content-type': 'application/json;charset=utf-8'}
 
     response = requests.get(url, headers=headers)
-    return response.json()
+    json = response.json()
+    json['secure_image_base_url'] = Meta.secure_image_base_url[0]
+    return json
 
 
 def config():

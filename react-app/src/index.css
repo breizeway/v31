@@ -3,8 +3,12 @@
   --color__navbar: #eee;
 
   --color__background: default;
+  --color__card: #eee;
   --color__text: default;
+  --color__text-light: gray;
   --color__a: default;
+
+  --size__text-1: 30px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,7 +17,9 @@
     --color__navbar: #334;
 
     --color__background: #223;
+    --color__card: #445;
     --color__text: #eee;
+    --color__text-light: gray;
     --color__a: #ddf
   }
 }
@@ -36,10 +42,7 @@ body, #root {
 }
 
 body,
-div,
-html,
-nav,
-button {
+html {
   background-color: var(--color__background);
   color: var(--color__text);
 }

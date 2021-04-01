@@ -2,6 +2,7 @@ from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
 from .db import db
+from app.requests import tmdb
 
 
 class Pick(db.Model):
@@ -25,3 +26,13 @@ class Pick(db.Model):
                 'tmdb_id': self.tmdb_id,
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id}
+
+    def to_dict_w_data(self):
+        return {'id': self.id,
+                'title': self.title,
+                'description': self.description,
+                'date': self.date,
+                'tmdb_id': self.tmdb_id,
+                'imdb_id': self.imdb_id,
+                'list_id': self.list_id,
+                'movie_data': tmdb.get(resource_id=self.tmdb_id)}
