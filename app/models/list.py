@@ -23,4 +23,6 @@ class List(db.Model):
                 'description': self.description,
                 'start_date': self.start_date,
                 'end_date': self.end_date,
-                'user_id': self.user_id}
+                'user_id': self.user_id,
+                'picks': [pick.to_dict() for pick in self.picks],
+                'user': self.user.to_public_dict()}

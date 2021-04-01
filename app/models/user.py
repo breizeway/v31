@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(500), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    profile_img = db.Column(db.String(500))
 
     lists = db.relationship('List', back_populates='user')
 
@@ -33,4 +34,10 @@ class User(db.Model, UserMixin):
                 'username': self.username,
                 'email': self.email,
                 'first_name': self.first_name,
-                'last_name': self.last_name}
+                'last_name': self.last_name,
+                'profile_img': self.profile_img}
+
+    def to_public_dict(self):
+        return {'id': self.id,
+                'username': self.username,
+                'profile_img': self.profile_img}
