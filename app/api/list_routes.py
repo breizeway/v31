@@ -11,10 +11,9 @@ list_routes = Blueprint('lists', __name__)
 
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
-    lists = List.query.order_by('lists.start_date').limit(num).all()
-    list_dict = [lst.to_dict() for lst in lists]
-    print('   :::LSTs:::   ', list_dict)
-    return list_dict
+    lists = List.query.order_by(List.start_date).limit(num).all()
+    lists_list = [lst.to_dict() for lst in lists]
+    return {'lists': lists_list}
 
 
 @list_routes.route('/<int:list_id>')

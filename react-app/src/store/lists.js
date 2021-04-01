@@ -13,7 +13,7 @@ export const addNext = num => async dispatch => {
           'Content-Type': 'application/json',
         }
     })
-    const lists = await response.json()
+    const { lists } = await response.json()
     dispatch(setNext(lists))
     return lists
 }
@@ -27,7 +27,7 @@ const listReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_NEXT:
             newState = {...state}
-            newState.next = action.next
+            newState.next = action.lists
             return newState
         default:
             return state;

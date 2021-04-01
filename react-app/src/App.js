@@ -39,10 +39,10 @@ function App() {
                     <SignUpForm />
                 </Route>
                 <Route path='/' exact={true}>
-                    {authenticated ? <Redirect to='/search' /> : <Redirect to='/discover' />}
+                    {authenticated ? <Redirect to='/discover' /> : <Redirect to='/discover' />}
                 </Route>
                 <Route path='/discover' exact={true}>
-                    <Lists type='next'/>
+                    <Lists slice='next'/>
                 </Route>
                 <ProtectedRoute path='/users/:userId' exact={true}>
                     <User />

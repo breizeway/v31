@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './Lists.css'
 import * as listActions from '../../store/lists'
+import ListCard from '../ListCard';
 
 
-const Lists = ({ type }) => {
+const Lists = ({ slice }) => {
     const dispatch = useDispatch()
+    const lists = useSelector(state => state.lists[slice])
 
     useEffect(() => {
-        switch (type) {
+        switch (slice) {
             case 'next':
                 (async () => {
                     dispatch(listActions.addNext(20))
@@ -18,13 +20,13 @@ const Lists = ({ type }) => {
             default:
                 break;
         }
-    })
-    const [numLists, setNumLists] = useState(20)
-
+    }, [dispatch, slice])
 
     return (
         <div className='lists'>
-            Lists
+            {lists && lists.map(list => (
+                <ListCard key={list.id} list={list}/>
+            ))}
         </div>
     )
 }
