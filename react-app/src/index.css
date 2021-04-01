@@ -9,6 +9,7 @@
   --color__a: default;
 
   --size__text-1: 30px;
+  --size__line-height: 1.4em;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +21,7 @@
     --color__card: #445;
     --color__text: #eee;
     --color__text-light: gray;
-    --color__a: #ddf
+    --color__a: #ddf;
   }
 }
 
@@ -29,6 +30,7 @@ html {
   height: 100vh;
   overflow-x: hidden;
   font-family: Helvetica, Arial, sans-serif;
+  line-height: var(--size__line-height);
 }
 
 body, #root {
