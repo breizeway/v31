@@ -1,7 +1,6 @@
 .list-card {
   --list-card-space: 25px;
   padding: var(--list-card-space);
-  border: 1px solid black;
   border-radius: var(--list-card-space);
   /* width: calc(100% - calc(var(--list-card-margin)*2)); */
   margin: var(--list-card-space);
@@ -18,12 +17,9 @@
   padding-bottom: 5px;
 }
 
-.list-card__description {
-  overflow: hidden;
-}
-
 .card-fade {
-  --max-lines: 3;
+  --max-lines: 2;
+  overflow: hidden;
   position: relative;
   height: calc(var(--size__line-height) * var(--max-lines)); /* exactly three lines */
 }

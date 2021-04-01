@@ -18,6 +18,15 @@ const ListCard = ({ list }) => {
             <div className='list-card__description card-fade'>
                 {list.description}
             </div>
+            {Object.keys(list.picks[0]).includes('media_data') && (
+                <img
+                    src={`${list.picks[0].media_data.secure_image_base_url}original${list.picks[0].media_data.poster_path}`}
+                    style={{
+                        width: 'auto',
+                        height: '200px'
+                    }}
+                />
+            )}
         </div>
     )
 }
