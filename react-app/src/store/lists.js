@@ -13,7 +13,7 @@ export const addNext = num => async dispatch => {
           'Content-Type': 'application/json',
         }
     })
-    const lists = response.json()
+    const lists = await response.json()
     dispatch(setNext(lists))
     return lists
 }
