@@ -1,3 +1,5 @@
 .lists__title {
   font-size: var(--size__text-1);
+  padding: 0 0 var(--size__med-space) var(--size__big-space);
+  border-bottom: 3px solid lightgrey;
 }

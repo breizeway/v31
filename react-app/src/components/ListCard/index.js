@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import './ListCard.css'
-import ListCardUser from './ListCardUser'
+import ListCardHost from './ListCardHost'
 import PosterGoRound from '../images/PosterGoRound'
 import { formatListDate } from '../../services/dates'
 
@@ -19,17 +19,17 @@ const ListCard = ({ dataKey }) => {
                 {list.title}
             </div>
             <div className='list-card__date'>{dates}</div>
-            <ListCardUser user={list.user} />
+            <ListCardHost host={list.host} />
             <div className='list-card__description card-fade'>
                 {list.description}
             </div>
             {list.picks.length ? (
                 <PosterGoRound
-                height={'200px'}
-                sources={list.picks.map(pick => {
-                    return pick.original_poster_url
-                })}
-            />
+                    height={'200px'}
+                    sources={list.picks.map(pick => {
+                        return pick.original_poster_url
+                    })}
+                />
             ) : (
                 null
             )}
