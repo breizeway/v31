@@ -9,6 +9,7 @@ import ListCard from '../ListCard';
 const Lists = ({ slice }) => {
     const dispatch = useDispatch()
     const lists = useSelector(state => Object.values(state.lists[slice]))
+    const listsMedia = useSelector(state => Object.values(state.lists[`${slice}Media`]))
     const [mediaLoaded, setMediaLoaded] = useState(false)
 
     useEffect(() => {
@@ -26,8 +27,8 @@ const Lists = ({ slice }) => {
 
     return (
         <div className='lists'>
-            {lists && lists.map(list => (
-                <ListCard key={list.id} list={list}/>
+            {lists && lists.map((list, i) => (
+                <ListCard key={list.id} list={list} listMedia={listsMedia[i]}/>
             ))}
         </div>
     )

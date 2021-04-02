@@ -6,7 +6,7 @@ import PosterGoRound from '../images/PosterGoRound'
 import { formatListDate } from '../../services/dates'
 
 
-const ListCard = ({ list }) => {
+const ListCard = ({ list, listMedia }) => {
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (
@@ -19,10 +19,10 @@ const ListCard = ({ list }) => {
             <div className='list-card__description card-fade'>
                 {list.description}
             </div>
-            {Object.keys(list.picks[0]).includes('media_data') && (
+            {listMedia && (
                 <PosterGoRound
                     height={'200px'}
-                    sources={list.picks.map(pick => {
+                    sources={listMedia.picks.map(pick => {
                         return `${pick.media_data.secure_image_base_url}original${pick.media_data.poster_path}`
                     })}
                 />

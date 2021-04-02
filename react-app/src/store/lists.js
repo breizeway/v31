@@ -1,4 +1,5 @@
 const SET_NEXT = 'lists/setNext'
+const SET_NEXT_MEDIA = 'lists/setNextMedia'
 const ADD_DATA = 'lists/addData'
 
 const setNext = lists => {
@@ -8,10 +9,10 @@ const setNext = lists => {
     }
 }
 
-const addData = (slice, lists) => {
+const setNextMedia = lists => {
     return {
-        type: ADD_DATA,
-        payload: {slice, lists}
+        type: SET_NEXT_MEDIA,
+        lists
     }
 }
 
@@ -24,43 +25,43 @@ export const addNext = (num, slice='next', addMovieData=false) => async dispatch
     const { lists } = await response.json()
     dispatch(setNext(lists))
 
-    if (addMovieData) dispatch(addPickData(num, slice))
+    if (addMovieData) dispatch(addNextMedia(num))
 
     return lists
 }
 
-export const addPickData = (num, slice) => async dispatch => {
+export const addNextMedia = num => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}/add`, {
         headers: {
           'Content-Type': 'application/json',
         }
     })
     const { lists } = await response.json()
-    dispatch(addData(slice, lists))
+    dispatch(setNextMedia(lists))
 }
 
 const initialState = {
-    next: {}
+    next: {},
+    nextMedia: {}
 }
 
 const listReducer = (state = initialState, action) => {
     let newState
+    let lists = {}
     switch (action.type) {
         case SET_NEXT:
             newState = {...state}
-            const lists = {}
             action.lists.forEach(list => {
                 lists[list.id] = list
             })
             newState.next = lists
             return newState
-        case ADD_DATA:
+        case SET_NEXT_MEDIA:
             newState = {...state}
-            const addLists = {}
-            action.payload.lists.forEach(list => {
-                addLists[list.id] = list
+            action.lists.forEach(list => {
+                lists[list.id] = list
             })
-            newState[action.payload.slice] = addLists
+            newState.nextMedia = lists
             return newState
         default:
             return state
