@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('start_date', sa.Date(), nullable=False),
     sa.Column('end_date', sa.Date(), nullable=False),
+    sa.Column('published', sa.Boolean(), nullable=False, default=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -1,6 +1,7 @@
 const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const SET_NEXT = 'lists/setNext'
+const NEW_LIST = 'lists/new'
 
 const addLists = lists => {
     return {
@@ -23,6 +24,13 @@ const setNext = lists => {
     }
 }
 
+const newList = list => {
+    return {
+        type: NEW_LIST,
+        list
+    }
+}
+
 export const runSetNext = (num, addMovieData=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
@@ -30,6 +38,7 @@ export const runSetNext = (num, addMovieData=false) => async dispatch => {
         }
     })
     const { lists } = await response.json()
+    console.log('   :::LISTS:::   ', lists);
 
     let nextLists = {}
     lists.forEach(list => {
@@ -45,12 +54,30 @@ export const runSetNext = (num, addMovieData=false) => async dispatch => {
 export const runSetNextMedia = num => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}/add`, {
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         }
     })
     const { lists } = await response.json()
 
     dispatch(addListsMedia(lists))
+}
+
+export const runNewList = (title, description, startDate, endDate) => async dispatch => {
+    const response = await fetch(`/api/lists/new`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            start_date: startDate,
+            end_date: endDate,
+        })
+    })
+    const list = await response.json()
+    return list
+    // dispatch(addLists([list]))
 }
 
 const initialState = {

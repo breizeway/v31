@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom'
 
 import './UpForms.css'
 import * as sessionActions from '../../store/session'
@@ -12,26 +12,26 @@ const LoginForm = () => {
     const authenticated = useSelector(state => state.session.user)
     const redirect = useSelector(state => state.location.redirect)
 
-    const [errors, setErrors] = useState([]);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([])
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const onLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const user = await dispatch(sessionActions.login(username, password))
-        if (user.errors) setErrors(user.errors);
-    };
+        if (user.errors) setErrors(user.errors)
+    }
 
     const updateUsername = (e) => {
-        setUsername(e.target.value);
-    };
+        setUsername(e.target.value)
+    }
 
     const updatePassword = (e) => {
-        setPassword(e.target.value);
-    };
+        setPassword(e.target.value)
+    }
 
     if (authenticated) {
-        return <Redirect to={redirect} />;
+        return <Redirect to={redirect} />
     }
 
     return (
@@ -71,8 +71,8 @@ const LoginForm = () => {
                 <Link className='lnk' to='/sign-up'>New User? Sign up</Link>
             </div>
         </div>
-    );
-};
+    )
+}
 
 
-export default LoginForm;
+export default LoginForm
