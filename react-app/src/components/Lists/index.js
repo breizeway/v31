@@ -8,14 +8,15 @@ import ListCard from '../ListCard';
 
 const Lists = ({ listsType }) => {
     const dispatch = useDispatch()
-    const lists = useSelector(state => Object.values(state.lists[listsType]))
+    const lists = useSelector(state => state.lists.all)
+    const listsFrame = useSelector(state => state.lists[listsType])
     const [listsTitle, setListsTitle] = useState('')
 
     useEffect(() => {
         switch (listsType) {
             case 'next':
                 (async () => {
-                    await dispatch(listActions.addNext(20, true))
+                    await dispatch(listActions.runSetNext(20, true)) // change false back to true
                 })()
                 setListsTitle('Upcoming')
                 break;
@@ -27,10 +28,11 @@ const Lists = ({ listsType }) => {
     return (
         <div className='lists'>
             {listsTitle}
-            {lists && lists.map(list => (
+            {lists && Object.keys(listsFrame).map(id => (
+                // <div>{JSON.stringify(list)}</div>
                 <ListCard
-                    key={list.id}
-                    dataKey={list.id}
+                    key={parseInt(id)}
+                    dataKey={parseInt(id)}
                 />
             ))}
         </div>

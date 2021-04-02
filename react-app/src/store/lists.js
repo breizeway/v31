@@ -1,5 +1,20 @@
+const ADD_LISTS = 'lists/addLists'
+const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const SET_NEXT = 'lists/setNext'
-const SET_NEXT_MEDIA = 'lists/setNextMedia'
+
+const addLists = lists => {
+    return {
+        type: ADD_LISTS,
+        lists
+    }
+}
+
+const addListsMedia = lists => {
+    return {
+        type: ADD_LISTS_MEDIA,
+        lists
+    }
+}
 
 const setNext = lists => {
     return {
@@ -8,60 +23,66 @@ const setNext = lists => {
     }
 }
 
-const setNextMedia = lists => {
-    return {
-        type: SET_NEXT_MEDIA,
-        lists
-    }
-}
-
-export const addNext = (num, addMovieData=false) => async dispatch => {
+export const runSetNext = (num, addMovieData=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
           'Content-Type': 'application/json',
         }
     })
     const { lists } = await response.json()
-    dispatch(setNext(lists))
 
-    if (addMovieData) dispatch(addNextMedia(num))
+    let nextLists = {}
+    lists.forEach(list => {
+        nextLists[list.id] = list.picks.map(pick => pick.id)
+    })
 
-    return lists
+    dispatch(setNext(nextLists))
+    dispatch(addLists(lists))
+
+    if (addMovieData) await dispatch(runSetNextMedia(num))
 }
 
-export const addNextMedia = num => async dispatch => {
+export const runSetNextMedia = num => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}/add`, {
         headers: {
           'Content-Type': 'application/json',
         }
     })
     const { lists } = await response.json()
-    dispatch(setNextMedia(lists))
+
+    dispatch(addListsMedia(lists))
 }
 
 const initialState = {
+    all: {},
+    allMedia: {},
     next: {},
     nextMedia: {}
 }
 
 const listReducer = (state = initialState, action) => {
     let newState
-    let lists = {}
+    let all
     switch (action.type) {
+        case ADD_LISTS:
+            newState = {...state}
+            all = {...state.all}
+            action.lists.forEach(list => {
+                all[list.id] = list
+            })
+            newState.all = all
+            return newState
+        case ADD_LISTS_MEDIA:
+            newState = {...state}
+            all = {...state.all}
+            action.lists.forEach(list => {
+                all[list.id] = list
+            })
+            newState.allMedia = all
+            return newState
         case SET_NEXT:
             newState = {...state}
-            action.lists.forEach(list => {
-                lists[list.id] = list
-            })
-            newState.listsType = 'next'
-            newState.next = lists
-            return newState
-        case SET_NEXT_MEDIA:
-            newState = {...state}
-            action.lists.forEach(list => {
-                lists[list.id] = list
-            })
-            newState.nextMedia = lists
+            newState.next = action.lists
             return newState
         default:
             return state
