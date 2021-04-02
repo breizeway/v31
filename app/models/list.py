@@ -39,6 +39,3 @@ class List(db.Model):
                 'user_id': self.user_id,
                 'picks': [pick.to_dict_media() for pick in self.picks],
                 'user': self.user.to_public_dict()}
-
-    def to_dict_frame(self):
-        return {self.id: [pick.to_dict_media() for pick in self.picks]}

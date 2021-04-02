@@ -21,32 +21,11 @@ def get_lists():
     return {'lists': lsts}
 
 
-# @list_routes.route('/<int:list_id>')
-# def get_list(list_id):
-#     lst = List.query.get(list_id)
-#     list_dict = lst.to_dict()
-#     return list_dict
-
-
-# @list_routes.route('/<int:list_id>/media')
-# def get_list_media(list_id):
-#     lst = List.query.get(list_id)
-#     list_dict = lst.to_dict_media()
-#     return list_dict
-
-
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
     lists = List.query.filter(List.published == True).order_by(List.start_date).limit(num).all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
-
-
-# @list_routes.route('/next/<int:num>/media')
-# def get_next_lists_media(num):
-#     lists = List.query.order_by(List.start_date).limit(num).all()
-#     lists_list = [lst.to_dict_media() for lst in lists]
-#     return {'lists': lists_list}
 
 
 @list_routes.route('/new', methods=['POST'])

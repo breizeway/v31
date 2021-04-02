@@ -9,15 +9,16 @@ import * as listActions from '../../store/lists'
 const List = () => {
     const dispatch = useDispatch()
     const { listId } = useParams()
-    console.log('   :::LISTID:::   ', listId);
+
     const list = useSelector(state => state.lists.all[listId])
-    console.log('   :::LIST:::   ', list);
 
     useEffect(() => {
         (async () => {
             await dispatch(listActions.runAddLists([listId], true)) // change false back to true
         })()
-    }, [])
+    }, [dispatch, listId])
+
+    if (!list) return null
 
     return (
         <div className='list'>
