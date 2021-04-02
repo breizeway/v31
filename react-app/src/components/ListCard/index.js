@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import './ListCard.css'
 import ListCardUser from './ListCardUser'
@@ -6,7 +7,12 @@ import PosterGoRound from '../images/PosterGoRound'
 import { formatListDate } from '../../services/dates'
 
 
-const ListCard = ({ list, listMedia }) => {
+const ListCard = ({ dataKey }) => {
+    const listsType = useSelector(state => state.lists.listsType)
+
+    const list = useSelector(state => state.lists[listsType][dataKey])
+    const listMedia = useSelector(state => state.lists[`${listsType}Media`][dataKey])
+
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (

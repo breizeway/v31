@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
 import Search from './components/Search';
-import Lists from './components/Lists';
+import Discover from './components/Discover';
 import * as sessionActions from './store/session'
 import * as locationActions from './store/location'
 
@@ -45,7 +45,7 @@ function App() {
                     {authenticated ? <Redirect to='/discover' /> : <Redirect to='/discover' />}
                 </Route>
                 <Route path='/discover' exact={true}>
-                    <Lists slice='next'/>
+                    <Discover />
                 </Route>
                 <ProtectedRoute path='/users/:userId' exact={true}>
                     <User />

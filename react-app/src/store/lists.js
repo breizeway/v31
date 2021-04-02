@@ -1,6 +1,5 @@
 const SET_NEXT = 'lists/setNext'
 const SET_NEXT_MEDIA = 'lists/setNextMedia'
-const ADD_DATA = 'lists/addData'
 
 const setNext = lists => {
     return {
@@ -16,7 +15,7 @@ const setNextMedia = lists => {
     }
 }
 
-export const addNext = (num, slice='next', addMovieData=false) => async dispatch => {
+export const addNext = (num, addMovieData=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -54,6 +53,7 @@ const listReducer = (state = initialState, action) => {
             action.lists.forEach(list => {
                 lists[list.id] = list
             })
+            newState.listsType = 'next'
             newState.next = lists
             return newState
         case SET_NEXT_MEDIA:
