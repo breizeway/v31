@@ -23,12 +23,17 @@ const ListCard = ({ dataKey }) => {
             <div className='list-card__description card-fade'>
                 {list.description}
             </div>
-            <PosterGoRound
+            {list.picks.length ? (
+                <PosterGoRound
                 height={'200px'}
                 sources={list.picks.map(pick => {
                     return pick.original_poster_url
                 })}
             />
+            ) : (
+                null
+            )}
+
         </div>
     )
 }

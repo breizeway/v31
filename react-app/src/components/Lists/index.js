@@ -6,24 +6,16 @@ import * as listActions from '../../store/lists'
 import ListCard from '../ListCard';
 
 
-const Lists = ({ listsType }) => {
+const Lists = ({ listsKey, listsTitle }) => {
     const dispatch = useDispatch()
     const lists = useSelector(state => state.lists.all)
-    const listsFrame = useSelector(state => state.lists[listsType])
-    const [listsTitle, setListsTitle] = useState('')
+    const listsFrame = useSelector(state => state.lists[listsKey])
 
     useEffect(() => {
-        switch (listsType) {
-            case 'next':
-                (async () => {
-                    await dispatch(listActions.runSetNext(20, true)) // change false back to true
-                })()
-                setListsTitle('Coming Soon')
-                break;
-            default:
-                break;
-        }
-    }, [dispatch, listsType])
+        (async () => {
+            await dispatch(listActions.runSetFrame(listsKey))
+        })()
+    }, [dispatch])
 
     return (
         <div className='lists'>
@@ -31,7 +23,6 @@ const Lists = ({ listsType }) => {
                 {listsTitle}
             </div>
             {lists && Object.keys(listsFrame).map(id => (
-                // <div>{JSON.stringify(list)}</div>
                 <ListCard
                     key={parseInt(id)}
                     dataKey={parseInt(id)}

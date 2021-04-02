@@ -12,6 +12,7 @@ class List(db.Model):
     description = db.Column(db.Text)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
+    published = db.Column(db.Boolean, nullable=False, default=False)
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     user = db.relationship('User', back_populates='lists')
@@ -23,16 +24,18 @@ class List(db.Model):
                 'description': self.description,
                 'start_date': self.start_date,
                 'end_date': self.end_date,
+                'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict() for pick in self.picks],
                 'user': self.user.to_public_dict()}
 
-    def to_dict_w_data(self):
+    def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
                 'description': self.description,
                 'start_date': self.start_date,
                 'end_date': self.end_date,
+                'published': self.published,
                 'user_id': self.user_id,
-                'picks': [pick.to_dict_w_data() for pick in self.picks],
+                'picks': [pick.to_dict_media() for pick in self.picks],
                 'user': self.user.to_public_dict()}

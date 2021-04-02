@@ -31,7 +31,7 @@ class Pick(db.Model):
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id}
 
-    def to_dict_w_data(self):
+    def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
                 'overview': self.overview,
