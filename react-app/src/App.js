@@ -7,7 +7,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
-import Search from './components/Search';
+import Dev from './components/Dev';
 import Discover from './components/Discover';
 import * as sessionActions from './store/session'
 import * as locationActions from './store/location'
@@ -50,8 +50,8 @@ function App() {
                 <ProtectedRoute path='/users/:userId' exact={true}>
                     <User />
                 </ProtectedRoute>
-                <ProtectedRoute path='/search' exact={true}>
-                    <Search />
+                <ProtectedRoute path='/dev' exact={true}>
+                    <Dev />
                 </ProtectedRoute>
             </Switch>
         </BrowserRouter>

@@ -3,7 +3,7 @@
   padding: var(--list-card-space);
   border-radius: var(--list-card-space);
   /* width: calc(100% - calc(var(--list-card-margin)*2)); */
-  margin: var(--list-card-space);
+  margin: var(--list-card-space) 0;
   background-color: var(--color__card);
   max-width: 800px;
 }
@@ -17,7 +17,7 @@
 }
 
 .list-card__title {
-  font-size: var(--size__text-1);
+  font-size: var(--size__text-2);
   font-weight: bold;
 }
 

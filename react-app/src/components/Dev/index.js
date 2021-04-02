@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import './Search.css';
+import './Dev.css';
 
 
-const Search = () => {
+const Dev = () => {
     const [query, setQuery] = useState('');
     const [queried, setQueried] = useState(query);
 
@@ -84,4 +84,4 @@ const Search = () => {
 };
 
 
-export default Search;
+export default Dev;

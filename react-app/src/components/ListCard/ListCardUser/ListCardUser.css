@@ -1,7 +1,3 @@
-.list-card-user__by {
-  color: var(--color__text-light);
-}
-
 .list-card-user__data {
   display: flex;
   align-items: center;
