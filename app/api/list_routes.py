@@ -21,6 +21,28 @@ def get_lists():
     return {'lists': lsts}
 
 
+# @list_routes.route('/my/<int:num>', methods=['PUT'])
+# def get_my_lists():
+#     user_id=current_user.to_dict()['id']
+#     ids = request.json['ids']
+#     media = request.json['media']
+#     lists = db.session.query(List).filter(List.id.in_(ids), List.user_id == user_id).all()
+#     lsts = [lst.to_dict() for lst in lists]
+#     if media:
+#         lists_media = [lst.to_dict_media() for lst in lists]
+#         return {'lists': lsts,
+#                 'lists_media': lists_media}
+#     return {'lists': lsts}
+
+
+@list_routes.route('/my/<int:num>')
+def get_my_lists(num):
+    user_id=current_user.to_dict()['id']
+    lists = List.query.filter(List.user_id == user_id).order_by(List.start_date).limit(num).all()
+    frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
+    return frame
+
+
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
     lists = List.query.filter(List.published == True).order_by(List.start_date).limit(num).all()

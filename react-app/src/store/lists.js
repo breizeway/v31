@@ -1,6 +1,6 @@
 const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
-const SET_NEXT = 'lists/setNext'
+const SET_FRAME = 'lists/setFrame'
 
 const addLists = lists => {
     return {
@@ -16,10 +16,10 @@ const addListsMedia = lists => {
     }
 }
 
-const setNext = lists => {
+const setFrame = (frameName, frame) => {
     return {
-        type: SET_NEXT,
-        lists
+        type: SET_FRAME,
+        payload: {frameName, frame}
     }
 }
 
@@ -54,29 +54,18 @@ export const runAddListsMedia = listIds => async dispatch => {
     dispatch(addListsMedia(lists_media))
 }
 
-export const runSetNext = (num, media=false) => async dispatch => {
-    const response = await fetch(`/api/lists/next/${num}`, {
+export const runSetFrame = (frameName, media=false, num=20) => async dispatch => {
+    const response = await fetch(`/api/lists/${frameName}/${num}`, {
         headers: {
           'Content-Type': 'application/json',
         }
     })
     const frame = await response.json()
-    dispatch(setNext(frame))
+    dispatch(setFrame(frameName, frame))
 
     if (media) await dispatch(runAddLists(Object.keys(frame), true))
     else await dispatch(runAddLists(Object.keys(frame), false))
 }
-
-// export const runSetNextMedia = num => async dispatch => {
-//     const response = await fetch(`/api/lists/next/${num}/media`, {
-//         headers: {
-//             'Content-Type': 'application/json',
-//         }
-//     })
-//     const { lists } = await response.json()
-
-//     dispatch(addListsMedia(lists))
-// }
 
 export const runNewList = (title, description, startDate, endDate) => async dispatch => {
     const response = await fetch(`/api/lists/new`, {
@@ -100,6 +89,7 @@ const initialState = {
     all: {},
     allMedia: {},
     next: {},
+    my: {},
 }
 
 const listReducer = (state = initialState, action) => {
@@ -122,9 +112,9 @@ const listReducer = (state = initialState, action) => {
             })
             newState.allMedia = all
             return newState
-        case SET_NEXT:
+        case SET_FRAME:
             newState = {...state}
-            newState.next = action.lists
+            newState[action.payload.frameName] = action.payload.frame
             return newState
         default:
             return state

@@ -11,7 +11,7 @@ import User from './components/User';
 import NewList from './components/forms/NewList';
 import List from './components/List';
 import Dev from './components/Dev';
-import Discover from './components/Discover';
+import ListsRepeater from './components/ListsRepeater';
 import * as sessionActions from './store/session'
 import * as locationActions from './store/location'
 
@@ -49,10 +49,11 @@ function App() {
                         {authenticated ? <Redirect to='/discover' /> : <Redirect to='/discover' />}
                     </Route>
                     <Route path='/discover' exact={true}>
-                        <Discover />
+                        <ListsRepeater dir={{next: 'Coming Soon'}} />
                     </Route>
                     <ProtectedRoute path='/my' exact={true}>
                         <User />
+                        <ListsRepeater dir={{my: 'My Lists'}} />
                     </ProtectedRoute>
                     <ProtectedRoute path='/my/lists/new' exact={true}>
                         <User>
