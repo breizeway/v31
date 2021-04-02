@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './List.css'
 import * as listActions from '../../store/lists'
+import { formatListDate } from '../../services/dates'
 
 
 const List = () => {
@@ -14,15 +15,25 @@ const List = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runAddLists([listId], true)) // change false back to true
+            await dispatch(listActions.runAddLists([listId], true))
         })()
     }, [dispatch, listId])
 
     if (!list) return null
+    //-------- manipulate list below -----------\\
+
+    const dates = formatListDate(list.start_date, list.end_date)
 
     return (
         <div className='list'>
-            List
+            <div className='list__title'>{list.title}</div>
+            <div className='list__description'>{list.description}</div>
+            <div className='list__date'>{dates}</div>
+            {list.picks.length ? (
+                <div>picks</div>
+            ) : (
+                <div>Add picks...</div>
+            )}
         </div>
     )
 }
