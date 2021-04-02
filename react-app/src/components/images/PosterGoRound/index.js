@@ -4,13 +4,15 @@ import './PosterGoRound.css'
 import Poster from '../Poster'
 
 
-const PosterGoRound = ({ sources }) => {
+const PosterGoRound = ({ sources, height }) => {
     return (
-        <div className='postergoround'>
+        <div
+            className='postergoround'
+            style={{height}}
+        >
             {sources.map((source, i) => (
                 <Poster
                     source={source}
-                    height={'200px'}
                     key={i}
                 />
             ))}

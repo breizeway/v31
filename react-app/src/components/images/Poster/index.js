@@ -3,12 +3,11 @@ import React from 'react'
 import './Poster.css'
 
 
-const Poster = ({ source, height }) => {
+const Poster = ({ source }) => {
     return (
         <img
             className='poster'
             src={source}
-            style={{height}}
         />
     )
 }

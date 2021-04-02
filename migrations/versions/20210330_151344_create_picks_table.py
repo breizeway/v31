@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('picks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=200), nullable=False),
-    sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('overview', sa.Text(), nullable=True),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('media_id', sa.Integer(), nullable=False),
     sa.Column('imdb_id', sa.String(length=50), nullable=True),

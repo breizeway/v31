@@ -8,6 +8,10 @@
   max-width: 800px;
 }
 
+.list-card:hover {
+  cursor: pointer;
+}
+
 .list-card > *:not(.list-card > *:first-child) {
   margin-top: 10px;
 }
@@ -24,6 +28,7 @@
   line-height: var(--size__line-height);
   height: calc(var(--size__line-height) * var(--max-lines)); /* exactly three lines */
 }
+
 .card-fade:after {
   content: "";
   text-align: right;

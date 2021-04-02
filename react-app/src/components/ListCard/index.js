@@ -20,9 +20,12 @@ const ListCard = ({ list }) => {
                 {list.description}
             </div>
             {Object.keys(list.picks[0]).includes('media_data') && (
-                <PosterGoRound sources={list.picks.map(pick => {
-                    return `${pick.media_data.secure_image_base_url}original${pick.media_data.poster_path}`
-                })}/>
+                <PosterGoRound
+                    height={'200px'}
+                    sources={list.picks.map(pick => {
+                        return `${pick.media_data.secure_image_base_url}original${pick.media_data.poster_path}`
+                    })}
+                />
             )}
         </div>
     )
