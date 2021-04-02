@@ -30,7 +30,6 @@ html {
   height: 100vh;
   overflow-x: hidden;
   font-family: Helvetica, Arial, sans-serif;
-  line-height: var(--size__line-height);
 }
 
 body, #root {

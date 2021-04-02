@@ -1,3 +1,8 @@
+.poster:not(.poster:last-child) {
+  margin-right: 10px;
+}
+
 .poster {
-  height: auto;
+  border-radius: 10px;
+  height: 100%;
 }

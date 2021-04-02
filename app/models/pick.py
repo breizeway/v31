@@ -10,7 +10,7 @@ class Pick(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text)
+    overview = db.Column(db.Text)
     date = db.Column(db.Date, nullable=False)
     media_id = db.Column(db.Integer, nullable=False)
     imdb_id = db.Column(db.String(50))
@@ -21,7 +21,7 @@ class Pick(db.Model):
     def to_dict(self):
         return {'id': self.id,
                 'title': self.title,
-                'description': self.description,
+                'overview': self.overview,
                 'date': self.date,
                 'media_id': self.media_id,
                 'imdb_id': self.imdb_id,
@@ -30,7 +30,7 @@ class Pick(db.Model):
     def to_dict_w_data(self):
         return {'id': self.id,
                 'title': self.title,
-                'description': self.description,
+                'overview': self.overview,
                 'date': self.date,
                 'media_id': self.media_id,
                 'imdb_id': self.imdb_id,
