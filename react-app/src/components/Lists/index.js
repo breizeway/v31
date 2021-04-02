@@ -31,7 +31,6 @@ const Lists = ({ listsType }) => {
                 {listsTitle}
             </div>
             {lists && Object.keys(listsFrame).map(id => (
-                // <div>{JSON.stringify(list)}</div>
                 <ListCard
                     key={parseInt(id)}
                     dataKey={parseInt(id)}

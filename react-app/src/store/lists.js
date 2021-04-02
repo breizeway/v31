@@ -1,7 +1,6 @@
 const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const SET_NEXT = 'lists/setNext'
-const NEW_LIST = 'lists/new'
 
 const addLists = lists => {
     return {
@@ -24,21 +23,31 @@ const setNext = lists => {
     }
 }
 
-const newList = list => {
-    return {
-        type: NEW_LIST,
-        list
-    }
+export const runAddLists = (ids, media=false) => async dispatch => {
+    const response = await fetch(`/api/lists/from_ids`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ids,
+            media
+        }),
+        method: 'PUT'
+    })
+    const { lists } = await response.json()
+
+    dispatch(addLists(lists))
+
+    // if (addMovieData) await dispatch(runSetNextMedia(num))
 }
 
-export const runSetNext = (num, addMovieData=false) => async dispatch => {
+export const runSetNext = (num, media=false) => async dispatch => {
     const response = await fetch(`/api/lists/next/${num}`, {
         headers: {
           'Content-Type': 'application/json',
         }
     })
     const { lists } = await response.json()
-    console.log('   :::LISTS:::   ', lists);
 
     let nextLists = {}
     lists.forEach(list => {
@@ -48,11 +57,11 @@ export const runSetNext = (num, addMovieData=false) => async dispatch => {
     dispatch(setNext(nextLists))
     dispatch(addLists(lists))
 
-    if (addMovieData) await dispatch(runSetNextMedia(num))
+    if (media) await dispatch(runSetNextMedia(num))
 }
 
 export const runSetNextMedia = num => async dispatch => {
-    const response = await fetch(`/api/lists/next/${num}/add`, {
+    const response = await fetch(`/api/lists/next/${num}/media`, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -76,15 +85,14 @@ export const runNewList = (title, description, startDate, endDate) => async disp
         })
     })
     const list = await response.json()
+    dispatch(addLists([list]))
     return list
-    // dispatch(addLists([list]))
 }
 
 const initialState = {
     all: {},
     allMedia: {},
     next: {},
-    nextMedia: {}
 }
 
 const listReducer = (state = initialState, action) => {

@@ -19,11 +19,10 @@ const NewList = () => {
         e.preventDefault()
         const list = await dispatch(listActions.runNewList(title, description, startDate, endDate))
         setNewList(list)
-        // return <Redirect to={`/my/lists/${addedList.id}/edit`} />
     }
 
     if (newList) {
-        return <Redirect to={`/my/lists/${newList.id}/edit`} />
+        return <Redirect to={`/my/lists/${newList.id}`} />
     }
 
     return (

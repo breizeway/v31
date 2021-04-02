@@ -7,7 +7,7 @@ import ProfileImg from '../../images/ProfileImg'
 const ListCardUser = ({ user }) => {
     return (
         <div className='list-card-user'>
-            <div className='text-explanation-small'>created by</div>
+            <div className='text-explanation-small'>hosted by</div>
             <div className='list-card-user__data'>
                 <ProfileImg
                     className='list-card-user__img'

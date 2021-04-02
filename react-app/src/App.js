@@ -9,7 +9,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
 import NewList from './components/forms/NewList';
-import EditList from './components/forms/EditList';
+import List from './components/List';
 import Dev from './components/Dev';
 import Discover from './components/Discover';
 import * as sessionActions from './store/session'
@@ -59,8 +59,8 @@ function App() {
                             <NewList />
                         </User>
                     </ProtectedRoute>
-                    <ProtectedRoute path='/my/lists/:list_id/edit' exact={true}>
-                        <EditList />
+                    <ProtectedRoute path='/my/lists/:listId' exact={true}>
+                        <List />
                     </ProtectedRoute>
                     <ProtectedRoute path='/dev' exact={true}>
                         <Dev />

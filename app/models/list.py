@@ -29,7 +29,7 @@ class List(db.Model):
                 'picks': [pick.to_dict() for pick in self.picks],
                 'user': self.user.to_public_dict()}
 
-    def to_dict_w_data(self):
+    def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
                 'description': self.description,
@@ -37,5 +37,5 @@ class List(db.Model):
                 'end_date': self.end_date,
                 'published': self.published,
                 'user_id': self.user_id,
-                'picks': [pick.to_dict_w_data() for pick in self.picks],
+                'picks': [pick.to_dict_media() for pick in self.picks],
                 'user': self.user.to_public_dict()}
