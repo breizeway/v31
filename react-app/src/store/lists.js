@@ -23,22 +23,35 @@ const setNext = lists => {
     }
 }
 
-export const runAddLists = (ids, media=false) => async dispatch => {
-    const response = await fetch(`/api/lists/from_ids`, {
+export const runAddLists = (listIds, addMedia=false) => async dispatch => {
+    if (addMedia) dispatch(runAddListsMedia(listIds))
+    const response = await fetch(`/api/lists/`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            ids,
-            media
+            ids: listIds,
+            media: false,
         }),
-        method: 'PUT'
     })
     const { lists } = await response.json()
-
     dispatch(addLists(lists))
+}
 
-    // if (addMovieData) await dispatch(runSetNextMedia(num))
+export const runAddListsMedia = listIds => async dispatch => {
+    const response = await fetch(`/api/lists/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ids: listIds,
+            media: true,
+        }),
+    })
+    const { lists_media } = await response.json()
+    dispatch(addListsMedia(lists_media))
 }
 
 export const runSetNext = (num, media=false) => async dispatch => {
@@ -47,29 +60,23 @@ export const runSetNext = (num, media=false) => async dispatch => {
           'Content-Type': 'application/json',
         }
     })
-    const { lists } = await response.json()
+    const frame = await response.json()
+    dispatch(setNext(frame))
 
-    let nextLists = {}
-    lists.forEach(list => {
-        nextLists[list.id] = list.picks.map(pick => pick.id)
-    })
-
-    dispatch(setNext(nextLists))
-    dispatch(addLists(lists))
-
-    if (media) await dispatch(runSetNextMedia(num))
+    if (media) await dispatch(runAddLists(Object.keys(frame), true))
+    else await dispatch(runAddLists(Object.keys(frame), false))
 }
 
-export const runSetNextMedia = num => async dispatch => {
-    const response = await fetch(`/api/lists/next/${num}/media`, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    const { lists } = await response.json()
+// export const runSetNextMedia = num => async dispatch => {
+//     const response = await fetch(`/api/lists/next/${num}/media`, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//         }
+//     })
+//     const { lists } = await response.json()
 
-    dispatch(addListsMedia(lists))
-}
+//     dispatch(addListsMedia(lists))
+// }
 
 export const runNewList = (title, description, startDate, endDate) => async dispatch => {
     const response = await fetch(`/api/lists/new`, {

@@ -15,7 +15,7 @@ const List = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runAddLists([listId])) // change false back to true
+            await dispatch(listActions.runAddLists([listId], true)) // change false back to true
         })()
     }, [])
 
