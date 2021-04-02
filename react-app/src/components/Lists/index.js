@@ -6,28 +6,32 @@ import * as listActions from '../../store/lists'
 import ListCard from '../ListCard';
 
 
-const Lists = ({ slice }) => {
+const Lists = ({ listsType }) => {
     const dispatch = useDispatch()
-    const lists = useSelector(state => Object.values(state.lists[slice]))
-    const [mediaLoaded, setMediaLoaded] = useState(false)
+    const lists = useSelector(state => Object.values(state.lists[listsType]))
+    const [listsTitle, setListsTitle] = useState('')
 
     useEffect(() => {
-        switch (slice) {
+        switch (listsType) {
             case 'next':
                 (async () => {
-                    await dispatch(listActions.addNext(20, slice, true))
-                    setMediaLoaded(true)
+                    await dispatch(listActions.addNext(20, true))
                 })()
+                setListsTitle('Upcoming')
                 break;
             default:
                 break;
         }
-    }, [dispatch, slice])
+    }, [dispatch, listsType])
 
     return (
         <div className='lists'>
+            {listsTitle}
             {lists && lists.map(list => (
-                <ListCard key={list.id} list={list}/>
+                <ListCard
+                    key={list.id}
+                    dataKey={list.id}
+                />
             ))}
         </div>
     )
