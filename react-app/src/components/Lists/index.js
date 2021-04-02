@@ -18,7 +18,7 @@ const Lists = ({ listsType }) => {
                 (async () => {
                     await dispatch(listActions.runSetNext(20, true)) // change false back to true
                 })()
-                setListsTitle('Upcoming')
+                setListsTitle('Coming Soon')
                 break;
             default:
                 break;
@@ -27,7 +27,9 @@ const Lists = ({ listsType }) => {
 
     return (
         <div className='lists'>
-            {listsTitle}
+            <div className='lists__title'>
+                {listsTitle}
+            </div>
             {lists && Object.keys(listsFrame).map(id => (
                 // <div>{JSON.stringify(list)}</div>
                 <ListCard

@@ -8,7 +8,9 @@
   --color__text-light: gray;
   --color__a: default;
 
-  --size__text-1: 30px;
+  --size__text-1: 40px;
+  --size__text-2: 30px;
+  --size__text-explanation: 12px;
   --size__line-height: 1.4em;
 }
 
@@ -50,4 +52,10 @@ html {
 
 a {
   color: var(--color__a);
+}
+
+.text-explanation-small {
+  color: var(--color__text-light);
+  text-transform: uppercase;
+  font-size: var(--size__text-explanation);
 }
