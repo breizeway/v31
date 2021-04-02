@@ -33,6 +33,7 @@ requests = "*"
 psycopg2-binary = "==2.8.6"
 autopep8 = "*"
 pylint = "*"
+pycodestyle = "*"
 
 [requires]
 python_version = "3.8"

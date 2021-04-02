@@ -8,6 +8,7 @@ const Poster = ({ source }) => {
         <img
             className='poster'
             src={source}
+            alt='movie poster'
         />
     )
 }

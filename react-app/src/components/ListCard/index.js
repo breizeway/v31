@@ -8,10 +8,8 @@ import { formatListDate } from '../../services/dates'
 
 
 const ListCard = ({ dataKey }) => {
-    const listsType = useSelector(state => state.lists.listsType)
-
-    const list = useSelector(state => state.lists[listsType][dataKey])
-    const listMedia = useSelector(state => state.lists[`${listsType}Media`][dataKey])
+    const list = useSelector(state => state.lists.all[dataKey])
+    if (!list) return null
 
     const dates = formatListDate(list.start_date, list.end_date)
 
@@ -25,14 +23,12 @@ const ListCard = ({ dataKey }) => {
             <div className='list-card__description card-fade'>
                 {list.description}
             </div>
-            {listMedia && (
-                <PosterGoRound
-                    height={'200px'}
-                    sources={listMedia.picks.map(pick => {
-                        return `${pick.media_data.secure_image_base_url}original${pick.media_data.poster_path}`
-                    })}
-                />
-            )}
+            <PosterGoRound
+                height={'200px'}
+                sources={list.picks.map(pick => {
+                    return pick.original_poster_url
+                })}
+            />
         </div>
     )
 }
