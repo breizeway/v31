@@ -15,7 +15,7 @@ class List(db.Model):
     published = db.Column(db.Boolean, nullable=False, default=False)
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
-    user = db.relationship('User', back_populates='lists')
+    host = db.relationship('User', back_populates='lists')
     picks = db.relationship('Pick', back_populates='parent_list')
 
     def to_dict(self):
@@ -27,7 +27,7 @@ class List(db.Model):
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict() for pick in self.picks],
-                'user': self.user.to_public_dict()}
+                'host': self.host.to_public_dict()}
 
     def to_dict_media(self):
         return {'id': self.id,
@@ -38,4 +38,4 @@ class List(db.Model):
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict_media() for pick in self.picks],
-                'user': self.user.to_public_dict()}
+                'host': self.host.to_public_dict()}

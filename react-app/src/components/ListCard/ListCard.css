@@ -1,9 +1,8 @@
 .list-card {
-  --list-card-space: 25px;
-  padding: var(--list-card-space);
-  border-radius: var(--list-card-space);
+  padding: var(--size__big-space);
+  border-radius: var(--size__big-space);
   /* width: calc(100% - calc(var(--list-card-margin)*2)); */
-  margin: var(--list-card-space) 0;
+  margin: var(--size__big-space) 0;
   background-color: var(--color__card);
   max-width: 800px;
 }
@@ -13,7 +12,7 @@
 }
 
 .list-card > *:not(.list-card > *:first-child) {
-  margin-top: 10px;
+  margin-top: var(--size__med-space);
 }
 
 .list-card__title {

@@ -9,9 +9,12 @@
   --color__a: default;
 
   --size__text-1: 40px;
-  --size__text-2: 30px;
+  --size__text-2: 32px;
   --size__text-explanation: 12px;
   --size__line-height: 1.4em;
+  --size__big-space: 32px;
+  --size__med-space: 16px;
+  --size__sml-space: 8px;
 }
 
 @media (prefers-color-scheme: dark) {

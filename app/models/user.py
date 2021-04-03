@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50), nullable=False)
     profile_img = db.Column(db.String(500))
 
-    lists = db.relationship('List', back_populates='user')
+    lists = db.relationship('List', back_populates='host')
 
     @property
     def password(self):
