@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import './List.css'
 import * as listActions from '../../store/lists'
 import { formatListDate } from '../../services/dates'
+import Picks from '../Picks'
 
 
 const List = () => {
@@ -27,10 +28,10 @@ const List = () => {
     return (
         <div className='list'>
             <div className='list__title'>{list.title}</div>
-            <div className='list__description'>{list.description}</div>
             <div className='list__date'>{dates}</div>
+            <div className='list__description'>{list.description}</div>
             {list.picks.length ? (
-                <div>picks</div>
+                <Picks />
             ) : (
                 <div>Add picks...</div>
             )}
