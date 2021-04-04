@@ -92,7 +92,7 @@ const initialState = {
     my: {},
 }
 
-const listReducer = (state = initialState, action) => {
+const listsReducer = (state = initialState, action) => {
     let newState
     let all
     switch (action.type) {
@@ -122,4 +122,4 @@ const listReducer = (state = initialState, action) => {
 }
 
 
-export default listReducer
+export default listsReducer

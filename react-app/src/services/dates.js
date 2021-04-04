@@ -16,11 +16,52 @@ const monthName = monthNum => {
     }
 }
 
+const weekDayName = weekDay => {
+    switch (weekDay) {
+        case 0: return 'Sunday'
+        case 1: return 'Monday'
+        case 2: return 'Tuesday'
+        case 3: return 'Wednesday'
+        case 4: return 'Thursday'
+        case 5: return 'Friday'
+        case 6: return 'Saturday'
+        default: return Error('Not a week day. Number must be between 0 and 6.')
+    }
+}
+
+const makeDay = date => {
+    const newDate = new Date(date)
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const day = date.getDate()
+    const weekDay = date.getDay()
+    return {
+        date: newDate,
+        year,
+        month,
+        monthName: monthName(month),
+        day,
+        weekDay,
+        weekDayName: weekDayName(weekDay),
+        sort: `${year}${month < 9 ? `0${month + 1}` : month}${day < 9 ? `0${day + 1}` : day}`
+    }
+}
+
 export const formatListDate = (start, end) => {
     const dates = [new Date(start), new Date(end)]
     const formatted = dates.map(date => {
         return `${monthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`
     })
     return `${formatted[0]} - ${formatted[1]}`
+}
 
+export const makeDays = (startDate, numDays=1) => {
+    const result = []
+    for (let i = 0; i < numDays; i++) {
+        const date = new Date(startDate)
+        date.setDate(date.getDate() + i)
+        const day = makeDay(date)
+        result.push(day)
+    }
+    return result
 }

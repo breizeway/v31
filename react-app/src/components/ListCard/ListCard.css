@@ -1,19 +1,18 @@
-.list-card {
+/* .list-card {
   padding: var(--size__big-space);
   border-radius: var(--size__big-space);
-  /* width: calc(100% - calc(var(--list-card-margin)*2)); */
   margin: var(--size__big-space) 0;
   background-color: var(--color__card);
   max-width: 800px;
-}
+} */
 
 .list-card:hover {
   cursor: pointer;
 }
 
-.list-card > *:not(.list-card > *:first-child) {
+/* .list-card > *:not(.list-card > *:first-child) {
   margin-top: var(--size__med-space);
-}
+} */
 
 .list-card__title {
   font-size: var(--size__text-2);

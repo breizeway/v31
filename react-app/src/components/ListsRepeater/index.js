@@ -7,11 +7,10 @@ import Lists from '../Lists'
 const ListsRepeater = ({ dir }) => {
     return (
         <div className='lists-repeater'>
-            {Object.keys(dir).map(key => (
+            {dir.map(listsInfo => (
                 <Lists
-                    listsKey={key}
-                    listsTitle={dir[key]}
-                    key={key}
+                    key={listsInfo.listsType}
+                    listsInfo={listsInfo}
                 />
             ))}
         </div>

@@ -62,3 +62,16 @@ a {
   text-transform: uppercase;
   font-size: var(--size__text-explanation);
 }
+
+.card {
+  padding: var(--size__big-space);
+  border-radius: var(--size__big-space);
+  margin: var(--size__big-space) 0;
+  background-color: var(--color__card);
+  max-width: 800px;
+}
+
+
+.card > *:not(.card > *:first-child) {
+  margin-top: var(--size__med-space);
+}
