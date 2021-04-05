@@ -30,7 +30,8 @@ const weekDayName = weekDay => {
 }
 
 export const makeDay = date => {
-    const newDate = new Date(date)
+    const newDate = (typeof date === 'string') ? new Date(date.slice(0, 16)) : date
+    console.log('   :::NEWDATE:::   ', newDate);
     const year = newDate.getFullYear()
     const month = newDate.getMonth()
     const day = newDate.getDate()
@@ -47,22 +48,18 @@ export const makeDay = date => {
     }
 }
 
-export const formatListDate = (start, end) => {
-    const dates = [new Date(start), new Date(end)]
+export const formatListDate = (startString, endString) => {
+    const dates = [new Date(startString.slice(0, 16)), new Date(endString.slice(0, 16))]
     const formatted = dates.map(date => {
         return `${monthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`
     })
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-export const makeDays = (startDate, numDays=1) => {
+export const makeDays = (dateString, numDays=1) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
-        const date = new Date(startDate)
-        date.setHours(0)
-        console.log('   :::STARTDATE00000ARG:::   ', startDate);
-
-        if (i === 0) console.log('   :::makedays0DATE:::   ', date);
+        const date = new Date(dateString.slice(0, 16))
         date.setDate(date.getDate() + i)
         const day = makeDay(date)
         result.push(day)
