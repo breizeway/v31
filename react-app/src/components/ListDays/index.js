@@ -12,6 +12,7 @@ const ListDays = ({ start, listId }) => {
 
     return (
         <div className='list-days'>
+
             {days.map((day, i) => (
                 <ListDay
                     key={i}

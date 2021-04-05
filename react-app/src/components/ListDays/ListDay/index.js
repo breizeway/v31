@@ -6,23 +6,39 @@ import { makeDay } from '../../../services/dates'
 
 const ListDay = ({ day, listId }) => {
     const picks = useSelector(state => {
-        const filtered =  Object.values(state.picks.all).filter(pick => {
+        return Object.values(state.picks.all).filter(pick => {
             const inList = pick.list_id === listId
             const onDate = makeDay(pick.date).sort === day.sort
             return inList && onDate
         })
-        return filtered
     })
-    const pick = picks && picks[0]
+
+    const hasPick = picks.length !== 0
+
+    const pick = hasPick && picks[0]
+
+    const clickDay = () => {
+        if (hasPick) return
+        console.log('   :::HASPICK:::   ', hasPick);
+    }
 
     return (
-        <div className='list-day'>
-            {day.day}
-            {pick && (
+        <div
+            className='list-day'
+            onClick={clickDay}
+        >
+            <div className='list-day__date'>
+                {day.date}
+            </div>
+            {pick ? (
                 <div>
                     <div>
                         {pick.title}
                     </div>
+                </div>
+            ) : (
+                <div className='list-day_add'>
+                    +
                 </div>
             )}
         </div>

@@ -29,22 +29,21 @@ const weekDayName = weekDay => {
     }
 }
 
-export const makeDay = date => {
-    const newDate = (typeof date === 'string') ? new Date(date.slice(0, 16)) : date
-    console.log('   :::NEWDATE:::   ', newDate);
+export const makeDay = day => {
+    const newDate = (typeof day === 'string') ? new Date(day.slice(0, 16)) : day
     const year = newDate.getFullYear()
     const month = newDate.getMonth()
-    const day = newDate.getDate()
+    const date = newDate.getDate()
     const weekDay = newDate.getDay()
     return {
-        date: newDate,
+        obj: newDate,
         year,
-        month,
+        month: month + 1,
         monthName: monthName(month),
-        day,
-        weekDay,
+        date,
+        weekDay: weekDay + 1,
         weekDayName: weekDayName(weekDay),
-        sort: `${year}${month < 9 ? `0${month + 1}` : month}${day < 10 ? `0${day}` : day}`
+        sort: `${year}${month < 9 ? `0${month + 1}` : month}${date < 10 ? `0${date}` : date}`
     }
 }
 

@@ -1,6 +1,16 @@
 .list-day {
   --list-day__height: 160px;
   height: var(--list-day__height);
-  width: calc(100%/5);
-  padding: var(--size__med-space)
+  width: calc(100%/7);
+  padding: var(--size__med-space);
+  display: flex;
+  flex-direction: column;
+}
+
+.list-day:hover {
+  cursor: pointer;
+}
+
+.list-day__date {
+  align-self: flex-end;
 }
