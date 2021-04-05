@@ -8,18 +8,13 @@ const Modal = ({ content }) => {
     const dispatch = useDispatch()
     const modalVisible = useSelector(state => state.modal.visible)
 
-    const testContent = content || <div>test</div>
-
     useEffect(() => {
         dispatch(modalActions.toggleVisibility())
     }, [])
 
     if (!modalVisible) return null
 
-    const hide = () => {
-        dispatch(modalActions.toggleVisibility())
-        console.log('   :::MODALVISIBLE:::   ', modalVisible)
-    }
+    const hide = () => dispatch(modalActions.toggleVisibility())
 
     return (
         <div className='modal'>
@@ -31,7 +26,13 @@ const Modal = ({ content }) => {
                     className='modal__card card'
                     onClick={e => e.stopPropagation()}
                 >
-                    {testContent}
+                    <div
+                        className='modal__close'
+                        onClick={hide}
+                    >
+                        <i className='fas fa-times' />
+                    </div>
+                    {content}
                 </div>
             </div>
 

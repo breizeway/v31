@@ -1,5 +1,5 @@
 .modal {
-  z-index: 900;
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -19,7 +19,24 @@
 }
 
 .modal__card {
-  z-index: 901;
+  position: relative;
   width: 500px;
   height: 500px;
+}
+
+.modal__close {
+  position: absolute;
+  left: 0;
+  top: calc(var(--size__big-space) * -1.5);
+  width: var(--size__big-space);
+  height: var(--size__big-space);
+  border-radius: calc(var(--size__big-space) / 2);
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__close:hover {
+  cursor: pointer;
 }

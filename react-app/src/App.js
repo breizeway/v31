@@ -64,7 +64,7 @@ function App() {
                             <NewList />
                         </User>
                     </ProtectedRoute>
-                    <ProtectedRoute path='/my/lists/:listId' exact={true}>
+                    <ProtectedRoute path='/lists/:listId' exact={true}>
                         <List />
                     </ProtectedRoute>
                     <ProtectedRoute path='/dev' exact={true}>

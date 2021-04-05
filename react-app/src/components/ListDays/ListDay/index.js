@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import './ListDay.css'
 import { makeDay } from '../../../services/dates'
 import Modal from '../../Modal'
-import * as modalActions from '../../../store/modal'
+import Pick from '../../Pick'
 
-const ListDay = ({ day, listId }) => {
-    const dispatch = useDispatch()
-
+const ListDay = ({ listId, day }) => {
     const modalVisible = useSelector(state => state.modal.visible)
     const [thisModalVisible, setThisModalVisible] = useState(false)
     useEffect(() => {
@@ -30,8 +28,6 @@ const ListDay = ({ day, listId }) => {
     const pick = hasPick && picks[0]
 
     const clickDay = () => {
-        if (hasPick) return
-        // dispatch(modalActions.toggleVisibility())
         setThisModalVisible(true)
     }
 
@@ -57,7 +53,7 @@ const ListDay = ({ day, listId }) => {
                     </div>
                 )}
             </div>
-            {thisModalVisible && <Modal />}
+            {thisModalVisible && <Modal content={<Pick listId={listId} day={day}/>}/>}
         </>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import './ListCard.css'
 import ListCardHost from './ListCardHost'
@@ -8,13 +9,22 @@ import { formatListDate } from '../../services/dates'
 
 
 const ListCard = ({ dataKey }) => {
+    const history = useHistory()
+
     const list = useSelector(state => state.lists.all[dataKey])
     if (!list) return null
 
     const dates = formatListDate(list.start_date, list.end_date)
 
+    const openList = () => {
+        history.push(`/lists/${list.id}`)
+    }
+
     return (
-        <div className='list-card card'>
+        <div
+            className='list-card card'
+            onClick={openList}
+        >
             <div className='list-card__title'>
                 {list.title}
             </div>

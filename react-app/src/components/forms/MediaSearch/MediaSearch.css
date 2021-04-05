@@ -1,0 +1,15 @@
+.media-search {
+  position: relative;
+}
+
+.media-search__form {
+  display: flex;
+}
+
+.media-search__auto-complete {
+  background-color: red;
+  z-index: 20;
+  box-shadow: 2px 2px 2px black;
+  position: absolute;
+  top: 15px;
+}
