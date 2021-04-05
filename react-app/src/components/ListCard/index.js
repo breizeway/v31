@@ -14,7 +14,7 @@ const ListCard = ({ dataKey }) => {
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (
-        <div className='list-card'>
+        <div className='list-card card'>
             <div className='list-card__title'>
                 {list.title}
             </div>

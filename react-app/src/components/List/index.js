@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import './List.css'
 import * as listActions from '../../store/lists'
 import { formatListDate } from '../../services/dates'
-import Picks from '../Picks'
+import ListDays from '../ListDays'
 
 
 const List = () => {
@@ -26,12 +26,15 @@ const List = () => {
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (
-        <div className='list'>
+        <div className='list card'>
             <div className='list__title'>{list.title}</div>
             <div className='list__date'>{dates}</div>
             <div className='list__description'>{list.description}</div>
             {list.picks.length ? (
-                <Picks />
+                <ListDays
+                    start={list.start_date}
+                    listId={list.id}
+                />
             ) : (
                 <div>Add picks...</div>
             )}

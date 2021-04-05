@@ -1,3 +1,5 @@
+import * as pickActions from './picks'
+
 const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const SET_FRAME = 'lists/setFrame'
@@ -37,6 +39,11 @@ export const runAddLists = (listIds, addMedia=false) => async dispatch => {
     })
     const { lists } = await response.json()
     dispatch(addLists(lists))
+
+    const picks = lists.reduce((picks, list) => {
+        return picks.concat(list.picks)
+    }, [])
+    dispatch(pickActions.addPicks(picks))
 }
 
 export const runAddListsMedia = listIds => async dispatch => {
@@ -52,6 +59,11 @@ export const runAddListsMedia = listIds => async dispatch => {
     })
     const { lists_media } = await response.json()
     dispatch(addListsMedia(lists_media))
+
+    const picks = lists_media.reduce((picks, list) => {
+        return picks.concat(list.picks)
+    }, [])
+    dispatch(pickActions.addPicksMedia(picks))
 }
 
 export const runSetFrame = (frameName, media=false, num=20) => async dispatch => {
@@ -92,7 +104,7 @@ const initialState = {
     my: {},
 }
 
-const listReducer = (state = initialState, action) => {
+const listsReducer = (state = initialState, action) => {
     let newState
     let all
     switch (action.type) {
@@ -122,4 +134,4 @@ const listReducer = (state = initialState, action) => {
 }
 
 
-export default listReducer
+export default listsReducer

@@ -2,13 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
-import listReducer from './lists';
+import listsReducer from './lists';
+import picksReducer from './picks';
 import locationReducer from './location';
 
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    lists: listReducer,
+    lists: listsReducer,
+    picks: picksReducer,
     location: locationReducer,
 });
 

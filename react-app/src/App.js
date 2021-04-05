@@ -49,11 +49,15 @@ function App() {
                         {authenticated ? <Redirect to='/discover' /> : <Redirect to='/discover' />}
                     </Route>
                     <Route path='/discover' exact={true}>
-                        <ListsRepeater dir={{next: 'Coming Soon'}} />
+                        <ListsRepeater dir={[
+                            { listsType: 'next', listsTitle: 'Coming Soon'},
+                        ]} />
                     </Route>
                     <ProtectedRoute path='/my' exact={true}>
                         <User />
-                        <ListsRepeater dir={{my: 'My Lists'}} />
+                        <ListsRepeater dir={[
+                            { listsType: 'my', listsTitle: 'My Lists'},
+                        ]} />
                     </ProtectedRoute>
                     <ProtectedRoute path='/my/lists/new' exact={true}>
                         <User>

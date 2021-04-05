@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './Lists.css'
@@ -6,16 +6,17 @@ import * as listActions from '../../store/lists'
 import ListCard from '../ListCard';
 
 
-const Lists = ({ listsKey, listsTitle }) => {
+const Lists = ({ listsInfo }) => {
+    const { listsType, listsTitle } = listsInfo
     const dispatch = useDispatch()
     const lists = useSelector(state => state.lists.all)
-    const listsFrame = useSelector(state => state.lists[listsKey])
+    const listsFrame = useSelector(state => state.lists[listsType])
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runSetFrame(listsKey))
+            await dispatch(listActions.runSetFrame(listsType))
         })()
-    }, [dispatch])
+    }, [dispatch, listsType])
 
     return (
         <div className='lists'>
@@ -24,8 +25,8 @@ const Lists = ({ listsKey, listsTitle }) => {
             </div>
             {lists && Object.keys(listsFrame).map(id => (
                 <ListCard
-                    key={parseInt(id)}
-                    dataKey={parseInt(id)}
+                    key={id}
+                    dataKey={id}
                 />
             ))}
         </div>
