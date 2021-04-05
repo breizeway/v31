@@ -1,3 +1,6 @@
 .list-days {
   display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: var(--size__med-space)
 }

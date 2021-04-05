@@ -1,14 +1,14 @@
 const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 
-const addPicks = picks => {
+export const addPicks = picks => {
     return {
         type: ADD_PICKS,
         picks
     }
 }
 
-const addPicksMedia = picks => {
+export const addPicksMedia = picks => {
     return {
         type: ADD_PICKS_MEDIA,
         picks
@@ -46,24 +46,6 @@ export const runAddPicksMedia = pickIds => async dispatch => {
     dispatch(addPicksMedia(picks_media))
 }
 
-// export const runNewList = (title, description, startDate, endDate) => async dispatch => {
-//     const response = await fetch(`/api/lists/new`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             title,
-//             description,
-//             start_date: startDate,
-//             end_date: endDate,
-//         })
-//     })
-//     const list = await response.json()
-//     dispatch(addLists([list]))
-//     return list
-// }
-
 const initialState = {
     all: {},
     allMedia: {},
@@ -84,7 +66,7 @@ const picksReducer = (state = initialState, action) => {
         case ADD_PICKS_MEDIA:
             newState = {...state}
             all = {...state.all}
-            action.pickss.forEach(picks => {
+            action.picks.forEach(picks => {
                 all[picks.id] = picks
             })
             newState.allMedia = all

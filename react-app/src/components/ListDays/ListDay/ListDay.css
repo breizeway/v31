@@ -1,0 +1,6 @@
+.list-day {
+  --list-day__height: 160px;
+  height: var(--list-day__height);
+  width: calc(100%/5);
+  padding: var(--size__med-space)
+}

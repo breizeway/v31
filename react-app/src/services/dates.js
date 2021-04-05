@@ -29,12 +29,12 @@ const weekDayName = weekDay => {
     }
 }
 
-const makeDay = date => {
+export const makeDay = date => {
     const newDate = new Date(date)
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const day = date.getDate()
-    const weekDay = date.getDay()
+    const year = newDate.getFullYear()
+    const month = newDate.getMonth()
+    const day = newDate.getDate()
+    const weekDay = newDate.getDay()
     return {
         date: newDate,
         year,
@@ -43,7 +43,7 @@ const makeDay = date => {
         day,
         weekDay,
         weekDayName: weekDayName(weekDay),
-        sort: `${year}${month < 9 ? `0${month + 1}` : month}${day < 9 ? `0${day + 1}` : day}`
+        sort: `${year}${month < 9 ? `0${month + 1}` : month}${day < 10 ? `0${day}` : day}`
     }
 }
 
@@ -59,6 +59,10 @@ export const makeDays = (startDate, numDays=1) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
         const date = new Date(startDate)
+        date.setHours(0)
+        console.log('   :::STARTDATE00000ARG:::   ', startDate);
+
+        if (i === 0) console.log('   :::makedays0DATE:::   ', date);
         date.setDate(date.getDate() + i)
         const day = makeDay(date)
         result.push(day)
