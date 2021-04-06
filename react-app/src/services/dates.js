@@ -29,9 +29,9 @@ const weekDayName = weekDay => {
     }
 }
 
-const priorSunday = date => {
+// const priorSunday = date => {
 
-}
+// }
 
 export const makeDay = day => {
     const newDate = (typeof day === 'string') ? new Date(day.slice(0, 16)) : day

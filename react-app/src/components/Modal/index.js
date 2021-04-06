@@ -10,7 +10,7 @@ const Modal = ({ content }) => {
 
     useEffect(() => {
         dispatch(modalActions.toggleVisibility())
-    }, [])
+    }, [dispatch])
 
     if (!modalVisible) return null
 
@@ -27,7 +27,7 @@ const Modal = ({ content }) => {
                     onClick={e => e.stopPropagation()}
                 >
                     <div
-                        className='modal__close'
+                        className='modal__close icon'
                         onClick={hide}
                     >
                         <i className='fas fa-times' />

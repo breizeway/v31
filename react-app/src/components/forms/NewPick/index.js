@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import './NewPick.css'
@@ -9,6 +9,8 @@ import MediaSearch from '../MediaSearch'
 
 const NewPick = () => {
     const dispatch = useDispatch()
+    const chosenMedia = useSelector(state => state.media.searchChoice)
+    console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState(null)
@@ -32,6 +34,7 @@ const NewPick = () => {
         <div className='new-pick'>
             <form onSubmit={submit}>
                 <MediaSearch />
+                {chosenMedia && JSON.stringify(chosenMedia)}
             </form>
         </div>
     )

@@ -1,12 +1,13 @@
 :root {
-  --color__theme-1: #fff;
-  --color__navbar: #eee;
+  --color__theme-1: #eee;
+  --color__navbar: #ddd;
 
   --color__background: default;
   --color__card: #eee;
   --color__text: default;
   --color__text-light: gray;
   --color__a: default;
+  /* --color__input: #fff; */
 
   --size__text-1: 40px;
   --size__text-2: 32px;
@@ -15,6 +16,7 @@
   --size__big-space: 32px;
   --size__med-space: 16px;
   --size__sml-space: 8px;
+  --size__mni-space: 4px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +29,7 @@
     --color__text: #eee;
     --color__text-light: gray;
     --color__a: #ddf;
+    /* --color__input: #000; */
   }
 }
 
@@ -53,8 +56,20 @@ html {
   color: var(--color__text);
 }
 
-a {
+a, .icon {
   color: var(--color__a);
+}
+
+input {
+  color: var(--color__a);
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+input:focus {
+  outline: none;
 }
 
 .text-explanation-small {
@@ -74,4 +89,15 @@ a {
 
 .card > *:not(.card > *:first-child) {
   margin-top: var(--size__med-space);
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* border: 1px solid red; */
+  height: var(--size__big-space);
+  padding: 0 calc(var(--size__big-space) / 3);
+  border-radius: var(--size__big-space);
+  background-color: rgba(0, 0, 0, 0.2);
 }

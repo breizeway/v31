@@ -9,8 +9,6 @@ const MediaSearch = () => {
     const dispatch = useDispatch()
 
     const [query, setQuery] = useState('')
-    const [mediaId, setMediaId] = useState(null)
-    console.log('   :::MEDIAID:::   ', mediaId);
     const searchResults = useSelector(state => state.media.searchResults)
 
     useEffect(() => {
@@ -22,55 +20,45 @@ const MediaSearch = () => {
         }
     }, [query, dispatch]);
 
-    const selectFilm = id => {
-        setMediaId(id)
+    const chooseFilm = id => {
         setQuery('')
+        dispatch(mediaActions.runSetSearchChoice(id))
     }
-
-    const search = e => {
-        console.log('SEARCH')
-    }
-
-    const submit = async e => {
-        e.preventDefault()
-        // const pick = await dispatch(pickActions.runNewPick(title, overview, date))
-        // setNewPick(pick)
-    }
-
-    // if (!query.length) return null
 
     return (
         <div className='media-search'>
-            <form
+            <div
                 className='media-search__form'
-                onSubmit={submit}
             >
-                <div>
+                <div className='media-search__field form-field'>
                     <input
                         type='text'
                         value={query}
                         onChange={e => setQuery(e.target.value)}
-                        placeholder='movie title...'
+                        placeholder='search for film...'
                     ></input>
                     {query.length > 0 && (
-                        <div className='media-search__auto-complete'>
+                        <div className='media-search__autocomplete'>
                             {query.length >= 1 && query.length <= 2 ? (
                                 <div>keep typing...</div>
                             ) : searchResults && (
-                                searchResults.slice(0, 3).map(result => (
+                                searchResults.slice(0, 5).map(result => (
                                     <div
+                                        className='media-search__autocomplete-row'
                                         key={result.id}
-                                        onClick={() => selectFilm(result.id)}
+                                        onClick={() => chooseFilm(result.id)}
                                     >
-                                        {result.title} ({result.release_date?.slice(0, 4)})
+                                        <div>{result.title} {result.release_date && (`(${result.release_date.slice(0, 4)})`)}</div>
                                     </div>
                                 ))
                             )}
                         </div>
                     )}
+                    <div className='icon'>
+                        <i className='fas fa-search' />
+                    </div>
                 </div>
-                <button type='submit'>Search</button>
-            </form>
+            </div>
         </div>
     )
 }
