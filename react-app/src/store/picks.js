@@ -2,7 +2,7 @@ const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
 const UPDATE_EDITED_PICK = 'lists/updateEditedPick'
-// const COMMIT_PICK = 'lists/commitPick'
+const REMOVE_PICK = 'lists/removePick'
 
 export const addPicks = picks => {
     return {
@@ -32,12 +32,12 @@ export const updateEditedPick = pick => {
     }
 }
 
-// const commitPick = stagedPick => {
-//     return {
-//         type: COMMIT_PICK,
-//         stagedPick
-//     }
-// }
+const removePick = pick => {
+    return {
+        type: removePick,
+        pick
+    }
+}
 
 export const runAddPicks = (pickIds, addMedia=false) => async dispatch => {
     if (addMedia) dispatch(runAddPicksMedia(pickIds))
@@ -108,6 +108,20 @@ export const runCommitPick = stagedPick => async dispatch => {
     dispatch(addPicks([pick]))
     dispatch(updateEditedPick(pick))
     return pick
+}
+
+export const runDeletePick = pickIds => async dispatch => {
+    const response = await fetch(`/api/picks/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ids: pickIds})
+    })
+    const deleted = await response.json()
+    // dispatch(addPicks([pick]))
+    // dispatch(updateEditedPick(pick))
+    // return pick
 }
 
 const initialState = {

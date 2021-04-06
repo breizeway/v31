@@ -22,14 +22,12 @@ const Pick = ({ listId, day }) => {
     })
     const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
-    console.log('   :::PICK:::   ', pick);
     ////
 
     // get the media chosen from MediaSearch,
     // then get the staged pick once it's been created from the media
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
-    console.log('   :::STAGEDPICK:::   ', stagedPick);
     ////
 
     const [editMode, setEditMode] = useState(!hasPick)
@@ -69,7 +67,6 @@ const Pick = ({ listId, day }) => {
     )
     let data = stagedPickExists ? stagedPick : pick
     ////
-    console.log('   :::DATA:::   ', data);
 
     // sets the textarea initial value
     useEffect(() => {
@@ -113,6 +110,13 @@ const Pick = ({ listId, day }) => {
         if (hasPick) setEditMode(false)
     }
 
+    const deletePick = async () => {
+        clearSearch()
+        await dispatch(pickActions.runDeletePick([pick.id]));
+        await dispatch(listActions.runAddLists([listId]))
+        setEditMode(true)
+    }
+
 
     return (
         <div className='pick'>
@@ -139,6 +143,9 @@ const Pick = ({ listId, day }) => {
                 <>
                     <div onClick={commitPick}>save</div>
                     <div onClick={clearPick}>cancel</div>
+                    {hasPick && (
+                        <div onClick={deletePick}>delete</div>
+                    )}
                 </>
             ) : (
                 <div onClick={() => setEditMode(!editMode)}>edit</div>

@@ -22,6 +22,17 @@ def get_picks():
     return {'picks': picks_dicts}
 
 
+@pick_routes.route('/', methods=['PATCH'])
+def delete_picks():
+    ids = request.json['ids']
+    picks = db.session.query(Pick).filter(Pick.id.in_(ids)).all()
+    picks_dicts = [pick.to_dict() for pick in picks]
+    for pick in picks:
+        db.session.delete(pick)
+    db.session.commit()
+    return {'picks': picks_dicts}
+
+
 @pick_routes.route('/stage', methods=['PUT'])
 def stage_pick():
     media_data = request.json['media_data']
