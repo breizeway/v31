@@ -21,7 +21,6 @@ const List = () => {
     }, [dispatch, listId])
 
     if (!list) return null
-    //-------- manipulate list below -----------\\
 
     const dates = formatListDate(list.start_date, list.end_date)
 

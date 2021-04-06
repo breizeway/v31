@@ -10,7 +10,7 @@ import * as mediaActions from '../../store/media'
 
 const Pick = ({ listId, day }) => {
     const dispatch = useDispatch()
-
+    const [loaded, setLoaded] = useState(false)
 
     const pickId = useSelector(state => {
         const exists = Object.keys(state.lists.all[listId]?.picks_by_date).includes(day.sort)
@@ -22,7 +22,6 @@ const Pick = ({ listId, day }) => {
     const stagedPick = useSelector(state => state.picks.staged)
 
     const [editMode, setEditMode] = useState(!pick)
-    const [dataChecked, setDataChecked] = useState(false)
 
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const Pick = ({ listId, day }) => {
                 await dispatch(pickActions.runStagePick(chosenMedia, '', listId, day.sort))
             }
         })()
-        setDataChecked(true)
+        setLoaded(true)
     }, [chosenMedia, editMode, dispatch])
 
     const stagedPickExists = (
@@ -44,7 +43,7 @@ const Pick = ({ listId, day }) => {
 
     const data = stagedPickExists ? stagedPick : pick
 
-    if (!dataChecked) return null
+    if (!loaded && !pick) return null
 
     return (
         <div className='pick'>
