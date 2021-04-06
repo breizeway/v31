@@ -1,6 +1,7 @@
 const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
+// const COMMIT_PICK = 'lists/commitPick'
 
 export const addPicks = picks => {
     return {
@@ -19,9 +20,16 @@ export const addPicksMedia = picks => {
 export const stagePick = pick => {
     return {
         type: STAGE_PICK,
-        pick: pick
+        pick
     }
 }
+
+// const commitPick = stagedPick => {
+//     return {
+//         type: COMMIT_PICK,
+//         stagedPick
+//     }
+// }
 
 export const runAddPicks = (pickIds, addMedia=false) => async dispatch => {
     if (addMedia) dispatch(runAddPicksMedia(pickIds))
@@ -69,6 +77,28 @@ export const runStagePick = (mediaData, editorial, listId, date) => async dispat
     })
     const { pick } = await response.json()
     dispatch(stagePick(pick))
+    return pick
+}
+
+export const runCommitPick = stagedPick => async dispatch => {
+    const response = await fetch(`/api/picks/commit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title: stagedPick.title,
+            editorial: stagedPick.editorial,
+            original_poster: stagedPick.original_poster,
+            date: stagedPick.date_sort,
+            media_id: stagedPick.media_id,
+            imdb_id: stagedPick.imdb_id,
+            list_id: stagedPick.list_id,
+        })
+    })
+    const pick = await response.json()
+    dispatch(addPicks([pick]))
+    return pick
 }
 
 const initialState = {

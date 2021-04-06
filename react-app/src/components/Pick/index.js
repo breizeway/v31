@@ -59,28 +59,6 @@ const Pick = ({ listId, day }) => {
         setLoaded(true)
     }, [chosenMedia, editMode, dispatch, clearSearch, day.sort, listId, pickId])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         await dispatch(pickActions.runStagePick(
-    //             chosenMedia ? chosenMedia : pick?.media_data,
-    //             editorial,
-    //             listId,
-    //             day.sort
-    //         ))
-    //     })()
-    // }, [chosenMedia, dispatch, day.sort, listId, editorial, pick?.media_data])
-
-    // useEffect(() => {
-    //     if (saved)
-    //     (async () => {await dispatch(pickActions.runStagePick(
-    //         chosenMedia ? chosenMedia : pick?.media_data,
-    //         editorial,
-    //         listId,
-    //         day.sort
-    //     ))})()
-    // }, [saved])
-    ////
-
     // if there is a staged pick for this day and list,
     // data is that staged pick, otherwise it's the existing pick
     const stagedPickExists = (
@@ -99,23 +77,29 @@ const Pick = ({ listId, day }) => {
     // -------------------------------- \\
 
     const commitPick = async () => {
-        console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
-        if (chosenMedia) await dispatch(pickActions.runStagePick(
-            chosenMedia,
-            editorial,
-            listId,
-            day.sort
-        ))
-        if (pick?.media_data) await dispatch(pickActions.runStagePick(
-            pick?.media_data,
-            editorial,
-            listId,
-            day.sort
-        ))
+        let finalStagedPick
+        if (chosenMedia) {
+            finalStagedPick = await dispatch(pickActions.runStagePick(
+                chosenMedia,
+                editorial,
+                listId,
+                day.sort
+            ))
+        }
+        else if (pick.media_data) {
+            finalStagedPick = await dispatch(pickActions.runStagePick(
+                pick.media_data,
+                editorial,
+                listId,
+                day.sort
+            ))
+        }
+        // const commitedPick =
+        await dispatch(pickActions.runCommitPick(finalStagedPick))
         // await dipatch add new
         // flip edit mode
+        setEditMode(false)
     }
-
 
     const clearPick = async () => {
         clearSearch()
