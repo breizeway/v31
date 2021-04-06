@@ -60,7 +60,7 @@ a, .icon {
   color: var(--color__a);
 }
 
-input {
+input, textarea {
   color: var(--color__a);
   background-color: rgba(0, 0, 0, 0);
   width: 100%;

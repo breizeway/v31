@@ -35,6 +35,7 @@ const Pick = ({ listId, day }) => {
     const clearSearch = useCallback(() => {
         dispatch(pickActions.stagePick(null));
         dispatch(mediaActions.clearSearchResults());
+        setEditorial('')
     }, [dispatch])
 
     // clear prior search results
@@ -42,15 +43,42 @@ const Pick = ({ listId, day }) => {
     // If chosenMedia changes, stage it (create a pick object like the one you'd get back from the db)
     // mark the component as ready to load
     useEffect(() => {
-        clearSearch();
+        if (!editMode) clearSearch();
         (async () => {
             await dispatch(pickActions.runAddPicksMedia([pickId]))
+            console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
             if (chosenMedia) {
-                await dispatch(pickActions.runStagePick(chosenMedia, '', listId, day.sort))
+                await dispatch(pickActions.runStagePick(
+                    chosenMedia, // ? chosenMedia : pick?.media_data,
+                    '',
+                    listId,
+                    day.sort
+                ))
             }
         })()
         setLoaded(true)
     }, [chosenMedia, editMode, dispatch, clearSearch, day.sort, listId, pickId])
+
+    // useEffect(() => {
+    //     (async () => {
+    //         await dispatch(pickActions.runStagePick(
+    //             chosenMedia ? chosenMedia : pick?.media_data,
+    //             editorial,
+    //             listId,
+    //             day.sort
+    //         ))
+    //     })()
+    // }, [chosenMedia, dispatch, day.sort, listId, editorial, pick?.media_data])
+
+    // useEffect(() => {
+    //     if (saved)
+    //     (async () => {await dispatch(pickActions.runStagePick(
+    //         chosenMedia ? chosenMedia : pick?.media_data,
+    //         editorial,
+    //         listId,
+    //         day.sort
+    //     ))})()
+    // }, [saved])
     ////
 
     // if there is a staged pick for this day and list,
@@ -71,7 +99,21 @@ const Pick = ({ listId, day }) => {
     // -------------------------------- \\
 
     const commitPick = async () => {
-
+        console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
+        if (chosenMedia) await dispatch(pickActions.runStagePick(
+            chosenMedia,
+            editorial,
+            listId,
+            day.sort
+        ))
+        if (pick?.media_data) await dispatch(pickActions.runStagePick(
+            pick?.media_data,
+            editorial,
+            listId,
+            day.sort
+        ))
+        // await dipatch add new
+        // flip edit mode
     }
 
 
@@ -90,8 +132,17 @@ const Pick = ({ listId, day }) => {
                 <>
                     <div>{data.title}</div>
                     <div>{data.media_data?.overview}</div>
-                    <div>{editorial}</div>
                 </>
+            )}
+            {editMode ? (
+                <div className='form-field'>
+                    <textarea
+                        value={editorial}
+                        onChange={e => setEditorial(e.target.value)}
+                    />
+                </div>
+            ) : data && (
+                <div>{data.editorial}</div>
             )}
             {editMode ? (
                 <>
