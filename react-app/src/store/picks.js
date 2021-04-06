@@ -17,7 +17,6 @@ export const addPicksMedia = picks => {
 }
 
 export const stagePick = pick => {
-    console.log('   :::PICK:::   ', pick);
     return {
         type: STAGE_PICK,
         pick: pick
@@ -65,7 +64,7 @@ export const runStagePick = (mediaData, description, listId, date) => async disp
             media_data: mediaData,
             description,
             list_id: listId,
-            date: date.toUTCString().slice(0, 16) + ' 00:00:00 GMT'
+            date,
         }),
     })
     const { pick } = await response.json()
@@ -101,7 +100,6 @@ const picksReducer = (state = initialState, action) => {
         case STAGE_PICK:
             newState = {...state}
             newState.staged = action.pick
-            console.log('   :::ACTION.PICK:::   ', action.pick);
             return newState
         default:
             return state

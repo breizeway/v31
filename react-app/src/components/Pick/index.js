@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 import './Pick.css'
-import { makeDay } from '../../services/dates'
-import NewPick from '../forms/NewPick'
+import MediaSearch from '../forms/MediaSearch'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
 
@@ -13,40 +12,46 @@ const Pick = ({ listId, day }) => {
     const dispatch = useDispatch()
 
     const pick = useSelector(state => {
-        const exists = Object.keys(state.lists.allMedia[listId].picks_dates).includes(day.sort)
-        if (exists) return state.lists.allMedia[listId].picks_dates[day.sort]
+        const exists = Object.keys(state.lists.allMedia[listId]?.picks_by_date).includes(day.sort)
+        if (exists) return state.lists.allMedia[listId].picks_by_date[day.sort]
         return null
     })
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
 
     const [editMode, setEditMode] = useState(!pick)
+    const [dataChecked, setDataChecked] = useState(false)
 
-    let data = pick
-    if (stagedPick) pick = stagedPick
 
     useEffect(() => {
+        dispatch(pickActions.stagePick(null))
+        dispatch(mediaActions.clearSearchResults())
         if (chosenMedia) {
             (async () => {
-                await dispatch(pickActions.runStagePick(chosenMedia, '', listId, day.obj))
+                await dispatch(pickActions.runStagePick(chosenMedia, '', listId, day.sort))
             })()
         }
-        if (!editMode) {
-            dispatch(pickActions.stagePick(null))
-            dispatch(mediaActions.clearSearchResults()) // figure out how to clear the staged pick
-        }
+        setDataChecked(true)
     }, [chosenMedia, editMode, dispatch])
+
+    const stagedPickExists =
+        stagedPick?.date_sort === day.sort &&
+        stagedPick?.list_id === listId
+
+    const data = stagedPickExists ? stagedPick : pick
+
+    if (!dataChecked) return null
 
     return (
         <div className='pick'>
             {editMode && (
-                <NewPick />
+                <MediaSearch />
+            )}
+            {!editMode && (
+                <div onClick={() => setEditMode(!editMode)}>edit</div>
             )}
             {data && (
-                <>
-                    <div onClick={() => setEditMode(!editMode)}>edit</div>
-                    <div>{JSON.stringify(pick)}</div>
-                </>
+                <div>{JSON.stringify(data)}</div>
             )}
         </div>
     )

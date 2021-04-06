@@ -29,7 +29,7 @@ class List(db.Model):
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict() for pick in self.picks],
-                'picks_dates': {pick.to_dict()['date_sort']: pick.to_dict() for pick in self.picks},
+                'picks_by_date': {pick.to_dict()['date_sort']: pick.to_dict() for pick in self.picks},
                 'host': self.host.to_public_dict()}
 
     def to_dict_media(self):
@@ -43,5 +43,5 @@ class List(db.Model):
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict_media() for pick in self.picks],
-                'picks_dates': {pick.to_dict()['date_sort']: pick.to_dict_media() for pick in self.picks},
+                'picks_by_date': {pick.to_dict()['date_sort']: pick.to_dict_media() for pick in self.picks},
                 'host': self.host.to_public_dict()}

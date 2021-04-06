@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
+import datetime
 
 from app.models import Pick, db
 # from app.forms import NewPickForm
@@ -31,7 +32,7 @@ def stage_pick():
     pick = Pick(title=media_data['title'],
                 description=description,
                 original_poster=media_data['poster_path'],
-                date=date,
+                date=datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8])),
                 media_id=media_data['id'],
                 imdb_id=media_data['imdb_id'],
                 list_id=list_id)

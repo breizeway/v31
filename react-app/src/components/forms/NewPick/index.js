@@ -10,7 +10,6 @@ import MediaSearch from '../MediaSearch'
 const NewPick = () => {
     const dispatch = useDispatch()
     const chosenMedia = useSelector(state => state.media.searchChoice)
-    console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState(null)
