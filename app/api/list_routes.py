@@ -57,7 +57,7 @@ def new_list():
     if form.validate_on_submit():
         new_list = List(
             title=form.data['title'],
-            description=form.data['description'],
+            editorial=form.data['editorial'],
             start_date=form.data['start_date'],
             end_date=form.data['end_date'],
             user_id=current_user.to_dict()['id']

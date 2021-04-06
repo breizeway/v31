@@ -9,7 +9,7 @@ class List(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
+    editorial = db.Column(db.Text)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     published = db.Column(db.Boolean, nullable=False, default=False)
@@ -21,7 +21,7 @@ class List(db.Model):
     def to_dict(self):
         return {'id': self.id,
                 'title': self.title,
-                'description': self.description,
+                'editorial': self.editorial,
                 'start_date': self.start_date,
                 'start_date_sort': str(self.start_date).replace('-',''),
                 'end_date': self.end_date,
@@ -35,7 +35,7 @@ class List(db.Model):
     def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
-                'description': self.description,
+                'editorial': self.editorial,
                 'start_date': self.start_date,
                 'start_date_sort': str(self.start_date).replace('-',''),
                 'end_date': self.end_date,
