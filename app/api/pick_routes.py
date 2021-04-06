@@ -19,3 +19,23 @@ def get_picks():
         return {'picks': picks,
                 'picks_media': picks_media}
     return {'picks': picks}
+
+
+@pick_routes.route('/stage', methods=['PUT'])
+def stage_pick():
+    media_data = request.json['media_data']
+    description = request.json['description']
+    list_id = request.json['list_id']
+    date = request.json['date']
+
+    pick = Pick(title=media_data['title'],
+                description=description,
+                original_poster=media_data['poster_path'],
+                date=date,
+                media_id=media_data['id'],
+                imdb_id=media_data['imdb_id'],
+                list_id=list_id)
+
+    pick_dict = pick.to_dict()
+    pick_dict['media_data'] = media_data
+    return {'pick': pick_dict}

@@ -1,5 +1,6 @@
 const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
+const STAGE_PICK = 'lists/stagePick'
 
 export const addPicks = picks => {
     return {
@@ -12,6 +13,14 @@ export const addPicksMedia = picks => {
     return {
         type: ADD_PICKS_MEDIA,
         picks
+    }
+}
+
+export const stagePick = pick => {
+    console.log('   :::PICK:::   ', pick);
+    return {
+        type: STAGE_PICK,
+        pick: pick
     }
 }
 
@@ -46,9 +55,27 @@ export const runAddPicksMedia = pickIds => async dispatch => {
     dispatch(addPicksMedia(picks_media))
 }
 
+export const runStagePick = (mediaData, description, listId, date) => async dispatch => {
+    const response = await fetch(`/api/picks/stage`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            media_data: mediaData,
+            description,
+            list_id: listId,
+            date: date.toUTCString().slice(0, 16) + ' 00:00:00 GMT'
+        }),
+    })
+    const { pick } = await response.json()
+    dispatch(stagePick(pick))
+}
+
 const initialState = {
     all: {},
     allMedia: {},
+    staged: null,
 }
 
 const picksReducer = (state = initialState, action) => {
@@ -70,6 +97,11 @@ const picksReducer = (state = initialState, action) => {
                 all[picks.id] = picks
             })
             newState.allMedia = all
+            return newState
+        case STAGE_PICK:
+            newState = {...state}
+            newState.staged = action.pick
+            console.log('   :::ACTION.PICK:::   ', action.pick);
             return newState
         default:
             return state

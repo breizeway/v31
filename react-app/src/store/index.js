@@ -5,6 +5,8 @@ import sessionReducer from './session';
 import listsReducer from './lists';
 import picksReducer from './picks';
 import locationReducer from './location';
+import modalReducer from './modal';
+import mediaReducer from './media';
 
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
     lists: listsReducer,
     picks: picksReducer,
     location: locationReducer,
+    modal: modalReducer,
+    media: mediaReducer,
 });
 
 let enhancer;

@@ -11,7 +11,7 @@ class Pick(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    overview = db.Column(db.Text)
+    description = db.Column(db.Text)
     original_poster = db.Column(db.String(500))
     date = db.Column(db.Date, nullable=False)
     media_id = db.Column(db.Integer, nullable=False)
@@ -23,7 +23,7 @@ class Pick(db.Model):
     def to_dict(self):
         return {'id': self.id,
                 'title': self.title,
-                'overview': self.overview,
+                'description': self.description,
                 'date': self.date,
                 'original_poster': self.original_poster,
                 'original_poster_url': f'{Meta.secure_image_base_url[0]}original{self.original_poster}' if self.original_poster else '',
@@ -34,7 +34,7 @@ class Pick(db.Model):
     def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
-                'overview': self.overview,
+                'description': self.description,
                 'date': self.date,
                 'original_poster': self.original_poster,
                 'original_poster_url': f'{Meta.secure_image_base_url[0]}original{self.original_poster}' if self.original_poster else '',

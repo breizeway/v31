@@ -22,7 +22,7 @@ const NewList = () => {
     }
 
     if (newList) {
-        return <Redirect to={`/my/lists/${newList.id}`} />
+        return <Redirect to={`/lists/${newList.id}`} />
     }
 
     return (
