@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -12,6 +12,8 @@ const Pick = ({ listId, day }) => {
     const dispatch = useDispatch()
     const [loaded, setLoaded] = useState(false)
 
+    // check if this day for this list has a pick associated with it
+    // assign it to pick, if so
     const pickId = useSelector(state => {
         const exists = Object.keys(state.lists.all[listId]?.picks_by_date).includes(day.sort)
         if (exists) return state.lists.all[listId].picks_by_date[day.sort].id
@@ -19,12 +21,26 @@ const Pick = ({ listId, day }) => {
     })
     const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
+    ////
+
+    // get the media chosen from MediaSearch,
+    // then get the staged pick once it's been created from the media
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
+    ////
 
     const [editMode, setEditMode] = useState(!hasPick)
+    const [description, setDescription] = useState('')
 
+    const clearSearch = useCallback(() => {
+        dispatch(pickActions.stagePick(null));
+        dispatch(mediaActions.clearSearchResults());
+    }, [dispatch])
 
+    // clear prior search results
+    // add the media data to the pick data
+    // If chosenMedia changes, stage it (create a pick object like the one you'd get back from the db)
+    // mark the component as ready to load
     useEffect(() => {
         clearSearch();
         (async () => {
@@ -34,30 +50,36 @@ const Pick = ({ listId, day }) => {
             }
         })()
         setLoaded(true)
-    }, [chosenMedia, editMode, dispatch])
+    }, [chosenMedia, editMode, dispatch, clearSearch, day.sort, listId, pickId])
+    ////
 
+    // if there is a staged pick for this day and list,
+    // data is that staged pick, otherwise it's the existing pick
     const stagedPickExists = (
         stagedPick?.date_sort === day.sort &&
         stagedPick?.list_id === listId
     )
-
     const data = stagedPickExists ? stagedPick : pick
+    ////
+
+    useEffect(() => {
+        setDescription(data?.description)
+    }, [data])
+
+    if (!loaded && !hasPick) return null
+
+    // -------------------------------- \\
 
     const commitPick = async () => {
 
     }
 
-    const clearSearch = () => {
-        dispatch(pickActions.stagePick(null));
-        dispatch(mediaActions.clearSearchResults());
-    }
 
     const clearPick = async () => {
         clearSearch()
         if (hasPick) setEditMode(false)
     }
 
-    if (!loaded && !hasPick) return null
 
     return (
         <div className='pick'>
@@ -65,11 +87,15 @@ const Pick = ({ listId, day }) => {
                 <MediaSearch />
             )}
             {data && (
-                <div>{data.title}</div>
-                )}
+                <>
+                    <div>{data.title}</div>
+                    <div>{data.media_data?.overview}</div>
+                    <div>{description}</div>
+                </>
+            )}
             {editMode ? (
                 <>
-                    <div>save</div>
+                    <div onClick={commitPick}>save</div>
                     <div onClick={clearPick}>cancel</div>
                 </>
             ) : (
