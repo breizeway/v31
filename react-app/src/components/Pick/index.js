@@ -12,20 +12,17 @@ import * as mediaActions from '../../store/media'
 const Pick = ({ listId, day }) => {
     const dispatch = useDispatch()
 
-    const chosenMedia = useSelector(state => state.media.searchChoice)
-    const picks = useSelector(state => {
-        return Object.values(state.picks.allMedia).filter(pick => {
-            const inList = pick.list_id === listId
-            const onDate = makeDay(pick.date).sort === day.sort
-            return inList && onDate
-        })
+    const pick = useSelector(state => {
+        const exists = Object.keys(state.lists.allMedia[listId].picks_dates).includes(day.sort)
+        if (exists) return state.lists.allMedia[listId].picks_dates[day.sort]
+        return null
     })
+    const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
 
-    const hasPick = picks.length !== 0
-    const [editMode, setEditMode] = useState(!hasPick)
+    const [editMode, setEditMode] = useState(!pick)
 
-    let pick = hasPick && picks[0]
+    let data = pick
     if (stagedPick) pick = stagedPick
 
     useEffect(() => {
@@ -45,7 +42,7 @@ const Pick = ({ listId, day }) => {
             {editMode && (
                 <NewPick />
             )}
-            {hasPick && (
+            {data && (
                 <>
                     <div onClick={() => setEditMode(!editMode)}>edit</div>
                     <div>{JSON.stringify(pick)}</div>

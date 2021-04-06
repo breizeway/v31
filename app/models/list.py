@@ -23,10 +23,13 @@ class List(db.Model):
                 'title': self.title,
                 'description': self.description,
                 'start_date': self.start_date,
+                'start_date_sort': str(self.start_date).replace('-',''),
                 'end_date': self.end_date,
+                'end_date_sort': str(self.end_date).replace('-',''),
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict() for pick in self.picks],
+                'picks_dates': {pick.to_dict()['date_sort']: pick.to_dict() for pick in self.picks},
                 'host': self.host.to_public_dict()}
 
     def to_dict_media(self):
@@ -34,8 +37,11 @@ class List(db.Model):
                 'title': self.title,
                 'description': self.description,
                 'start_date': self.start_date,
+                'start_date_sort': str(self.start_date).replace('-',''),
                 'end_date': self.end_date,
+                'end_date_sort': str(self.end_date).replace('-',''),
                 'published': self.published,
                 'user_id': self.user_id,
                 'picks': [pick.to_dict_media() for pick in self.picks],
+                'picks_dates': {pick.to_dict()['date_sort']: pick.to_dict_media() for pick in self.picks},
                 'host': self.host.to_public_dict()}
