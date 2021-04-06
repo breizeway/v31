@@ -63,8 +63,13 @@ def commit_pick():
     old_pick = db.session.query(Pick).filter(Pick.date == date and Pick.list_id == form.data['list_id']).all()
 
     if len(old_pick) > 0:
-        db.session.delete(old_pick[0])
-        db.session.commit()
+        if old_pick[0].media_id == new_pick.media_id:
+            old_pick[0].editorial = new_pick.editorial
+            db.session.commit()
+            return old_pick[0].to_dict()
+        else:
+            db.session.delete(old_pick[0])
+            db.session.commit()
     db.session.add(new_pick)
     db.session.commit()
     return new_pick.to_dict()

@@ -22,12 +22,14 @@ const Pick = ({ listId, day }) => {
     })
     const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
+    console.log('   :::PICK:::   ', pick);
     ////
 
     // get the media chosen from MediaSearch,
     // then get the staged pick once it's been created from the media
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
+    console.log('   :::STAGEDPICK:::   ', stagedPick);
     ////
 
     const [editMode, setEditMode] = useState(!hasPick)
@@ -47,7 +49,6 @@ const Pick = ({ listId, day }) => {
         if (!editMode) clearSearch();
         (async () => {
             await dispatch(pickActions.runAddPicksMedia([pickId]))
-            console.log('   :::CHOSENMEDIA:::   ', chosenMedia);
             if (chosenMedia) {
                 await dispatch(pickActions.runStagePick(
                     chosenMedia, // ? chosenMedia : pick?.media_data,
@@ -66,12 +67,15 @@ const Pick = ({ listId, day }) => {
         stagedPick?.date_sort === day.sort &&
         stagedPick?.list_id === listId
     )
-    const data = stagedPickExists ? stagedPick : pick
+    let data = stagedPickExists ? stagedPick : pick
     ////
+    console.log('   :::DATA:::   ', data);
 
+    // sets the textarea initial value
     useEffect(() => {
         setEditorial(data?.editorial)
     }, [data])
+    ////
 
     if (!loaded && !hasPick) return null
 
@@ -98,8 +102,9 @@ const Pick = ({ listId, day }) => {
 
         await dispatch(pickActions.runCommitPick(finalStagedPick))
 
-        // update calendar
-        dispatch(listActions.runAddLists([listId]))
+        // update ListDay
+        await dispatch(listActions.runAddLists([listId]))
+        dispatch(pickActions.stagePick(null));
         setEditMode(false)
     }
 
@@ -127,8 +132,8 @@ const Pick = ({ listId, day }) => {
                         onChange={e => setEditorial(e.target.value)}
                     />
                 </div>
-            ) : data && (
-                <div>{data.editorial}</div>
+            ) : pick && (
+                <div>{pick?.editorial}</div>
             )}
             {editMode ? (
                 <>

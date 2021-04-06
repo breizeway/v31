@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './Modal.css'
 import * as modalActions from '../../store/modal'
+import * as pickActions from '../../store/picks'
+import * as mediaActions from '../../store/media'
 
 const Modal = ({ content }) => {
     const dispatch = useDispatch()
@@ -14,13 +16,18 @@ const Modal = ({ content }) => {
 
     if (!modalVisible) return null
 
-    const hide = () => dispatch(modalActions.toggleVisibility())
+    const closeModal = () => {
+        dispatch(modalActions.toggleVisibility())
+        dispatch(pickActions.stagePick(null));
+        dispatch(mediaActions.clearSearchResults());
+
+    }
 
     return (
         <div className='modal'>
             <div
                 className='modal__background'
-                onClick={hide}
+                onClick={closeModal}
             >
                 <div
                     className='modal__card card'
@@ -28,7 +35,7 @@ const Modal = ({ content }) => {
                 >
                     <div
                         className='modal__close icon'
-                        onClick={hide}
+                        onClick={closeModal}
                     >
                         <i className='fas fa-times' />
                     </div>
