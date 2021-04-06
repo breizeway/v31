@@ -11,11 +11,13 @@ import * as mediaActions from '../../store/media'
 const Pick = ({ listId, day }) => {
     const dispatch = useDispatch()
 
-    const pick = useSelector(state => {
-        const exists = Object.keys(state.lists.allMedia[listId]?.picks_by_date).includes(day.sort)
-        if (exists) return state.lists.allMedia[listId].picks_by_date[day.sort]
+
+    const pickId = useSelector(state => {
+        const exists = Object.keys(state.lists.all[listId]?.picks_by_date).includes(day.sort)
+        if (exists) return state.lists.all[listId].picks_by_date[day.sort].id
         return null
     })
+    const pick = useSelector(state => state.picks.allMedia[pickId])
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
 
@@ -24,19 +26,21 @@ const Pick = ({ listId, day }) => {
 
 
     useEffect(() => {
-        dispatch(pickActions.stagePick(null))
-        dispatch(mediaActions.clearSearchResults())
-        if (chosenMedia) {
-            (async () => {
+        dispatch(pickActions.stagePick(null));
+        dispatch(mediaActions.clearSearchResults());
+        (async () => {
+            await dispatch(pickActions.runAddPicksMedia([pickId]))
+            if (chosenMedia) {
                 await dispatch(pickActions.runStagePick(chosenMedia, '', listId, day.sort))
-            })()
-        }
+            }
+        })()
         setDataChecked(true)
     }, [chosenMedia, editMode, dispatch])
 
-    const stagedPickExists =
+    const stagedPickExists = (
         stagedPick?.date_sort === day.sort &&
         stagedPick?.list_id === listId
+    )
 
     const data = stagedPickExists ? stagedPick : pick
 

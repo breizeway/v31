@@ -16,7 +16,7 @@ const List = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runAddLists([listId], true))
+            await dispatch(listActions.runAddLists([listId]))
         })()
     }, [dispatch, listId])
 

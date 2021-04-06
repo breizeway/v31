@@ -17,9 +17,9 @@ def get_picks():
     picks_dicts = [pick.to_dict() for pick in picks]
     if media:
         picks_media = [pick.to_dict_media() for pick in picks]
-        return {'picks': picks,
+        return {'picks': picks_dicts,
                 'picks_media': picks_media}
-    return {'picks': picks}
+    return {'picks': picks_dicts}
 
 
 @pick_routes.route('/stage', methods=['PUT'])
