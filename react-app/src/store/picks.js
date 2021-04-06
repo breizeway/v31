@@ -54,7 +54,7 @@ export const runAddPicksMedia = pickIds => async dispatch => {
     dispatch(addPicksMedia(picks_media))
 }
 
-export const runStagePick = (mediaData, description, listId, date) => async dispatch => {
+export const runStagePick = (mediaData, editorial, listId, date) => async dispatch => {
     const response = await fetch(`/api/picks/stage`, {
         method: 'PUT',
         headers: {
@@ -62,7 +62,7 @@ export const runStagePick = (mediaData, description, listId, date) => async disp
         },
         body: JSON.stringify({
             media_data: mediaData,
-            description,
+            editorial,
             list_id: listId,
             date,
         }),

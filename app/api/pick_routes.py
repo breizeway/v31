@@ -25,12 +25,12 @@ def get_picks():
 @pick_routes.route('/stage', methods=['PUT'])
 def stage_pick():
     media_data = request.json['media_data']
-    description = request.json['description']
+    editorial = request.json['editorial']
     list_id = request.json['list_id']
     date = request.json['date']
 
     pick = Pick(title=media_data['title'],
-                description=description,
+                editorial=editorial,
                 original_poster=media_data['poster_path'],
                 date=datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8])),
                 media_id=media_data['id'],

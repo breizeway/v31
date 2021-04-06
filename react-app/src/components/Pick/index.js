@@ -30,7 +30,7 @@ const Pick = ({ listId, day }) => {
     ////
 
     const [editMode, setEditMode] = useState(!hasPick)
-    const [description, setDescription] = useState('')
+    const [editorial, setEditorial] = useState('')
 
     const clearSearch = useCallback(() => {
         dispatch(pickActions.stagePick(null));
@@ -63,7 +63,7 @@ const Pick = ({ listId, day }) => {
     ////
 
     useEffect(() => {
-        setDescription(data?.description)
+        setEditorial(data?.editorial)
     }, [data])
 
     if (!loaded && !hasPick) return null
@@ -90,7 +90,7 @@ const Pick = ({ listId, day }) => {
                 <>
                     <div>{data.title}</div>
                     <div>{data.media_data?.overview}</div>
-                    <div>{description}</div>
+                    <div>{editorial}</div>
                 </>
             )}
             {editMode ? (
