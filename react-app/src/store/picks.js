@@ -1,6 +1,7 @@
 const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
+const UPDATE_EDITED_PICK = 'lists/updateEditedPick'
 // const COMMIT_PICK = 'lists/commitPick'
 
 export const addPicks = picks => {
@@ -21,6 +22,13 @@ export const stagePick = pick => {
     return {
         type: STAGE_PICK,
         pick
+    }
+}
+
+export const updateEditedPick = pick => {
+    return {
+        type: UPDATE_EDITED_PICK,
+        edited: {date_sort: pick.date_sort, list_id: pick.list_id}
     }
 }
 
@@ -98,6 +106,7 @@ export const runCommitPick = stagedPick => async dispatch => {
     })
     const pick = await response.json()
     dispatch(addPicks([pick]))
+    dispatch(updateEditedPick(pick))
     return pick
 }
 
@@ -130,6 +139,10 @@ const picksReducer = (state = initialState, action) => {
         case STAGE_PICK:
             newState = {...state}
             newState.staged = action.pick
+            return newState
+        case UPDATE_EDITED_PICK:
+            newState = {...state}
+            newState.editedPick = action.edited
             return newState
         default:
             return state

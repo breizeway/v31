@@ -25,7 +25,7 @@ const ListDay = ({ listId, day }) => {
 
     const hasPick = picks.length !== 0
 
-    const pick = hasPick && picks[0]
+    const pick = hasPick && picks[picks.length - 1] // stopgap to grab updated pick. Later it should update in store
 
     const clickDay = () => {
         setThisModalVisible(true)
@@ -53,7 +53,7 @@ const ListDay = ({ listId, day }) => {
                     </div>
                 )}
             </div>
-            {thisModalVisible && <Modal content={<Pick listId={listId} day={day}/>}/>}
+            {thisModalVisible && <Modal content={<Pick listId={listId} day={day} />} />}
         </>
     )
 }

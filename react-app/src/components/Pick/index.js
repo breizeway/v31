@@ -6,6 +6,7 @@ import './Pick.css'
 import MediaSearch from '../forms/MediaSearch'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
+import * as listActions from '../../store/lists'
 
 
 const Pick = ({ listId, day }) => {
@@ -94,10 +95,11 @@ const Pick = ({ listId, day }) => {
                 day.sort
             ))
         }
-        // const commitedPick =
+
         await dispatch(pickActions.runCommitPick(finalStagedPick))
-        // await dipatch add new
-        // flip edit mode
+
+        // update calendar
+        dispatch(listActions.runAddLists([listId]))
         setEditMode(false)
     }
 
