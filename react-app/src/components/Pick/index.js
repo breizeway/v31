@@ -17,16 +17,16 @@ const Pick = ({ listId, day }) => {
         if (exists) return state.lists.all[listId].picks_by_date[day.sort].id
         return null
     })
+    const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
     const chosenMedia = useSelector(state => state.media.searchChoice)
     const stagedPick = useSelector(state => state.picks.staged)
 
-    const [editMode, setEditMode] = useState(!pick)
+    const [editMode, setEditMode] = useState(!hasPick)
 
 
     useEffect(() => {
-        dispatch(pickActions.stagePick(null));
-        dispatch(mediaActions.clearSearchResults());
+        clearSearch();
         (async () => {
             await dispatch(pickActions.runAddPicksMedia([pickId]))
             if (chosenMedia) {
@@ -43,18 +43,37 @@ const Pick = ({ listId, day }) => {
 
     const data = stagedPickExists ? stagedPick : pick
 
-    if (!loaded && !pick) return null
+    const commitPick = async () => {
+
+    }
+
+    const clearSearch = () => {
+        dispatch(pickActions.stagePick(null));
+        dispatch(mediaActions.clearSearchResults());
+    }
+
+    const clearPick = async () => {
+        clearSearch()
+        if (hasPick) setEditMode(false)
+    }
+
+    if (!loaded && !hasPick) return null
 
     return (
         <div className='pick'>
             {editMode && (
                 <MediaSearch />
             )}
-            {!editMode && (
-                <div onClick={() => setEditMode(!editMode)}>edit</div>
-            )}
             {data && (
-                <div>{JSON.stringify(data)}</div>
+                <div>{data.title}</div>
+                )}
+            {editMode ? (
+                <>
+                    <div>save</div>
+                    <div onClick={clearPick}>cancel</div>
+                </>
+            ) : (
+                <div onClick={() => setEditMode(!editMode)}>edit</div>
             )}
         </div>
     )
