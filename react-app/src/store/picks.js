@@ -17,9 +17,10 @@ export const addPicksMedia = picks => {
 }
 
 export const stagePick = pick => {
+    console.log('   :::PICK:::   ', pick);
     return {
         type: STAGE_PICK,
-        pick
+        pick: pick
     }
 }
 
@@ -100,6 +101,7 @@ const picksReducer = (state = initialState, action) => {
         case STAGE_PICK:
             newState = {...state}
             newState.staged = action.pick
+            console.log('   :::ACTION.PICK:::   ', action.pick);
             return newState
         default:
             return state
