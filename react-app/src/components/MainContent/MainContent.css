@@ -1,6 +1,6 @@
 .main-content {
   padding: var(--size__big-space);
-  height: 100%;
+  height: calc(100% - calc(var(--size__big-space) * 2));
   width: 100%;
   display: flex;
   justify-content: center;

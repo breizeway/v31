@@ -29,40 +29,68 @@ const weekDayName = weekDay => {
     }
 }
 
-// const priorSunday = date => {
-
-// }
-
-export const makeDay = day => {
-    const newDate = (typeof day === 'string') ? new Date(day.slice(0, 16)) : day
-    const year = newDate.getFullYear()
-    const month = newDate.getMonth()
-    const date = newDate.getDate()
-    const weekDay = newDate.getDay()
+export const makeDay = dateObj => {
+    const year = dateObj.getFullYear()
+    const month = dateObj.getMonth()
+    const date = dateObj.getDate()
+    const weekDay = dateObj.getDay()
     return {
-        obj: newDate,
+        obj: dateObj,
         year,
         month: month + 1,
         monthName: monthName(month),
         date,
         weekDay: weekDay + 1,
         weekDayName: weekDayName(weekDay),
-        sort: `${year}${month <= 8 ? `0${month + 1}` : month + 1}${date < 10 ? `0${date}` : date}`
+        sort: sortFromDate(dateObj)
     }
 }
 
-export const formatListDate = (startString, endString) => {
-    const dates = [new Date(startString.slice(0, 16)), new Date(endString.slice(0, 16))]
+export const incrementDate = (dateSort, numDays) => {
+    const date = dateFromSort(dateSort)
+    const newDays = date.getDate() + numDays
+    console.log('   :::NEWDAYS:::   ', newDays);
+    const newDate = date.setDate(newDays)
+    return sortFromDate(newDate)
+}
+
+export const sortFromDate = dateObj => {
+    const year = dateObj.getFullYear()
+    const month = dateObj.getMonth()
+    const date = dateObj.getDate()
+    return `${year}${month <= 8 ? `0${month + 1}` : month + 1}${date < 10 ? `0${date}` : date}`
+}
+
+const getPriorSunday = dateObj => {
+    const weekDay = dateObj.getDay()
+    const monthDay = dateObj.getDate()
+    return new Date(dateObj.setDate(monthDay - weekDay))
+}
+
+const dateFromSort = dateSort => {
+    return new Date(
+        parseInt(dateSort.slice(0, 4)),
+        parseInt(dateSort.slice(4, 6)) - 1,
+        parseInt(dateSort.slice(6, 8)),
+    )
+}
+
+export const formatListDate = (startSort, endSort) => {
+    const dates = [
+        dateFromSort(startSort),
+        dateFromSort(endSort),
+    ]
     const formatted = dates.map(date => {
         return `${monthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`
     })
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-export const makeDays = (dateString, numDays=1) => {
+export const makeDays = (dateSort, numDays=1, startOnSunday=true) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
-        const date = new Date(dateString.slice(0, 16))
+        let date = dateFromSort(dateSort)
+        if (startOnSunday) date = getPriorSunday(date)
         date.setDate(date.getDate() + i)
         const day = makeDay(date)
         result.push(day)

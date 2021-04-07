@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react'
 
 import './ListDays.css'
-import { makeDays} from '../../services/dates'
+import * as dateActions from '../../services/dates'
 import ListDay from './ListDay'
 
-const ListDays = ({ start, listId }) => {
-    const [firstDate, setFirstDate] = useState(start)
+const ListDays = ({ startSort, listId }) => {
+    const [firstDate, setFirstDate] = useState(startSort)
     const [numDays, setNumDays] = useState(7)
-    const [days, setDays] = useState(makeDays(firstDate, numDays))
+    const [days, setDays] = useState(dateActions.makeDays(firstDate, numDays))
 
     const lengthOptions = {7: 'Week', 42: 'Month'}
 
     useEffect(() => {
-        setDays(makeDays(firstDate, numDays))
-    }, [numDays])
+        // setFirstDate()
+        setDays(dateActions.makeDays(firstDate, numDays))
+    }, [firstDate, numDays])
+
+    const incrementDays = () => {
+        setFirstDate(dateActions.incrementDate(firstDate, numDays))
+    }
 
     return (
         <div className='list-days flex-column-sml'>
@@ -34,7 +39,7 @@ const ListDays = ({ start, listId }) => {
                     <div className='icon-big'>
                         <i className='fas fa-chevron-left' />
                     </div>
-                    <div className='icon-big'>
+                    <div className='icon-big' onClick={incrementDays}>
                         <i className='fas fa-chevron-right' />
                     </div>
                 </div>

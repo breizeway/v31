@@ -22,7 +22,7 @@ const List = () => {
 
     if (!list) return null
 
-    const dates = formatListDate(list.start_date, list.end_date)
+    const dates = formatListDate(list.start_date_sort, list.end_date_sort)
 
     return (
         <div className='list flex-column-med'>
@@ -30,7 +30,7 @@ const List = () => {
             <div className='list__date'>{dates}</div>
             <div className='list__editorial'>{list.editorial}</div>
             <ListDays
-                start={list.start_date}
+                startSort={list.start_date_sort}
                 listId={list.id}
             />
         </div>
