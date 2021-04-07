@@ -9,10 +9,24 @@
   position: relative;
 }
 
+.pick__editorial-edit {
+  height: auto;
+}
+
+/* .pick__editorial-edit > * {
+  height: 100px;
+} */
+
 .pick__edit-controls {
   width: 100%;
   position: absolute;
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pick__edit-group {
+  width: 100%;
   display: flex;
   justify-content: flex-end;
 }

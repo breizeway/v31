@@ -130,9 +130,10 @@ const Pick = ({ listId, day }) => {
                 </>
             )}
             {editMode ? (
-                <div className='form-field'>
+                <div className='pick__editorial-edit form-field'>
                     <textarea
                         value={editorial}
+                        placeholder='editorial...'
                         onChange={e => setEditorial(e.target.value)}
                     />
                 </div>
@@ -142,14 +143,19 @@ const Pick = ({ listId, day }) => {
             <div className='pick__edit-controls'>
                 {editMode ? (
                     <>
-                        <div onClick={commitPick}>save</div>
-                        <div onClick={clearPick}>cancel</div>
                         {hasPick && (
-                            <div onClick={deletePick}>delete</div>
+                            <div className='button-big' onClick={deletePick}>delete</div>
                         )}
+                        <div className='pick__edit-group'>
+                            <div className='button-big' onClick={clearPick}>cancel</div>
+                            <div className='button-big' onClick={commitPick}>save</div>
+                        </div>
+
                     </>
                 ) : (
-                    <div onClick={() => setEditMode(!editMode)}>edit</div>
+                    <div className='pick__edit-group'>
+                        <div className='button-big' onClick={() => setEditMode(!editMode)}>edit</div>
+                    </div>
                 )}
             </div>
         </div>
