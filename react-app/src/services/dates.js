@@ -47,7 +47,7 @@ export const makeDay = day => {
         date,
         weekDay: weekDay + 1,
         weekDayName: weekDayName(weekDay),
-        sort: `${year}${month < 9 ? `0${month + 1}` : month}${date < 10 ? `0${date}` : date}`
+        sort: `${year}${month <= 8 ? `0${month + 1}` : month + 1}${date < 10 ? `0${date}` : date}`
     }
 }
 

@@ -2,7 +2,6 @@ const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
 const UPDATE_EDITED_PICK = 'lists/updateEditedPick'
-const REMOVE_PICK = 'lists/removePick'
 
 export const addPicks = picks => {
     return {
@@ -29,13 +28,6 @@ export const updateEditedPick = pick => {
     return {
         type: UPDATE_EDITED_PICK,
         edited: {date_sort: pick.date_sort, list_id: pick.list_id}
-    }
-}
-
-const removePick = pick => {
-    return {
-        type: removePick,
-        pick
     }
 }
 
@@ -119,9 +111,7 @@ export const runDeletePick = pickIds => async dispatch => {
         body: JSON.stringify({ids: pickIds})
     })
     const deleted = await response.json()
-    // dispatch(addPicks([pick]))
-    // dispatch(updateEditedPick(pick))
-    // return pick
+    return deleted
 }
 
 const initialState = {

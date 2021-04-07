@@ -39,6 +39,7 @@ def stage_pick():
     editorial = request.json['editorial']
     list_id = request.json['list_id']
     date = request.json['date']
+    print('   :::DATE:::   ', date)
 
     pick = Pick(title=media_data['title'],
                 editorial=editorial,

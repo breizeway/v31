@@ -34,7 +34,7 @@ const Modal = ({ content }) => {
                     onClick={e => e.stopPropagation()}
                 >
                     <div
-                        className='modal__close icon'
+                        className='modal__close icon-big'
                         onClick={closeModal}
                     >
                         <i className='fas fa-times' />

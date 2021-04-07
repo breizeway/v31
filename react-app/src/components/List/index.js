@@ -29,14 +29,10 @@ const List = () => {
             <div className='list__title'>{list.title}</div>
             <div className='list__date'>{dates}</div>
             <div className='list__editorial'>{list.editorial}</div>
-            {list.picks.length ? (
-                <ListDays
-                    start={list.start_date}
-                    listId={list.id}
-                />
-            ) : (
-                <div>Add picks...</div>
-            )}
+            <ListDays
+                start={list.start_date}
+                listId={list.id}
+            />
         </div>
     )
 }

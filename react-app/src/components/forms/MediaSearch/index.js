@@ -54,7 +54,7 @@ const MediaSearch = () => {
                             )}
                         </div>
                     )}
-                    <div className='icon'>
+                    <div className='icon-med'>
                         <i className='fas fa-search' />
                     </div>
                 </div>
