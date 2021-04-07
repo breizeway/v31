@@ -119,13 +119,13 @@ const Pick = ({ listId, day }) => {
 
 
     return (
-        <div className='pick'>
+        <div className='pick flex-column-med'>
             {editMode && (
                 <MediaSearch />
             )}
             {data && (
                 <>
-                    <div>{data.title}</div>
+                    <div className='header-1'>{data.title}</div>
                     <div>{data.media_data?.overview}</div>
                 </>
             )}
@@ -139,17 +139,19 @@ const Pick = ({ listId, day }) => {
             ) : pick && (
                 <div>{pick?.editorial}</div>
             )}
-            {editMode ? (
-                <>
-                    <div onClick={commitPick}>save</div>
-                    <div onClick={clearPick}>cancel</div>
-                    {hasPick && (
-                        <div onClick={deletePick}>delete</div>
-                    )}
-                </>
-            ) : (
-                <div onClick={() => setEditMode(!editMode)}>edit</div>
-            )}
+            <div className='pick__edit-controls'>
+                {editMode ? (
+                    <>
+                        <div onClick={commitPick}>save</div>
+                        <div onClick={clearPick}>cancel</div>
+                        {hasPick && (
+                            <div onClick={deletePick}>delete</div>
+                        )}
+                    </>
+                ) : (
+                    <div onClick={() => setEditMode(!editMode)}>edit</div>
+                )}
+            </div>
         </div>
     )
 }

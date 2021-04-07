@@ -72,6 +72,14 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
+.header-1 {
+  font-size: var(--size__text-1);
+}
+
+.header-2 {
+  font-size: var(--size__text-2);
+}
+
 .text-explanation-small {
   color: var(--color__text-light);
   text-transform: uppercase;
@@ -106,9 +114,17 @@ input:focus, textarea:focus, select:focus {
   flex-direction: column;
 }
 
-
 .flex-column-sml > *:not(.flex-column-sml > *:first-child) {
   margin-top: var(--size__sml-space);
+}
+
+.flex-column-med {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column-med > *:not(.flex-column-med > *:first-child) {
+  margin-top: var(--size__med-space);
 }
 
 .icon-big {

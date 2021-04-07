@@ -5,18 +5,11 @@ import { makeDays} from '../../services/dates'
 import ListDay from './ListDay'
 
 const ListDays = ({ start, listId }) => {
-    const startDate = start || new Date()
-    const [firstDate, setFirstDate] = useState(startDate)
+    const [firstDate, setFirstDate] = useState(start)
     const [numDays, setNumDays] = useState(7)
-    console.log('   :::SETNUMDAYS:::   ', numDays);
     const [days, setDays] = useState(makeDays(firstDate, numDays))
 
-    const lengthOptions = {7: 'Week', 43: 'Month'}
-
-    const updateDays = value => {
-        setNumDays(value)
-        setDays(makeDays(firstDate, numDays))
-    }
+    const lengthOptions = {7: 'Week', 42: 'Month'}
 
     useEffect(() => {
         setDays(makeDays(firstDate, numDays))

@@ -25,8 +25,8 @@ const List = () => {
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (
-        <div className='list card'>
-            <div className='list__title'>{list.title}</div>
+        <div className='list flex-column-med'>
+            <div className='list__title header-1'>{list.title}</div>
             <div className='list__date'>{dates}</div>
             <div className='list__editorial'>{list.editorial}</div>
             <ListDays
