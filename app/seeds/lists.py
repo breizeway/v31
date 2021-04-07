@@ -9,7 +9,7 @@ def seed_lists():
                           published = True,
                           user_id = 1)
     horror = List(title = 'Horror',
-                          editorial = 'Horror movies so good, your skin will fall off',
+                          editorial = "Horror movies so good, you'll be hiding under the covers for months on end.",
                           start_date = '05/1/2021',
                           end_date = '05/7/2021',
                           published = True,

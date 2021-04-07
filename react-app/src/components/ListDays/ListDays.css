@@ -1,6 +1,6 @@
 .list-days__controls {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .list-days__days {

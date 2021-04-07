@@ -30,7 +30,7 @@ const List = () => {
             <div className='list__date'>{dates}</div>
             <div className='list__editorial'>{list.editorial}</div>
             <ListDays
-                startSort={list.start_date_sort}
+                listStartSort={list.start_date_sort}
                 listId={list.id}
             />
         </div>

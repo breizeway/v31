@@ -46,11 +46,12 @@ export const makeDay = dateObj => {
     }
 }
 
-export const incrementDate = (dateSort, numDays) => {
-    const date = dateFromSort(dateSort)
-    const newDays = date.getDate() + numDays
+export const changeDate = (date, numDays, forward) => {
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    console.log('   :::BASEDATE.GETDATE():::   ', baseDate.getDate());
+    const newDays = forward ? baseDate.getDate() + numDays : baseDate.getDate() - numDays
     console.log('   :::NEWDAYS:::   ', newDays);
-    const newDate = date.setDate(newDays)
+    const newDate = new Date(baseDate.setDate(newDays))
     return sortFromDate(newDate)
 }
 
@@ -61,18 +62,19 @@ export const sortFromDate = dateObj => {
     return `${year}${month <= 8 ? `0${month + 1}` : month + 1}${date < 10 ? `0${date}` : date}`
 }
 
-const getPriorSunday = dateObj => {
-    const weekDay = dateObj.getDay()
-    const monthDay = dateObj.getDate()
-    return new Date(dateObj.setDate(monthDay - weekDay))
-}
-
 const dateFromSort = dateSort => {
     return new Date(
         parseInt(dateSort.slice(0, 4)),
         parseInt(dateSort.slice(4, 6)) - 1,
         parseInt(dateSort.slice(6, 8)),
     )
+}
+
+export const getPriorSunday = date => {
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    const weekDay = baseDate.getDay()
+    const monthDay = baseDate.getDate()
+    return new Date(baseDate.setDate(monthDay - weekDay))
 }
 
 export const formatListDate = (startSort, endSort) => {
@@ -86,13 +88,13 @@ export const formatListDate = (startSort, endSort) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-export const makeDays = (dateSort, numDays=1, startOnSunday=true) => {
+export const makeDays = (date, numDays=1, startOnSunday=true) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
-        let date = dateFromSort(dateSort)
-        if (startOnSunday) date = getPriorSunday(date)
-        date.setDate(date.getDate() + i)
-        const day = makeDay(date)
+        let baseDate = typeof date === 'string' ? dateFromSort(date) : date
+        if (startOnSunday) baseDate = getPriorSunday(baseDate)
+        baseDate.setDate(baseDate.getDate() + i)
+        const day = makeDay(baseDate)
         result.push(day)
     }
     return result
