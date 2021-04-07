@@ -16,28 +16,23 @@ const List = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runAddLists([listId], true))
+            await dispatch(listActions.runAddLists([listId]))
         })()
     }, [dispatch, listId])
 
     if (!list) return null
-    //-------- manipulate list below -----------\\
 
     const dates = formatListDate(list.start_date, list.end_date)
 
     return (
-        <div className='list card'>
-            <div className='list__title'>{list.title}</div>
+        <div className='list flex-column-med'>
+            <div className='list__title header-1'>{list.title}</div>
             <div className='list__date'>{dates}</div>
-            <div className='list__description'>{list.description}</div>
-            {list.picks.length ? (
-                <ListDays
-                    start={list.start_date}
-                    listId={list.id}
-                />
-            ) : (
-                <div>Add picks...</div>
-            )}
+            <div className='list__editorial'>{list.editorial}</div>
+            <ListDays
+                start={list.start_date}
+                listId={list.id}
+            />
         </div>
     )
 }

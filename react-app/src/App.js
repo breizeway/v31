@@ -18,7 +18,7 @@ import * as locationActions from './store/location'
 
 function App() {
     const dispatch = useDispatch()
-    dispatch(locationActions.addCurrentPath(useLocation().pathname))
+    const currentPath = useLocation().pathname
 
     const [loaded, setLoaded] = useState(false);
     const authenticated = useSelector(state => state.session.user)
@@ -28,6 +28,7 @@ function App() {
             await dispatch(sessionActions.restore())
             setLoaded(true);
         })();
+        dispatch(locationActions.addCurrentPath(currentPath))
     }, [dispatch]);
 
     if (!loaded) {

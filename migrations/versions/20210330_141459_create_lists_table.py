@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('lists',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=False),
-    sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('editorial', sa.Text(), nullable=True),
     sa.Column('start_date', sa.Date(), nullable=False),
     sa.Column('end_date', sa.Date(), nullable=False),
     sa.Column('published', sa.Boolean(), nullable=False, default=False),

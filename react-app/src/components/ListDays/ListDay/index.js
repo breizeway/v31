@@ -15,17 +15,7 @@ const ListDay = ({ listId, day }) => {
         }
     }, [modalVisible])
 
-    const picks = useSelector(state => {
-        return Object.values(state.picks.all).filter(pick => {
-            const inList = pick.list_id === listId
-            const onDate = makeDay(pick.date).sort === day.sort
-            return inList && onDate
-        })
-    })
-
-    const hasPick = picks.length !== 0
-
-    const pick = hasPick && picks[0]
+    const pick = useSelector(state => state.lists.all[listId].picks_by_date[day.sort])
 
     const clickDay = () => {
         setThisModalVisible(true)
@@ -53,7 +43,7 @@ const ListDay = ({ listId, day }) => {
                     </div>
                 )}
             </div>
-            {thisModalVisible && <Modal content={<Pick listId={listId} day={day}/>}/>}
+            {thisModalVisible && <Modal content={<Pick listId={listId} day={day} />} />}
         </>
     )
 }

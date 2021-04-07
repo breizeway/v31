@@ -10,14 +10,14 @@ const NewList = () => {
     const dispatch = useDispatch()
 
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
+    const [editorial, setEditorial] = useState('')
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [newList, setNewList] = useState(null)
 
     const submit = async e => {
         e.preventDefault()
-        const list = await dispatch(listActions.runNewList(title, description, startDate, endDate))
+        const list = await dispatch(listActions.runNewList(title, editorial, startDate, endDate))
         setNewList(list)
     }
 
@@ -39,9 +39,9 @@ const NewList = () => {
                 </div>
                 <div>
                     <textarea
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        placeholder='description'
+                        value={editorial}
+                        onChange={e => setEditorial(e.target.value)}
+                        placeholder='editorial'
                     ></textarea>
                 </div>
                 <div>

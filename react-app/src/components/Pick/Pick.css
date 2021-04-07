@@ -1,3 +1,18 @@
 .pick.pick.pick {
   margin: 0;
 }
+
+.pick {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.pick__edit-controls {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}

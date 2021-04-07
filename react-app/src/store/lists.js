@@ -79,7 +79,7 @@ export const runSetFrame = (frameName, media=false, num=20) => async dispatch =>
     else await dispatch(runAddLists(Object.keys(frame), false))
 }
 
-export const runNewList = (title, description, startDate, endDate) => async dispatch => {
+export const runNewList = (title, editorial, startDate, endDate) => async dispatch => {
     const response = await fetch(`/api/lists/new`, {
         method: 'POST',
         headers: {
@@ -87,7 +87,7 @@ export const runNewList = (title, description, startDate, endDate) => async disp
         },
         body: JSON.stringify({
             title,
-            description,
+            editorial,
             start_date: startDate,
             end_date: endDate,
         })

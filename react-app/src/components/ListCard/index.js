@@ -30,8 +30,8 @@ const ListCard = ({ dataKey }) => {
             </div>
             <div className='list-card__date'>{dates}</div>
             <ListCardHost host={list.host} />
-            <div className='list-card__description card-fade'>
-                {list.description}
+            <div className='list-card__editorial card-fade'>
+                {list.editorial}
             </div>
             {list.picks.length ? (
                 <PosterGoRound

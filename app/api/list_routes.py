@@ -21,20 +21,6 @@ def get_lists():
     return {'lists': lsts}
 
 
-# @list_routes.route('/my/<int:num>', methods=['PUT'])
-# def get_my_lists():
-#     user_id=current_user.to_dict()['id']
-#     ids = request.json['ids']
-#     media = request.json['media']
-#     lists = db.session.query(List).filter(List.id.in_(ids), List.user_id == user_id).all()
-#     lsts = [lst.to_dict() for lst in lists]
-#     if media:
-#         lists_media = [lst.to_dict_media() for lst in lists]
-#         return {'lists': lsts,
-#                 'lists_media': lists_media}
-#     return {'lists': lsts}
-
-
 @list_routes.route('/my/<int:num>')
 def get_my_lists(num):
     user_id=current_user.to_dict()['id']
@@ -57,7 +43,7 @@ def new_list():
     if form.validate_on_submit():
         new_list = List(
             title=form.data['title'],
-            description=form.data['description'],
+            editorial=form.data['editorial'],
             start_date=form.data['start_date'],
             end_date=form.data['end_date'],
             user_id=current_user.to_dict()['id']
