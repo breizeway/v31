@@ -29,7 +29,7 @@ function App() {
             setLoaded(true);
         })();
         dispatch(locationActions.addCurrentPath(currentPath))
-    }, [dispatch]);
+    }, [dispatch, currentPath]);
 
     if (!loaded) {
         return null;
@@ -54,6 +54,9 @@ function App() {
                             { listsType: 'next', listsTitle: 'Coming Soon'},
                         ]} />
                     </Route>
+                    <Route path='/lists/:listId' exact={true}>
+                        <List />
+                    </Route>
                     <ProtectedRoute path='/my' exact={true}>
                         <User />
                         <ListsRepeater dir={[
@@ -64,9 +67,6 @@ function App() {
                         <User>
                             <NewList />
                         </User>
-                    </ProtectedRoute>
-                    <ProtectedRoute path='/lists/:listId' exact={true}>
-                        <List />
                     </ProtectedRoute>
                     <ProtectedRoute path='/dev' exact={true}>
                         <Dev />

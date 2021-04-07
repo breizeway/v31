@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import './ListDay.css'
-import { makeDay } from '../../../services/dates'
 import Modal from '../../Modal'
 import Pick from '../../Pick'
 

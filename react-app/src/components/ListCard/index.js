@@ -14,7 +14,7 @@ const ListCard = ({ dataKey }) => {
     const list = useSelector(state => state.lists.all[dataKey])
     if (!list) return null
 
-    const dates = formatListDate(list.start_date, list.end_date)
+    const dates = formatListDate(list.start_date_sort, list.end_date_sort)
 
     const openList = () => {
         history.push(`/lists/${list.id}`)
