@@ -26,8 +26,8 @@
 
 .modal__close {
   position: absolute;
-  left: 0;
-  top: calc(var(--size__big-space) * -1.5);
+  left: -5px;
+  top: -5px;
   width: var(--size__big-space);
   height: var(--size__big-space);
   border-radius: calc(var(--size__big-space) / 2);
@@ -35,6 +35,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 3px 1px gray;
 }
 
 .modal__close:hover {

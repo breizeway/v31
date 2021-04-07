@@ -6,7 +6,7 @@ import ProfileImg from '../../images/ProfileImg'
 
 
 const ListCardHost = ({ host }) => {
-    const userId = useSelector(state => state.session.user.id)
+    const userId = useSelector(state => state.session.user?.id)
 
     return (
         <div className='list-card-host'>
