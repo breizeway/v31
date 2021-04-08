@@ -11,8 +11,10 @@ const ListDays = ({ listStartSort, listId }) => {
         day: {id: 3, label: 'Day', length: 1},
     }
     const [view, setView] = useState(viewOptions.month)
+
     const [firstDay, setFirstDay] = useState(listStartSort)
     const days = dateActions.makeDays(firstDay, view.length, view.id)
+    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, view.id)
 
     return (
         <div className='list-days flex-column-sml'>
@@ -25,7 +27,7 @@ const ListDays = ({ listStartSort, listId }) => {
                         <i className='fas fa-chevron-left' />
                     </div>
                     <div className='button-big'>
-                        monthname
+                        {calendarLabel}
                     </div>
                     <div
                         className='icon-big'

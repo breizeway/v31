@@ -47,7 +47,6 @@ export const makeDay = dateObj => {
 }
 
 export const changeDate = (date, numDays, forward) => {
-    console.log('   :::NUMDAYS:::   ', numDays);
     const baseDate = typeof date === 'string' ? dateFromSort(date) : date
     const newDays = forward ? baseDate.getDate() + parseInt(numDays) : baseDate.getDate() - parseInt(numDays)
     const newDate = new Date(baseDate.setDate(newDays))
@@ -113,4 +112,23 @@ export const makeDays = (date, numDays=1, viewId) => {
         result.push(day)
     }
     return result
+}
+
+export const getCalendarLabel = (date, viewId) => {
+    let baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    switch (viewId) {
+        case 1:
+            while (baseDate.getDate() !== 1) {
+                const currentDate = baseDate.getDate()
+                baseDate = new Date(baseDate.setDate(currentDate + 1))
+            }
+            return monthName(baseDate.getMonth())
+        case 2:
+            return 'week'
+        case 3:
+            return 'day'
+        default:
+            return 'error'
+    }
+
 }
