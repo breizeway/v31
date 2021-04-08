@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import './ListCard.css'
-import ListCardHost from './ListCardHost'
+import Host from '../Host'
 import PosterGoRound from '../images/PosterGoRound'
-import { formatListDate } from '../../services/dates'
+import { formatDateRange } from '../../services/dates'
 
 
 const ListCard = ({ dataKey }) => {
@@ -14,7 +14,7 @@ const ListCard = ({ dataKey }) => {
     const list = useSelector(state => state.lists.all[dataKey])
     if (!list) return null
 
-    const dates = formatListDate(list.start_date_sort, list.end_date_sort)
+    const dates = formatDateRange(list.start_date_sort, list.end_date_sort)
 
     const openList = () => {
         history.push(`/lists/${list.id}`)
@@ -29,7 +29,7 @@ const ListCard = ({ dataKey }) => {
                 {list.title}
             </div>
             <div className='list-card__date'>{dates}</div>
-            <ListCardHost host={list.host} />
+            <Host host={list.host} />
             <div className='list-card__editorial card-fade'>
                 {list.editorial}
             </div>

@@ -16,6 +16,24 @@ const monthName = monthNum => {
     }
 }
 
+const monthNameShort = monthNum => {
+    switch (monthNum) {
+        case 0: return 'Jan'
+        case 1: return 'Feb'
+        case 2: return 'Mar'
+        case 3: return 'Apr'
+        case 4: return 'May'
+        case 5: return 'Jun'
+        case 6: return 'Jul'
+        case 7: return 'Aug'
+        case 8: return 'Sep'
+        case 9: return 'Oct'
+        case 10: return 'Nov'
+        case 11: return 'Dec'
+        default: return Error('Not a month. Number must be between 0 and 11.')
+    }
+}
+
 const weekDayName = weekDay => {
     switch (weekDay) {
         case 0: return 'Sunday'
@@ -25,6 +43,19 @@ const weekDayName = weekDay => {
         case 4: return 'Thursday'
         case 5: return 'Friday'
         case 6: return 'Saturday'
+        default: return Error('Not a week day. Number must be between 0 and 6.')
+    }
+}
+
+const weekDayNameShort = weekDay => {
+    switch (weekDay) {
+        case 0: return 'Sun'
+        case 1: return 'Mon'
+        case 2: return 'Tue'
+        case 3: return 'Wed'
+        case 4: return 'Thu'
+        case 5: return 'Fri'
+        case 6: return 'Sat'
         default: return Error('Not a week day. Number must be between 0 and 6.')
     }
 }
@@ -83,14 +114,27 @@ export const getFirstSundayOfMonth = date => {
     return new Date(firstOfMonth.setDate(monthDay - weekDay))
 }
 
-export const formatListDate = (startSort, endSort) => {
+export const formatDateRange = (startDate, endDate, startOnly=false) => {
     const dates = [
-        dateFromSort(startSort),
-        dateFromSort(endSort),
+        typeof startDate === 'string' ? dateFromSort(startDate) : startDate,
+        typeof endDate === 'string' ? dateFromSort(endDate) : endDate,
     ]
     const formatted = dates.map(date => {
         return `${monthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`
     })
+    if (startOnly) return formatted[0]
+    return `${formatted[0]} - ${formatted[1]}`
+}
+
+export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
+    const dates = [
+        typeof startDate === 'string' ? dateFromSort(startDate) : startDate,
+        typeof endDate === 'string' ? dateFromSort(endDate) : endDate,
+    ]
+    const formatted = dates.map(date => {
+        return `${monthNameShort(date.getMonth())} ${date.getDate()}`
+    })
+    if (startOnly) return formatted[0]
     return `${formatted[0]} - ${formatted[1]}`
 }
 
@@ -114,19 +158,19 @@ export const makeDays = (date, numDays=1, viewId) => {
     return result
 }
 
-export const getCalendarLabel = (date, viewId) => {
-    let baseDate = typeof date === 'string' ? dateFromSort(date) : date
+export const getCalendarLabel = (startDate, endDate, viewId) => {
+    let startBaseDate = typeof startDate === 'string' ? dateFromSort(startDate) : startDate
     switch (viewId) {
         case 1:
-            while (baseDate.getDate() !== 1) {
-                const currentDate = baseDate.getDate()
-                baseDate = new Date(baseDate.setDate(currentDate + 1))
+            while (startBaseDate.getDate() !== 1) {
+                const currentDate = startBaseDate.getDate()
+                startBaseDate = new Date(startBaseDate.setDate(currentDate + 1))
             }
-            return monthName(baseDate.getMonth())
+            return monthName(startBaseDate.getMonth())
         case 2:
-            return 'week'
+            return formatDateRangeShort(startDate, endDate)
         case 3:
-            return 'day'
+            return formatDateRangeShort(startDate, endDate, true)
         default:
             return 'error'
     }

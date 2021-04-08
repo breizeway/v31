@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './Calendar.css'
 import * as dateActions from '../../services/dates'
-import ListDay from './ListDay'
+import CalDay from './CalDay'
 
 const Calendars = ({ listStartSort, listId }) => {
     const viewOptions = {
@@ -14,19 +14,22 @@ const Calendars = ({ listStartSort, listId }) => {
 
     const [firstDay, setFirstDay] = useState(listStartSort)
     const days = dateActions.makeDays(firstDay, view.length, view.id)
-    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, view.id)
+    const headers = view.id === 1 || view.id === 2 ?
+        ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] :
+        []
+    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, days[days.length - 1].obj, view.id)
 
     return (
-        <div className='list-days flex-column-sml'>
-            <div className='list-days__controls'>
-                <div className='list-days__view-page'>
+        <div className='calendar flex-column-sml'>
+            <div className='calendar__controls'>
+                <div className='calendar__view-page'>
                     <div
                         className='icon-big'
                         onClick={() => setFirstDay(dateActions.changeDate(firstDay, view.length, false))}
                     >
                         <i className='fas fa-chevron-left' />
                     </div>
-                    <div className='list-days__view-label button-big'>
+                    <div className='calendar__view-label button-big'>
                         {calendarLabel}
                     </div>
                     <div
@@ -36,7 +39,7 @@ const Calendars = ({ listStartSort, listId }) => {
                         <i className='fas fa-chevron-right' />
                     </div>
                 </div>
-                <div className='list-days__view-length'>
+                <div className='calendar__view-length'>
                     <div className='button-big'>
                         <select
                             value={JSON.stringify(view)}
@@ -49,9 +52,14 @@ const Calendars = ({ listStartSort, listId }) => {
                     </div>
                 </div>
             </div>
-            <div className='list-days__days'>
+            <div className='calendar__headers'>
+                {headers.map(header => (
+                    <div className='calendar__header'>{header}</div>
+                ))}
+            </div>
+            <div className='calendar__days'>
                 {days.map((day, i) => (
-                    <ListDay
+                    <CalDay
                         key={i}
                         day={day}
                         listId={listId}

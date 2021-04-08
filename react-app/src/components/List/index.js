@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './List.css'
 import * as listActions from '../../store/lists'
-import { formatListDate } from '../../services/dates'
+import { formatDateRange } from '../../services/dates'
 import Calendar from '../Calendar'
+import Host from '../Host'
 
 
 const List = () => {
@@ -22,12 +23,13 @@ const List = () => {
 
     if (!list) return null
 
-    const dates = formatListDate(list.start_date_sort, list.end_date_sort)
+    const dates = formatDateRange(list.start_date_sort, list.end_date_sort)
 
     return (
         <div className='list flex-column-med'>
             <div className='list__title header-1'>{list.title}</div>
             <div className='list__date'>{dates}</div>
+            <Host host={list.host} />
             <div className='list__editorial'>{list.editorial}</div>
             <Calendar
                 listStartSort={list.start_date_sort}
