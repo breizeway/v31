@@ -47,10 +47,9 @@ export const makeDay = dateObj => {
 }
 
 export const changeDate = (date, numDays, forward) => {
+    console.log('   :::NUMDAYS:::   ', numDays);
     const baseDate = typeof date === 'string' ? dateFromSort(date) : date
-    console.log('   :::BASEDATE.GETDATE():::   ', baseDate.getDate());
-    const newDays = forward ? baseDate.getDate() + numDays : baseDate.getDate() - numDays
-    console.log('   :::NEWDAYS:::   ', newDays);
+    const newDays = forward ? baseDate.getDate() + parseInt(numDays) : baseDate.getDate() - parseInt(numDays)
     const newDate = new Date(baseDate.setDate(newDays))
     return sortFromDate(newDate)
 }
@@ -77,6 +76,14 @@ export const getPriorSunday = date => {
     return new Date(baseDate.setDate(monthDay - weekDay))
 }
 
+export const getFirstSundayOfMonth = date => {
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    const firstOfMonth = new Date(baseDate.setDate(1))
+    const weekDay = firstOfMonth.getDay()
+    const monthDay = firstOfMonth.getDate()
+    return new Date(firstOfMonth.setDate(monthDay - weekDay))
+}
+
 export const formatListDate = (startSort, endSort) => {
     const dates = [
         dateFromSort(startSort),
@@ -88,11 +95,19 @@ export const formatListDate = (startSort, endSort) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-export const makeDays = (date, numDays=1, startOnSunday=true) => {
+export const makeDays = (date, numDays=1, viewId) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
         let baseDate = typeof date === 'string' ? dateFromSort(date) : date
-        if (startOnSunday) baseDate = getPriorSunday(baseDate)
+        switch (viewId) {
+            case 1:
+                baseDate = getFirstSundayOfMonth(baseDate)
+                break
+            case 2:
+                baseDate = getPriorSunday(baseDate)
+                break
+            default: break
+        }
         baseDate.setDate(baseDate.getDate() + i)
         const day = makeDay(baseDate)
         result.push(day)

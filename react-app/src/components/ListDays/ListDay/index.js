@@ -28,7 +28,7 @@ const ListDay = ({ listId, day }) => {
                 onClick={clickDay}
             >
                 <div className='list-day__date'>
-                    {day.date}
+                    {day.sort}
                 </div>
                 {pick ? (
                     <div>
