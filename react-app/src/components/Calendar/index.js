@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import './ListDays.css'
+import './Calendar.css'
 import * as dateActions from '../../services/dates'
 import ListDay from './ListDay'
 
-const ListDays = ({ listStartSort, listId }) => {
+const Calendars = ({ listStartSort, listId }) => {
     const viewOptions = {
         month: {id: 1, label: 'Month', length: 42},
         week: {id: 2, label: 'Week', length: 7},
@@ -26,7 +26,7 @@ const ListDays = ({ listStartSort, listId }) => {
                     >
                         <i className='fas fa-chevron-left' />
                     </div>
-                    <div className='button-big'>
+                    <div className='list-days__view-label button-big'>
                         {calendarLabel}
                     </div>
                     <div
@@ -37,7 +37,7 @@ const ListDays = ({ listStartSort, listId }) => {
                     </div>
                 </div>
                 <div className='list-days__view-length'>
-                    <div className='form-field'>
+                    <div className='button-big'>
                         <select
                             value={JSON.stringify(view)}
                             onChange={e => setView(JSON.parse(e.target.value))}
@@ -63,4 +63,4 @@ const ListDays = ({ listStartSort, listId }) => {
 }
 
 
-export default ListDays
+export default Calendars

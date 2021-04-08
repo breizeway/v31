@@ -5,7 +5,7 @@ import './ListDay.css'
 import Modal from '../../Modal'
 import Pick from '../../Pick'
 
-const ListDay = ({ listId, day }) => {
+const Calendar = ({ listId, day }) => {
     const modalVisible = useSelector(state => state.modal.visible)
     const [thisModalVisible, setThisModalVisible] = useState(false)
     useEffect(() => {
@@ -48,4 +48,4 @@ const ListDay = ({ listId, day }) => {
 }
 
 
-export default ListDay
+export default Calendar

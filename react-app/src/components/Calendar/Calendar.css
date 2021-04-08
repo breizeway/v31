@@ -6,8 +6,8 @@
 .list-days__days {
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(0, 0, 0, 0.15);
-  border-radius: var(--size__med-space)
+  border-radius: var(--size__med-space);
+  /* border: 1px solid var(--color__border); */
 }
 
 .list-days__view-length {

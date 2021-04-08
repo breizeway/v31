@@ -99,7 +99,7 @@ const Pick = ({ listId, day }) => {
 
         await dispatch(pickActions.runCommitPick(finalStagedPick))
 
-        // update ListDay
+        // update Calendar
         await dispatch(listActions.runAddLists([listId]))
         dispatch(pickActions.stagePick(null));
         setEditMode(false)

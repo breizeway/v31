@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import './List.css'
 import * as listActions from '../../store/lists'
 import { formatListDate } from '../../services/dates'
-import ListDays from '../ListDays'
+import Calendar from '../Calendar'
 
 
 const List = () => {
@@ -29,7 +29,7 @@ const List = () => {
             <div className='list__title header-1'>{list.title}</div>
             <div className='list__date'>{dates}</div>
             <div className='list__editorial'>{list.editorial}</div>
-            <ListDays
+            <Calendar
                 listStartSort={list.start_date_sort}
                 listId={list.id}
             />
