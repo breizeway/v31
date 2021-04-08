@@ -1,13 +1,17 @@
 :root {
-  --color__theme-1: #eee;
-  --color__navbar: #ddd;
+  --color__layer-0: #ffffff;
+  --color__layer-1: #eeeeee;
+  --color__layer-2: #dddddd;
 
-  --color__background: default;
-  --color__card: #eee;
+  /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
+  --color__alpha-0: #00000022;
+  --color__alpha-1: #00000044;
+  --color__alpha-2: #000000dd;
+
   --color__text: default;
   --color__text-light: gray;
+
   --color__a: default;
-  --color__darker: rgba(0, 0, 0, 0.15);
 
   --size__text-1: 40px;
   --size__text-2: 32px;
@@ -21,15 +25,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color__theme-1: #223;
-    --color__navbar: #334;
+    --color__layer-0: #222233;
+    --color__layer-1: #333344;
+    --color__layer-2: #444455;
 
-    --color__background: #223;
-    --color__card: #445;
-    --color__text: #eee;
+    /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
+    --color__alpha-0: #ffffff22;
+    --color__alpha-1: #ffffff44;
+    --color__alpha-2: #ffffff66;
+    --color__alpha-0-flip: #00000022;
+    --color__alpha-1-flip: #00000044;
+    --color__alpha-2-flip: #00000066;
+
+    --color__text: #ffffff;
     --color__text-light: gray;
+
     --color__a: #ddf;
-    --color__darker: rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -52,7 +63,7 @@ body, #root {
 
 body,
 html {
-  background-color: var(--color__background);
+  background-color: var(--color__layer-0);
   color: var(--color__text);
 }
 
@@ -96,7 +107,7 @@ input:focus, textarea:focus, select:focus {
   padding: var(--size__big-space);
   border-radius: var(--size__big-space);
   margin: var(--size__big-space) 0;
-  background-color: var(--color__card);
+  background-color: var(--color__layer-2);
 }
 
 
@@ -111,7 +122,7 @@ input:focus, textarea:focus, select:focus {
   height: var(--size__big-space);
   padding: 0 calc(var(--size__big-space) / 3);
   border-radius: calc(var(--size__big-space) / 2);
-  background-color: var(--color__darker);
+  background-color: var(--color__alpha-1-flip);
   /* box-shadow: inset 1px 1px 2px gray; */
 }
 
@@ -142,7 +153,7 @@ input:focus, textarea:focus, select:focus {
   border-radius: calc(var(--size__big-space) / 2);
   color: var(--color__text);
   font-size: calc(var(--size__big-space) / 2);
-  background-color: var(--color__darker)
+  background-color: var(--color__alpha-1)
 }
 
 .icon-big:hover {
@@ -158,7 +169,7 @@ input:focus, textarea:focus, select:focus {
   border-radius: calc(var(--size__big-space) / 2);
   color: var(--color__text);
   font-size: calc(var(--size__big-space) / 2);
-  background-color: var(--color__darker);
+  background-color: var(--color__alpha-1);
   padding: 0 calc(var(--size__big-space) / 2);
 }
 

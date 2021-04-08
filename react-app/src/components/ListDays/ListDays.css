@@ -6,7 +6,7 @@
 .list-days__days {
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--color__layer-2);
   border-radius: var(--size__med-space)
 }
 

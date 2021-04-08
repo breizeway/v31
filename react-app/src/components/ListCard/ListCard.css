@@ -2,7 +2,7 @@
   padding: var(--size__big-space);
   border-radius: var(--size__big-space);
   margin: var(--size__big-space) 0;
-  background-color: var(--color__card);
+  background-color: var(--color__layer-2);
   max-width: 800px;
 } */
 
@@ -35,5 +35,5 @@
   right: 0;
   width: 30%;
   height: var(--size__line-height);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--color__card) 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--color__layer-2) 80%);
 }

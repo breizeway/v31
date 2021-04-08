@@ -26,7 +26,7 @@ const ListDays = ({ listStartSort, listId }) => {
                     >
                         <i className='fas fa-chevron-left' />
                     </div>
-                    <div className='button-big'>
+                    <div className='list-days__view-label button-big'>
                         {calendarLabel}
                     </div>
                     <div
@@ -37,7 +37,7 @@ const ListDays = ({ listStartSort, listId }) => {
                     </div>
                 </div>
                 <div className='list-days__view-length'>
-                    <div className='form-field'>
+                    <div className='button-big'>
                         <select
                             value={JSON.stringify(view)}
                             onChange={e => setView(JSON.parse(e.target.value))}
