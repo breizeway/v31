@@ -10,7 +10,7 @@
   --color__border: #aaaaaa;
 
   /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
-  --color__alpha-0: #00000011;
+  --color__alpha-0: #00000022;
   --color__alpha-1: #00000044;
   --color__alpha-2: #000000dd;
 
@@ -46,7 +46,7 @@
     --color__alpha-0: #ffffff11;
     --color__alpha-1: #ffffff44;
     --color__alpha-2: #ffffff66;
-    --color__alpha-0-flip: #00000022;
+    --color__alpha-0-flip: #00000011;
     --color__alpha-1-flip: #00000044;
     --color__alpha-2-flip: #00000066;
 
