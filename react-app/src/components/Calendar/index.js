@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import './ListDays.css'
+import './Calendar.css'
 import * as dateActions from '../../services/dates'
 import ListDay from './ListDay'
 
-const ListDays = ({ listStartSort, listId }) => {
+const Calendars = ({ listStartSort, listId }) => {
     const viewOptions = {
         month: {id: 1, label: 'Month', length: 42},
         week: {id: 2, label: 'Week', length: 7},
@@ -63,4 +63,4 @@ const ListDays = ({ listStartSort, listId }) => {
 }
 
 
-export default ListDays
+export default Calendars

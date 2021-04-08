@@ -3,6 +3,12 @@
   --color__layer-1: #eeeeee;
   --color__layer-2: #dddddd;
 
+  --color__theme-1: rgb(133, 34, 34);
+
+  --color__control: #767682;
+  --color__input: #eeeeee;
+  --color__border: #aaaaaa;
+
   /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
   --color__alpha-0: #00000022;
   --color__alpha-1: #00000044;
@@ -25,9 +31,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color__layer-0: #222233;
-    --color__layer-1: #333344;
-    --color__layer-2: #444455;
+    --color__layer-0: #161620;
+    --color__layer-1: #2f2f3f;
+    --color__layer-2: #3d3d49;
+
+    --color__theme-1: rgb(148, 56, 56);
+
+    --color__control: #767682;
+    --color__input: #000000;
+    --color__border: #373753;
 
     /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
     --color__alpha-0: #ffffff22;
@@ -37,7 +49,7 @@
     --color__alpha-1-flip: #00000044;
     --color__alpha-2-flip: #00000066;
 
-    --color__text: #ffffff;
+    --color__text: #eeeeee;
     --color__text-light: gray;
 
     --color__a: #ddf;
@@ -72,11 +84,12 @@ a, .icon {
 }
 
 input, textarea, select {
-  color: var(--color__text);
+  color: inherit;
   background-color: rgba(0, 0, 0, 0);
   width: 100%;
   height: 100%;
   border: none;
+  font-weight: inherit;
 }
 
 textarea {
@@ -107,7 +120,8 @@ input:focus, textarea:focus, select:focus {
   padding: var(--size__big-space);
   border-radius: var(--size__big-space);
   margin: var(--size__big-space) 0;
-  background-color: var(--color__layer-2);
+  background-color: var(--color__layer-0);
+  border: 1px solid var(--color__border);
 }
 
 
@@ -122,7 +136,8 @@ input:focus, textarea:focus, select:focus {
   height: var(--size__big-space);
   padding: 0 calc(var(--size__big-space) / 3);
   border-radius: calc(var(--size__big-space) / 2);
-  background-color: var(--color__alpha-1-flip);
+  background-color: var(--color__input);
+  box-shadow: inset 0 0 3px 1px var(--color__border);
   /* box-shadow: inset 1px 1px 2px gray; */
 }
 
@@ -150,14 +165,20 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   width: var(--size__big-space);
   height: var(--size__big-space);
+  border: 3px solid var(--color__theme-1);
   border-radius: calc(var(--size__big-space) / 2);
-  color: var(--color__text);
+  /* color: var(--color__text); */
   font-size: calc(var(--size__big-space) / 2);
-  background-color: var(--color__alpha-1)
+  /* background-color: var(--color__control); */
+  font-weight: bold;
+  background-color: var(--color__theme-1);
+  color: var(--color__layer-0);
 }
 
 .icon-big:hover {
   cursor: pointer;
+  color: var(--color__theme-1);
+  background-color: #00000000;
 }
 
 .button-big {
@@ -166,11 +187,12 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   width: auto;
   height: var(--size__big-space);
+  border: 3px solid var(--color__theme-1);
   border-radius: calc(var(--size__big-space) / 2);
-  color: var(--color__text);
-  font-size: calc(var(--size__big-space) / 2);
-  background-color: var(--color__alpha-1);
   padding: 0 calc(var(--size__big-space) / 2);
+  font-weight: bold;
+  background-color: var(--color__theme-1);
+  color: var(--color__layer-0);
 }
 
 .button-big:not(.button-big:first-child) {
@@ -179,4 +201,6 @@ input:focus, textarea:focus, select:focus {
 
 .button-big:hover {
   cursor: pointer;
+  color: var(--color__theme-1);
+  background-color: #00000000;
 }
