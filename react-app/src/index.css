@@ -23,6 +23,7 @@
   --size__text-2: 32px;
   --size__text-explanation: 12px;
   --size__line-height: 1.4em;
+  --size__bgr-space: 64px;
   --size__big-space: 32px;
   --size__med-space: 16px;
   --size__sml-space: 8px;
@@ -42,10 +43,10 @@
     --color__border: #373753;
 
     /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
-    --color__alpha-0: #ffffff22;
+    --color__alpha-0: #ffffff11;
     --color__alpha-1: #ffffff44;
     --color__alpha-2: #ffffff66;
-    --color__alpha-0-flip: #00000022;
+    --color__alpha-0-flip: #00000011;
     --color__alpha-1-flip: #00000044;
     --color__alpha-2-flip: #00000066;
 
@@ -90,17 +91,25 @@ input, textarea, select {
   height: 100%;
   border: none;
   font-weight: inherit;
+  font-size: inherit;
+}
+
+select:hover {
+  cursor: pointer;
 }
 
 textarea {
   height: 100px;
   padding-top: calc(var(--size__big-space) / 3);
   font-family: inherit;
+  font-size: inherit;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
 }
+
+
 
 .header-1 {
   font-size: var(--size__text-1);
@@ -181,6 +190,28 @@ input:focus, textarea:focus, select:focus {
   background-color: #00000000;
 }
 
+.icon-bigger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size__bgr-space);
+  height: var(--size__bgr-space);
+  border: 3px solid var(--color__theme-1);
+  border-radius: calc(var(--size__bgr-space) / 2);
+  /* color: var(--color__text); */
+  font-size: calc(var(--size__bgr-space) / 2);
+  /* background-color: var(--color__control); */
+  font-weight: bold;
+  background-color: var(--color__theme-1);
+  color: var(--color__layer-0);
+}
+
+.icon-bigger:hover {
+  cursor: pointer;
+  color: var(--color__theme-1);
+  background-color: #00000000;
+}
+
 .button-big {
   display: flex;
   justify-content: center;
@@ -200,6 +231,30 @@ input:focus, textarea:focus, select:focus {
 }
 
 .button-big:hover {
+  cursor: pointer;
+  color: var(--color__theme-1);
+  background-color: #00000000;
+}
+
+.button-bigger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: var(--size__bgr-space);
+  border: 3px solid var(--color__theme-1);
+  border-radius: calc(var(--size__bgr-space) / 2);
+  padding: 0 calc(var(--size__bgr-space) / 2);
+  font-weight: bold;
+  background-color: var(--color__theme-1);
+  color: var(--color__layer-0);
+}
+
+.button-bigger:not(.button-bigger:first-child) {
+  margin-left: calc(var(--size__bgr-space) / 4);
+}
+
+.button-bigger:hover {
   cursor: pointer;
   color: var(--color__theme-1);
   background-color: #00000000;

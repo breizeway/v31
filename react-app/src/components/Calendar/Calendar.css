@@ -1,28 +1,47 @@
-.list-days__controls {
+.calendar__controls {
   display: flex;
   justify-content: space-between;
 }
 
-.list-days__days {
+.calendar__headers {
+  display: flex;
+}
+
+.calendar__header {
+  display: flex;
+  justify-content: flex-end;
+  width: calc(100%/7);
+  padding: 0 var(--size__med-space);
+  margin-top: var(--size__sml-space);
+  color: var(--color__theme-1);
+  font-weight: bold;
+}
+
+.calendar__view-label {
+  width: 175px;
+}
+
+.calendar__days {
   display: flex;
   flex-wrap: wrap;
-  border-radius: var(--size__med-space);
-  /* border: 1px solid var(--color__border); */
+  /* border-radius: var(--size__med-space); */
+  border-top: 1px solid var(--color__border);
+  border-bottom: 1px solid var(--color__border);
 }
 
-.list-days__view-length {
-  width: 100px;
+.calendar__view-length {
+  width: 125px;
 }
 
-.list-days__view-page {
+.calendar__view-page {
   display: flex;
   justify-content: space-between;
 }
 
-.list-days__controls > *:not(.list-days__controls > *:first-child) {
+.calendar__controls > *:not(.calendar__controls > *:first-child) {
   margin-left: var(--size__med-space);
 }
 
-.list-days__view-page > *:not(.list-days__view-page > *:first-child) {
+.calendar__view-page > *:not(.calendar__view-page > *:first-child) {
   margin-left: var(--size__sml-space);
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import './ListCardHost.css'
-import ProfileImg from '../../images/ProfileImg'
+import './Host.css'
+import ProfileImg from '../images/ProfileImg'
 
 
-const ListCardHost = ({ host }) => {
+const Host = ({ host }) => {
     const userId = useSelector(state => state.session.user?.id)
 
     return (
@@ -30,4 +30,4 @@ const ListCardHost = ({ host }) => {
 }
 
 
-export default ListCardHost
+export default Host
