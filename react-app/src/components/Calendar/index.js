@@ -36,14 +36,10 @@ const Calendars = ({ listStartSort, listId }) => {
     const daysDefault = dateActions.makeDays(listStartSort, viewOptions.val[view.val].days, viewOptions.val[view.val].id)
     const days = useSelector(state => state.components.Calendar.days[listId]) || daysDefault
 
-    // checkpoint
-
     // set up Redux state with default values on the first render
     const rendered = useSelector(state => state.components.Calendar.rendered).has(listId)
     useEffect(() => {
         if (!rendered) {
-            // console.log('   :::DAYSDEFAULT in render:::   ', daysDefault);
-
             dispatch(calendarActions.setView(listId, viewDefault))
             dispatch(calendarActions.setViewStart(listId, viewStartDefault))
             dispatch(calendarActions.setDays(listId))

@@ -155,7 +155,6 @@ export const makeDays = (date, numDays=1, viewId) => {
         const day = makeDay(baseDate)
         result.push(day)
     }
-    console.log('   :::RESULT:::   ', result);
     return result
 }
 

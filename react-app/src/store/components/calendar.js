@@ -71,9 +71,7 @@ const calendarReducer = (state = defaultState, action) => {
             const arg2 = newState.viewOptions[newState.view[listId]].days
             const arg3 = newState.viewOptions[newState.view[listId]].id
             const days = dateActions.makeDays(arg1, arg2, arg3)
-            console.log('   :::DAYSREDUCCCER:::   ', days);
             newState.days[listId] = []
-            console.log('   :::NEWSTATE.DAYS[LISTID]:::   ', newState.days[listId]);
             newState.days[listId] = days
             return newState
         default:
