@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './Calendar.css'
 import * as dateActions from '../../services/dates'
@@ -10,14 +11,14 @@ const Calendars = ({ listStartSort, listId }) => {
         week: {id: 2, label: 'Week', length: 7},
         day: {id: 3, label: 'Day', length: 1},
     }
-    const [view, setView] = useState(viewOptions.month)
+    const [view, setView] = useState('month')
 
     const [firstDay, setFirstDay] = useState(listStartSort)
-    const days = dateActions.makeDays(firstDay, view.length, view.id)
-    const headers = view.id === 1 || view.id === 2 ?
+    const days = dateActions.makeDays(firstDay, viewOptions[view].length, viewOptions[view].id)
+    const headers = viewOptions[view].id === 1 || viewOptions[view].id === 2 ?
         ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] :
         []
-    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, days[days.length - 1].obj, view.id)
+    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, days[days.length - 1].obj, viewOptions[view].id)
 
     return (
         <div className='calendar flex-column-sml'>
@@ -25,7 +26,7 @@ const Calendars = ({ listStartSort, listId }) => {
                 <div className='calendar__view-page'>
                     <div
                         className='icon-big'
-                        onClick={() => setFirstDay(dateActions.changeDate(firstDay, view.length, false))}
+                        onClick={() => setFirstDay(dateActions.changeDate(firstDay, viewOptions[view].length, false))}
                     >
                         <i className='fas fa-chevron-left' />
                     </div>
@@ -34,7 +35,7 @@ const Calendars = ({ listStartSort, listId }) => {
                     </div>
                     <div
                         className='icon-big'
-                        onClick={() => setFirstDay(dateActions.changeDate(firstDay, view.length, true))}
+                        onClick={() => setFirstDay(dateActions.changeDate(firstDay, viewOptions[view].length, true))}
                     >
                         <i className='fas fa-chevron-right' />
                     </div>
@@ -42,11 +43,11 @@ const Calendars = ({ listStartSort, listId }) => {
                 <div className='calendar__view-length'>
                     <div className='button-big'>
                         <select
-                            value={JSON.stringify(view)}
-                            onChange={e => setView(JSON.parse(e.target.value))}
+                            value={view}
+                            onChange={e => setView(e.target.value)}
                         >
                             {Object.keys(viewOptions).map(key => (
-                                <option key={key} value={JSON.stringify(viewOptions[key])}>{viewOptions[key].label}</option>
+                                <option key={key} value={key}>{viewOptions[key].label}</option>
                             ))}
                         </select>
                     </div>
