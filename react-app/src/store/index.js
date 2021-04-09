@@ -8,6 +8,7 @@ import locationReducer from './location';
 import modalReducer from './modal';
 import mediaReducer from './media';
 
+import componentReducer from './components'
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     location: locationReducer,
     modal: modalReducer,
     media: mediaReducer,
+    components: componentReducer,
 });
 
 let enhancer;

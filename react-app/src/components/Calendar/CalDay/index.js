@@ -49,7 +49,7 @@ const Calendar = ({ listId, day }) => {
                         onMouseOut={() => setAddButtonHidden(true)}
                     >
                         <div
-                            className='cal-day__add-button icon-bigger'
+                            className='cal-day__add-button icon-big'
                             style={{display: addButtonHidden ? 'none' : 'flex'}}
                             onClick={clickDay}
                         >
