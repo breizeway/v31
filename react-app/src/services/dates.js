@@ -78,7 +78,7 @@ export const makeDay = dateObj => {
 }
 
 export const changeDate = (date, numDays, forward) => {
-    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const newDays = forward ? baseDate.getDate() + parseInt(numDays) : baseDate.getDate() - parseInt(numDays)
     const newDate = new Date(baseDate.setDate(newDays))
     return sortFromDate(newDate)
@@ -100,14 +100,14 @@ const dateFromSort = dateSort => {
 }
 
 export const getPriorSunday = date => {
-    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const weekDay = baseDate.getDay()
     const monthDay = baseDate.getDate()
     return new Date(baseDate.setDate(monthDay - weekDay))
 }
 
 export const getFirstSundayOfMonth = date => {
-    const baseDate = typeof date === 'string' ? dateFromSort(date) : date
+    const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const firstOfMonth = new Date(baseDate.setDate(1))
     const weekDay = firstOfMonth.getDay()
     const monthDay = firstOfMonth.getDate()
@@ -116,8 +116,8 @@ export const getFirstSundayOfMonth = date => {
 
 export const formatDateRange = (startDate, endDate, startOnly=false) => {
     const dates = [
-        typeof startDate === 'string' ? dateFromSort(startDate) : startDate,
-        typeof endDate === 'string' ? dateFromSort(endDate) : endDate,
+        typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate),
+        typeof endDate === 'string' ? dateFromSort(endDate) : new Date(endDate),
     ]
     const formatted = dates.map(date => {
         return `${monthName(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`
@@ -128,8 +128,8 @@ export const formatDateRange = (startDate, endDate, startOnly=false) => {
 
 export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
     const dates = [
-        typeof startDate === 'string' ? dateFromSort(startDate) : startDate,
-        typeof endDate === 'string' ? dateFromSort(endDate) : endDate,
+        typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate),
+        typeof endDate === 'string' ? dateFromSort(endDate) : new Date(endDate),
     ]
     const formatted = dates.map(date => {
         return `${monthNameShort(date.getMonth())} ${date.getDate()}`
@@ -141,7 +141,7 @@ export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
 export const makeDays = (date, numDays=1, viewId) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
-        let baseDate = typeof date === 'string' ? dateFromSort(date) : date
+        let baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
         switch (viewId) {
             case 1:
                 baseDate = getFirstSundayOfMonth(baseDate)
@@ -155,11 +155,12 @@ export const makeDays = (date, numDays=1, viewId) => {
         const day = makeDay(baseDate)
         result.push(day)
     }
+    console.log('   :::RESULT:::   ', result);
     return result
 }
 
 export const getCalendarLabel = (startDate, endDate, viewId) => {
-    let startBaseDate = typeof startDate === 'string' ? dateFromSort(startDate) : startDate
+    let startBaseDate = typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate)
     switch (viewId) {
         case 1:
             while (startBaseDate.getDate() !== 1) {

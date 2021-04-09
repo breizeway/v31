@@ -1,5 +1,6 @@
 import os
 
+
 class Meta:
     token = os.environ.get('TMDB_TOKEN')
     base_url = 'https://api.themoviedb.org/3'
