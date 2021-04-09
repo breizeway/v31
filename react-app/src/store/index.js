@@ -7,8 +7,8 @@ import picksReducer from './picks';
 import locationReducer from './location';
 import modalReducer from './modal';
 import mediaReducer from './media';
-import calendarReducer from './components/calendar';
 
+import componentReducer from './components'
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -17,9 +17,7 @@ const rootReducer = combineReducers({
     location: locationReducer,
     modal: modalReducer,
     media: mediaReducer,
-    components: {
-        calendar: calendarReducer,
-    }
+    components: componentReducer,
 });
 
 let enhancer;
