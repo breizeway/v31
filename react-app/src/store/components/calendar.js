@@ -1,15 +1,9 @@
 import * as dateActions from '../../services/dates'
 
-const SET_VIEW_OPTIONS = 'Calendar/setViewOptions'
 const SET_VIEW = 'Calendar/setView'
 const SET_VIEW_START = 'Calendar/setViewStart'
+const SET_INITIAL_VIEW_START = 'Calendar/setInitialViewStart'
 const SET_DAYS = 'Calendar/setDays'
-
-export const setViewOptions = () => {
-    return {
-        type: SET_VIEW_OPTIONS
-    }
-}
 
 export const setView = (listId, data) => {
     return {
@@ -27,6 +21,14 @@ export const setViewStart = (listId, data) => {
     }
 }
 
+export const setInitialViewStart = (listId, data) => {
+    return {
+        type: SET_INITIAL_VIEW_START,
+        listId,
+        data
+    }
+}
+
 export const setDays = (listId) => {
     return {
         type: SET_DAYS,
@@ -34,12 +36,23 @@ export const setDays = (listId) => {
     }
 }
 
+export const runSetView = (listId, data) => async dispatch => {
+    const view = dispatch(setView(listId, data))
+    dispatch(setDays(listId))
+    return view
+}
+
+export const runSetViewStart = (listId, data) => async dispatch => {
+    const viewStart = dispatch(setViewStart(listId, data))
+    dispatch(setDays(listId))
+    return viewStart
+}
+
 const defaultState = {
     rendered: new Set(),
-    view: {
-        default: 'month'
-    },
+    view: {},
     viewStart: {},
+    initialViewStart: {},
     viewOptions: {
         month: {id: 1, label: 'Month', days: 42},
         week: {id: 2, label: 'Week', days: 7},
@@ -51,10 +64,6 @@ const defaultState = {
 const calendarReducer = (state = defaultState, action) => {
     let newState
     switch (action.type) {
-        case SET_VIEW_OPTIONS:
-            newState = {...state}
-            newState.viewOptions = defaultState.viewOptions
-            return newState
         case SET_VIEW:
             newState = {...state}
             newState.rendered.add(action.listId)
@@ -63,6 +72,10 @@ const calendarReducer = (state = defaultState, action) => {
         case SET_VIEW_START:
             newState = {...state}
             newState.viewStart[action.listId] = action.data
+            return newState
+        case SET_INITIAL_VIEW_START:
+            newState = {...state}
+            newState.initialViewStart[action.listId] = action.data
             return newState
         case SET_DAYS:
             newState = {...state}

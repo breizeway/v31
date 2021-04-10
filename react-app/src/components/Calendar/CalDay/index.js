@@ -22,9 +22,6 @@ const Calendar = ({ listId, day }) => {
         setThisModalVisible(true)
     }
 
-    const showAddButton = {}
-
-
     return (
         <>
             <div
@@ -58,7 +55,7 @@ const Calendar = ({ listId, day }) => {
                     </div>
                 )}
             </div>
-            {thisModalVisible && <Modal content={<Pick listId={listId} day={day} />} />}
+            {thisModalVisible && <Modal content={<Pick listId={listId} day={day} pickId={pick?.id || null}/>} />}
         </>
     )
 }

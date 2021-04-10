@@ -1,0 +1,21 @@
+.calendar-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-controls > *:not(.calendar-controls > *:first-child) {
+  margin-left: var(--size__med-space);
+}
+
+.calendar-controls__view-page > *:not(.calendar-controls__view-page > *:first-child) {
+  margin-left: var(--size__sml-space);
+}
+
+.calendar-controls__view-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-controls__view-length {
+  width: 125px;
+}

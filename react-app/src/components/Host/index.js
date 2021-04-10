@@ -16,6 +16,8 @@ const Host = ({ host }) => {
                     className='list-card-host__img'
                     url={host.ProfileImg}
                     length={50}
+                    userId={host.id}
+                    username={host.username}
                 />
                 <div className='list-card-host__username'>
                     {userId !== host.id ? (

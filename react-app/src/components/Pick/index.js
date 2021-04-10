@@ -4,22 +4,16 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './Pick.css'
 import MediaSearch from '../forms/MediaSearch'
+import Backdrop from '../images/Backdrop'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
 import * as listActions from '../../store/lists'
 
 
-const Pick = ({ listId, day }) => {
+const Pick = ({ listId, day, pickId }) => {
     const dispatch = useDispatch()
     const [loaded, setLoaded] = useState(false)
 
-    // check if this day for this list has a pick associated with it
-    // assign it to pick, if so
-    const pickId = useSelector(state => {
-        const exists = Object.keys(state.lists.all[listId]?.picks_by_date).includes(day.sort)
-        if (exists) return state.lists.all[listId].picks_by_date[day.sort].id
-        return null
-    })
     const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
     ////
@@ -125,8 +119,14 @@ const Pick = ({ listId, day }) => {
             )}
             {data && (
                 <>
-                    <div className='header-1'>{data.title}</div>
-                    <div>{data.media_data?.overview}</div>
+                    <div className='header-2'>{data.title}</div>
+                    <div className='pick__backdrop'>
+                        <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data?.backdrop_path}`} />
+                    </div>
+                    <div>
+                        <div className='text-explanation-small'>overview</div>
+                        <div>{data.media_data?.overview}</div>
+                    </div>
                 </>
             )}
             {editMode ? (
@@ -137,8 +137,11 @@ const Pick = ({ listId, day }) => {
                         onChange={e => setEditorial(e.target.value)}
                     />
                 </div>
-            ) : pick && (
-                <div>{pick?.editorial}</div>
+            ) : pick?.editorial && (
+                <div>
+                    <div className='text-explanation-small'>editorial</div>
+                    <div>{pick?.editorial}</div>
+                </div>
             )}
             <div className='pick__edit-controls'>
                 {editMode ? (

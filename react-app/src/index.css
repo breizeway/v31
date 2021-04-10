@@ -2,6 +2,7 @@
   --color__layer-0: #ffffff;
   --color__layer-1: #eeeeee;
   --color__layer-2: #dddddd;
+  --color__test: #4492b1;
 
   --color__theme-1: rgb(133, 34, 34);
 
@@ -123,6 +124,7 @@ input:focus, textarea:focus, select:focus {
   color: var(--color__text-light);
   text-transform: uppercase;
   font-size: var(--size__text-explanation);
+  margin-bottom: var(--size__sml-space)
 }
 
 .card {

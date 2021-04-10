@@ -1,5 +1,5 @@
-.poster:not(.poster:last-child) {
-  margin-right: 10px;
+.poster:not(.poster:first-child) {
+  margin-left: 10px;
 }
 
 .poster {
