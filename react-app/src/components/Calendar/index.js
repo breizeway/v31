@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './Calendar.css'
-import * as calendarActions from '../../store/components/calendar'
+import * as calendarActions from '../../store/components/Calendar'
 import CalDay from './CalDay'
 import CalControls from './CalControls'
 

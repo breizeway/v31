@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './CalControls.css'
 import * as dateActions from '../../../services/dates'
-import * as calendarActions from '../../../store/components/calendar'
+import * as calendarActions from '../../../store/components/Calendar'
 
 
 const CalControls = ({ listId }) => {
@@ -43,7 +43,7 @@ const CalControls = ({ listId }) => {
                 </div>
                 <div
                     className='button-big'
-                    onClick={() => viewStart.set(dateActions.changeDate(initialViewStart, viewOptions[view.val].days, true))}
+                    onClick={() => viewStart.set(initialViewStart)}
                     style={{width: calendarLabelWidth}}
                 >
                     {calendarLabel}

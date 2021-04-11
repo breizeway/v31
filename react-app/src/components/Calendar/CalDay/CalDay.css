@@ -46,5 +46,5 @@
 
 .cal-day__title:hover {
   cursor: pointer;
-  background-color: var(--color__alpha-0);
+  background-color: var(--color__layer-2);
 }
