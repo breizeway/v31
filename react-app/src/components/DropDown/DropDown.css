@@ -1,0 +1,7 @@
+.dropdown {
+  z-index: 30;
+  position: absolute;
+  top: 0;
+  border-radius: var(--size__sml-space);
+  background-color: var(--color__layer-1);
+}
