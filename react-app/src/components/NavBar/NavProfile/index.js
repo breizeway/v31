@@ -30,7 +30,7 @@ const NavProfile = () => {
     const dropDownOptions = {
         loggedIn: [
             {content: 'Account Settings', click: () => history.push('/account')},
-            {content: 'Log Out', click: onLogout},
+            {content: 'Logout', click: onLogout},
         ],
         loggedOut: [
             {content: 'Log In', click:  () => history.push('/login')},
@@ -47,15 +47,15 @@ const NavProfile = () => {
                 {user ? (
                     <ProfileImg
                         url={user?.profile_img}
-                        length={50}
+                        length={40}
                         userId={user?.id}
                         username={user?.username}
                     />
                 ) : (
                     <ProfileImg
                         url={null}
-                        length={50}
-                        userId={20}
+                        length={40}
+                        userId={29}
                         username='pl'
                     />
                 )}

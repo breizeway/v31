@@ -34,6 +34,13 @@ const NavMenu = () => {
                     >
                     </img>
                 </div>
+                <div className='nav-menu__arrow'>
+                    {dropDown.val === dropDownId ? (
+                        <i className='fas fa-angle-up'/>
+                    ) : (
+                        <i className='fas fa-angle-down'/>
+                    )}
+                </div>
             </div>
             {dropDown.val === dropDownId && (
                 <DropDown options={dropDownOptions} justify='left'/>

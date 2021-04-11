@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './DropDown.css'
-import { setActive } from '../../store/components/DropDown'
+import { removeActive } from '../../store/components/DropDown'
 
 const DropDown = ({ options, justify }) => {
     const dispatch = useDispatch()
 
     const dropDownVisible = {
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive())
+        rmv: () => dispatch(removeActive(dropDownVisible.val)),
     }
 
     const alignment = (() => {
@@ -17,9 +17,15 @@ const DropDown = ({ options, justify }) => {
         return {left: '0'}
     })()
 
+    const removeListener = () => document.removeEventListener('click', closeDropDown)
+    const closeDropDown = () => dropDownVisible.rmv()
+    useEffect(() => {
+        document.addEventListener('click', closeDropDown)
+        return () => removeListener()
+    }, [removeListener, closeDropDown])
 
     return dropDownVisible.val && (
-        <div className='dropdown' onClick={dropDownVisible.set}>
+        <div className='dropdown'>
             <div className='dropdown__content' style={alignment}>
                 {options.map((option, i) => (
                     <div
@@ -31,7 +37,6 @@ const DropDown = ({ options, justify }) => {
                     </div>
                 ))}
             </div>
-            <div className='dropdown__background' onClick={dropDownVisible.set}/>
         </div>
     )
 }

@@ -8,7 +8,6 @@ const ProfileImg = ({ url, length, userId, username }) => {
     let light = false
     const color = (() => {
         const val = ((1 / userId) * (22/7)).toString().slice(2, 8)
-        console.log('   :::VAL:::   ', val);
         let sum = 0
         let hex = ['#']
 

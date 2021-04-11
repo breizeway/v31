@@ -1,12 +1,15 @@
-.nav-menu {
-  height: 100%;
-}
-
 .nav-menu__content {
-  height: 100%;
+  height: 40px;
   /* position: relative; */
   display: flex;
-  flex-direction: column;
+  align-items: center;
+
+}
+
+.nav-menu__arrow {
+  margin: var(--size__sml-space);
+  color: var(--color__theme-1);
+  font-size: larger;
 }
 
 .logo-div {
