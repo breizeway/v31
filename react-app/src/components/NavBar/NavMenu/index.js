@@ -16,9 +16,8 @@ const NavMenu = () => {
         set: () => dispatch(setActive(dropDownId))
     }
     const dropDownOptions = [
-        {content: 'Home', click: () => history.push('/')},
-        {content: 'Dev', click:  () => history.push('/dev')},
-        {content: 'My', click:  () => history.push('/my')},
+        {content: <strong>Home</strong>, click: () => history.push('/')},
+        {content: 'Me', click:  () => history.push('/my')},
     ]
 
     return (

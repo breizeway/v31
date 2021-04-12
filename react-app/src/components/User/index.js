@@ -1,14 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import './User.css'
 
 
 const User = (props) => {
+    const history = useHistory()
+
+    const path = useLocation().pathname
+
     return (
         <div className='user'>
-            <h1>User</h1>
-            <Link to='/my/lists/new'>Add List</Link>
+            <div className='user-add'>
+                {path === '/my' && <div className='button-big' onClick={() => history.push('/my/lists/new')}>New List</div>}
+            </div>
             {props.children}
         </div>
     )
