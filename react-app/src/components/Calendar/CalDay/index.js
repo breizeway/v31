@@ -36,7 +36,7 @@ const Calendar = ({ listId, day }) => {
                     >
                         <div className='cal-day__title'
                         onClick={clickDay}>
-                            <span>{pick.title}</span>
+                            <span>{`${pick.title} ${pick.year && (`(${pick.year.slice(0, 4)})`)}`}</span>
                         </div>
                     </div>
                 ) : (
@@ -46,11 +46,11 @@ const Calendar = ({ listId, day }) => {
                         onMouseOut={() => setAddButtonHidden(true)}
                     >
                         <div
-                            className='cal-day__add-button icon-big'
+                            className='cal-day__add-button icon-bi'
                             style={{display: addButtonHidden ? 'none' : 'flex'}}
                             onClick={clickDay}
                         >
-                            <i className='fas fa-plus' />
+                            <i className='fas fa-plus' />&nbsp;Add Pick
                         </div>
                     </div>
                 )}

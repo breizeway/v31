@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './MediaSearch.css'
 import * as mediaActions from '../../../store/media'
+import { setActive } from '../../../store/components/DropDown'
+import DropDown from '../../DropDown'
 
 
 const MediaSearch = () => {
@@ -25,6 +27,20 @@ const MediaSearch = () => {
         dispatch(mediaActions.runSetSearchChoice(id))
     }
 
+    const dropDownId = MediaSearch.name
+    const dropDown = {
+        val: useSelector(state => state.components.DropDown.active),
+        set: () => dispatch(setActive(dropDownId))
+    }
+    const dropDownOptions = {
+        initial: [
+            {content: 'Keep typing...', click: null},
+        ],
+        search: searchResults.slice(0, 8).map(result => {
+            return {content: `${result.title} ${result.release_date && (`(${result.release_date.slice(0, 4)})`)}`, click: () => chooseFilm(result.id)}
+        })
+    }
+
     return (
         <div className='media-search'>
             <div
@@ -35,30 +51,22 @@ const MediaSearch = () => {
                         type='text'
                         value={query}
                         onChange={e => setQuery(e.target.value)}
+                        onClick={dropDown.set}
                         placeholder='search for film...'
                     ></input>
-                    {query.length > 0 && (
-                        <div className='media-search__autocomplete'>
-                            {query.length >= 1 && query.length <= 2 ? (
-                                <div>keep typing...</div>
-                            ) : searchResults && (
-                                searchResults.slice(0, 5).map(result => (
-                                    <div
-                                        className='media-search__autocomplete-row'
-                                        key={result.id}
-                                        onClick={() => chooseFilm(result.id)}
-                                    >
-                                        <div>{result.title} {result.release_date && (`(${result.release_date.slice(0, 4)})`)}</div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    )}
                     <div className='icon-med'>
                         <i className='fas fa-search' />
                     </div>
                 </div>
             </div>
+            {query.length > 0 && (
+                query.length >= 1 && query.length <= 2 ? (
+                    dropDown.val === dropDownId && <DropDown options={dropDownOptions.initial}/>
+                ) : searchResults && (
+                    dropDown.val === dropDownId && <DropDown options={dropDownOptions.search}/>
+
+                )
+            )}
         </div>
     )
 }

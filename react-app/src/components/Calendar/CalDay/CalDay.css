@@ -34,8 +34,25 @@
   width: 100%;
   height: 100%;
   display: flex;
+  padding: var(--size__med-space);
+  padding-top: 50px;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.cal-day__add-button {
+  background-color: var(--color__layer-1);
+  padding: 6px;
+  border-radius: 4px;
+  height: var(--size__big-space);
+  width: auto;
+  display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.cal-day__add-button:hover {
+  cursor: pointer;
+  background-color: var(--color__layer-2);
 }
 
 .cal-day__title {
@@ -46,5 +63,5 @@
 
 .cal-day__title:hover {
   cursor: pointer;
-  background-color: var(--color__alpha-0);
+  background-color: var(--color__layer-2);
 }

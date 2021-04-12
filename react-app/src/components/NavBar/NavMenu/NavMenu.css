@@ -1,0 +1,22 @@
+.nav-menu__content {
+  height: 40px;
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+
+}
+
+.nav-menu__arrow {
+  margin: var(--size__sml-space);
+  color: var(--color__theme-1);
+  font-size: larger;
+}
+
+.logo-div {
+  height: 100%;
+}
+
+.logo {
+  height: 100%;
+  width: auto;
+}

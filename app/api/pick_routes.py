@@ -39,9 +39,9 @@ def stage_pick():
     editorial = request.json['editorial']
     list_id = request.json['list_id']
     date = request.json['date']
-    print('   :::DATE:::   ', date)
 
     pick = Pick(title=media_data['title'],
+                year=media_data['release_date'][0:4],
                 editorial=editorial,
                 original_poster=media_data['poster_path'],
                 date=datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8])),
@@ -64,6 +64,7 @@ def commit_pick():
 
     new_pick = Pick(
         title=form.data['title'],
+        year=form.data['year'],
         editorial=form.data['editorial'],
         original_poster=form.data['original_poster'],
         date=date,

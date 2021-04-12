@@ -33,6 +33,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin: none;
+}
+
+.pick__edit-controls {
+  background: linear-gradient(to bottom, #00000000, var(--color__layer-0), var(--color__layer-0));
 }
 
 .pick__edit-group {

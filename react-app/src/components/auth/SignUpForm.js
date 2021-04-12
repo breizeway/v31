@@ -32,15 +32,15 @@ const SignUpForm = () => {
     }
 
     return (
-        <div className='container'>
-            <h2>Sign up</h2>
-            <form onSubmit={onSignUp}>
-                <div>
+        <div className='up-form'>
+            <form onSubmit={onSignUp} className='card'>
+                <div className='header-2'>Sign up</div>
+                {errors.length > 0 &&  <div className='val-errors'>
                     {errors.map((error, i) => (
                         <div key={i}>{error}</div>
                     ))}
-                </div>
-                <div>
+                </div>}
+                <div className='form-field'>
                     <input
                         className='input-top'
                         type='text'
@@ -50,7 +50,7 @@ const SignUpForm = () => {
                         value={username}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-middle'
                         type='text'
@@ -60,7 +60,7 @@ const SignUpForm = () => {
                         value={firstName}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-middle'
                         type='text'
@@ -70,7 +70,7 @@ const SignUpForm = () => {
                         value={lastName}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-middle'
                         type='text'
@@ -80,7 +80,7 @@ const SignUpForm = () => {
                         value={email}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-middle'
                         type='password'
@@ -90,7 +90,7 @@ const SignUpForm = () => {
                         value={password}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-bottom'
                         type='password'
@@ -102,11 +102,13 @@ const SignUpForm = () => {
                     ></input>
                 </div>
                 <div>
-                    <input type='submit' className='button' value='Sign up' />
+                    <div className='button-big'>
+                        <input type='submit' className='button' value='Sign up' />
+                    </div>
                 </div>
             </form>
-            <div className='footer'>
-                <Link className='lnk' to='/login'>Already have an account? Login</Link>
+            <div className='form-footer'>
+                Already have an account?&nbsp;<Link className='lnk' to='/login'>Log in</Link>
             </div>
         </div>
     );

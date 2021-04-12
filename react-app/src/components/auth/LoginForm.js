@@ -35,15 +35,15 @@ const LoginForm = () => {
     }
 
     return (
-        <div className='container'>
-            <h2>Login</h2>
-            <form onSubmit={onLogin}>
-                <div>
+        <div className='up-form'>
+            <form onSubmit={onLogin} className='card'>
+                <div className='header-2'>Login</div>
+                {errors.length > 0 && <div className='val-errors'>
                     {errors.map((error, i) => (
                         <div key={i}>{error}</div>
                     ))}
-                </div>
-                <div>
+                </div>}
+                <div className='form-field'>
                     <input
                         className='input-top'
                         name='username'
@@ -53,7 +53,7 @@ const LoginForm = () => {
                         onChange={updateUsername}
                     />
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         className='input-bottom'
                         name='password'
@@ -64,11 +64,13 @@ const LoginForm = () => {
                     />
                 </div>
                 <div>
-                    <input type='submit' className='button' value='Login' />
+                    <div className='button-big'>
+                        <input type='submit' className='button' value='Log In' />
+                    </div>
                 </div>
             </form>
-            <div className='footer'>
-                <Link className='lnk' to='/sign-up'>New User? Sign up</Link>
+            <div className='form-footer'>
+                New User?&nbsp;<Link className='lnk' to='/sign-up'>Sign up</Link>
             </div>
         </div>
     )

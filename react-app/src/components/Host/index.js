@@ -13,8 +13,7 @@ const Host = ({ host }) => {
             <div className='text-explanation-small'>hosted by</div>
             <div className='list-card-host__data'>
                 <ProfileImg
-                    className='list-card-host__img'
-                    url={host.ProfileImg}
+                    url={host.profile_img}
                     length={50}
                     userId={host.id}
                     username={host.username}

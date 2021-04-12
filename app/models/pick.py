@@ -11,6 +11,7 @@ class Pick(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
+    year = db.Column(db.String(4))
     editorial = db.Column(db.Text)
     original_poster = db.Column(db.String(500))
     date = db.Column(db.Date, nullable=False)
@@ -23,6 +24,7 @@ class Pick(db.Model):
     def to_dict(self):
         return {'id': self.id,
                 'title': self.title,
+                'year': self.year,
                 'editorial': self.editorial,
                 'date': self.date,
                 'date_sort': str(self.date).replace('-',''),
@@ -35,6 +37,7 @@ class Pick(db.Model):
     def to_dict_media(self):
         return {'id': self.id,
                 'title': self.title,
+                'year': self.year,
                 'editorial': self.editorial,
                 'date': self.date,
                 'date_sort': str(self.date).replace('-',''),

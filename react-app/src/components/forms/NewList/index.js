@@ -27,9 +27,9 @@ const NewList = () => {
 
     return (
         <div className='new-list'>
-            <h2>Add New List</h2>
-            <form onSubmit={submit}>
-                <div>
+            <form onSubmit={submit} className='card'>
+                <div className='header-2'>Add New List</div>
+                <div className='form-field'>
                     <input
                         type='text'
                         value={title}
@@ -37,14 +37,14 @@ const NewList = () => {
                         placeholder='title'
                     ></input>
                 </div>
-                <div>
+                <div className='pick__editorial-edit form-field'>
                     <textarea
                         value={editorial}
                         onChange={e => setEditorial(e.target.value)}
                         placeholder='editorial'
                     ></textarea>
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         type='date'
                         value={startDate}
@@ -52,7 +52,7 @@ const NewList = () => {
                         placeholder='start date'
                     ></input>
                 </div>
-                <div>
+                <div className='form-field'>
                     <input
                         type='date'
                         value={endDate}
@@ -61,7 +61,9 @@ const NewList = () => {
                     ></input>
                 </div>
                 <div>
-                    <button type='submit'>Add</button>
+                    <div className='button-big'>
+                        <input type='submit' value='Add' />
+                    </div>
                 </div>
             </form>
         </div>

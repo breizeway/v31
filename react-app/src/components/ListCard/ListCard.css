@@ -1,18 +1,6 @@
-/* .list-card {
-  padding: var(--size__big-space);
-  border-radius: var(--size__big-space);
-  margin: var(--size__big-space) 0;
-  background-color: var(--color__layer-2);
-  max-width: 800px;
-} */
-
 .list-card:hover {
   cursor: pointer;
 }
-
-/* .list-card > *:not(.list-card > *:first-child) {
-  margin-top: var(--size__med-space);
-} */
 
 .list-card__title {
   font-size: var(--size__text-2);
@@ -35,5 +23,5 @@
   right: 0;
   width: 30%;
   height: var(--size__line-height);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--color__layer-0) 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--color__layer-1) 80%);
 }
