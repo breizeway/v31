@@ -70,7 +70,7 @@ const LoginForm = () => {
                 </div>
             </form>
             <div className='form-footer'>
-                New User?&nbsp;<Link className='lnk' to='/sign-up'>Sign up</Link>
+                New User?&nbsp;<Link className='lnk' to='/signup'>Sign up</Link>
             </div>
         </div>
     )
