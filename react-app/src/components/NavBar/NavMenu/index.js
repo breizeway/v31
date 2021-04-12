@@ -27,12 +27,22 @@ const NavMenu = () => {
                 className='nav-menu__content dropdown__trigger'
                 onClick={dropDown.set}
             >
-                <div className='logo-div'>
+                {/* <div className='logo-div'>
                     <img
                         className='logo'
-                        src='../logo.png'
+                        src='/../logo.png'
                     >
                     </img>
+                </div> */}
+                <div className='logo-div'
+                    style={{
+                        backgroundImage: 'url(/../logo.png)',
+                        width: '32px',
+                        height: '40px',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'contain'
+                    }}
+                >
                 </div>
                 <div className='nav-menu__arrow'>
                     {dropDown.val === dropDownId ? (
