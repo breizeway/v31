@@ -1,13 +1,14 @@
 :root {
-  --color__layer-0: #ffffff;
-  --color__layer-1: #eeeeee;
-  --color__layer-2: #dddddd;
+  --color__layer-0: #f6f6f6;
+  --color__layer-1: #e6e6e6;
+  --color__layer-2: #d6d6d6;
   --color__test: #4492b1;
 
   --color__theme-1: rgb(133, 34, 34);
+  --color__error: rgb(218, 54, 54);
 
   --color__control: #767682;
-  --color__input: #eeeeee;
+  --color__input: #ffffff;
   --color__border: #aaaaaa;
 
   /* --color__alpha-0: rgba(0, 0, 0, 0.15); */
@@ -22,6 +23,7 @@
 
   --size__text-1: 40px;
   --size__text-2: 32px;
+  --size__text-3: 24px;
   --size__text-explanation: 12px;
   --size__line-height: 1.4em;
   --size__bgr-space: 64px;
@@ -38,6 +40,7 @@
     --color__layer-2: #363640;
 
     --color__theme-1: rgb(148, 56, 56);
+    --color__error: rgb(218, 54, 54);
 
     --color__control: #767682;
     --color__input: #000000;
@@ -81,8 +84,8 @@ html {
   color: var(--color__text);
 }
 
-a, .icon {
-  color: var(--color__a);
+a {
+  color: inherit;
 }
 
 input, textarea, select {
@@ -120,6 +123,10 @@ input:focus, textarea:focus, select:focus {
   font-size: var(--size__text-2);
 }
 
+.header-3 {
+  font-size: var(--size__text-3);
+}
+
 .text-explanation-small {
   color: var(--color__text-light);
   text-transform: uppercase;
@@ -130,9 +137,12 @@ input:focus, textarea:focus, select:focus {
 .card {
   padding: var(--size__big-space);
   border-radius: var(--size__big-space);
+  /* margin: var(--size__big-space) 0; */
+  background-color: var(--color__layer-1);
+}
+
+.card:not(.card:first-child) {
   margin: var(--size__big-space) 0;
-  background-color: var(--color__layer-0);
-  border: 1px solid var(--color__border);
 }
 
 
@@ -148,8 +158,23 @@ input:focus, textarea:focus, select:focus {
   padding: 0 calc(var(--size__big-space) / 3);
   border-radius: calc(var(--size__big-space) / 2);
   background-color: var(--color__input);
-  box-shadow: inset 0 0 3px 1px var(--color__border);
+  /* box-shadow: inset 0 0 3px 1px var(--color__border); */
   /* box-shadow: inset 1px 1px 2px gray; */
+}
+
+.form-footer {
+  margin: var(--size__med-space);
+  display: flex;
+  justify-content: center;
+  color: var(--color__text-light)
+}
+
+.val-errors {
+  border-radius: var(--size__sml-space);
+  padding: var(--size__sml-space);
+  border: 2px solid var(--color__error);
+  color: var(--color__error);
+  background-color: var(--color__layer-0);
 }
 
 .flex-column-sml {
@@ -232,7 +257,7 @@ input:focus, textarea:focus, select:focus {
   margin-left: calc(var(--size__big-space) / 4);
 }
 
-.button-big:hover {
+.button-big:hover, .button-big:hover * {
   cursor: pointer;
   color: var(--color__theme-1);
   background-color: #00000000;
@@ -256,7 +281,7 @@ input:focus, textarea:focus, select:focus {
   margin-left: calc(var(--size__bgr-space) / 4);
 }
 
-.button-bigger:hover {
+.button-bigger:hover, .button-bigger *:hover {
   cursor: pointer;
   color: var(--color__theme-1);
   background-color: #00000000;

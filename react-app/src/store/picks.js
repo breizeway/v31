@@ -88,6 +88,7 @@ export const runCommitPick = stagedPick => async dispatch => {
         },
         body: JSON.stringify({
             title: stagedPick.title,
+            year: stagedPick.year,
             editorial: stagedPick.editorial,
             original_poster: stagedPick.original_poster,
             date: stagedPick.date_sort,

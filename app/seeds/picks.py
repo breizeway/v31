@@ -4,6 +4,7 @@ from app.models import db, Pick
 def seed_picks():
     # list 1, 4/15 - 4/20
     classic_action_1 = Pick(title = 'Rocky III',
+                            year = '1982',
                             editorial = "One of my absolute favorites. This one means a lot to me. Rocky III.",
                             date = '04/15/2021',
                             original_poster = '/lklrplDDuALhY3k8IDFdRqtpZPk.jpg',
@@ -11,6 +12,7 @@ def seed_picks():
                             imdb_id = 'tt0084602',
                             list_id = 1)
     classic_action_2 = Pick(title = 'The Thing',
+                            year = '1982',
                             editorial = "One of my absolute favorites. This one means a lot to me. This is the thing.",
                             date = '04/16/2021',
                             original_poster = '/tzGY49kseSE9QAKk47uuDGwnSCu.jpg',
@@ -18,6 +20,7 @@ def seed_picks():
                             imdb_id = 'tt0084787',
                             list_id = 1)
     classic_action_3 = Pick(title = 'Rambo: First Blood Part II',
+                            year = '1985',
                             editorial = "One of my absolute favorites. This one means a lot to me. This is rambo.",
                             date = '04/17/2021',
                             original_poster = '/lIyUiHted0eWUceCx2ZHLnQGmgy.jpg',
@@ -25,6 +28,7 @@ def seed_picks():
                             imdb_id = 'tt0089880',
                             list_id = 1)
     classic_action_4 = Pick(title = 'Alien',
+                            year = '1979',
                             editorial = "One of my absolute favorites. This one means a lot to me. This is Alien",
                             date = '04/18/2021',
                             original_poster = '/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg',
@@ -32,6 +36,7 @@ def seed_picks():
                             imdb_id = 'tt0078748',
                             list_id = 1)
     classic_action_5 = Pick(title = 'The Terminator',
+                            year = '1984',
                             editorial = "One of my absolute favorites. This one means a lot to me. Terminatoooooor.",
                             date = '04/19/2021',
                             original_poster = '/qvktm0BHcnmDpul4Hz01GIazWPr.jpg',
@@ -39,6 +44,7 @@ def seed_picks():
                             imdb_id = 'tt0088247',
                             list_id = 1)
     classic_action_6 = Pick(title = 'Terminator 2: Judgment Day',
+                            year = '1991',
                             editorial = "One of my absolute favorites. This one means a lot to me. T 2 baby.",
                             date = '04/20/2021',
                             original_poster = '/weVXMD5QBGeQil4HEATZqAkXeEc.jpg',
@@ -54,6 +60,7 @@ def seed_picks():
 
     # list 2, 5/1 - 5/7
     horror_1 = Pick(title = 'C.H.U.D.',
+                    year = '1984',
                     editorial = "One of my absolute favorites. This one means a lot to me. CHUD",
                     date = '05/03/2021',
                     media_id = 23730,
@@ -61,6 +68,7 @@ def seed_picks():
                     imdb_id = 'tt0087015',
                     list_id = 2)
     horror_2 = Pick(title = 'Virus',
+                    year = '1999',
                     editorial = "One of my absolute favorites. This one means a lot to me. Virus.",
                     date = '05/07/2021',
                     original_poster = '/5Np88iigCfnXvMlMKmCcbPVIbYQ.jpg',

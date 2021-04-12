@@ -54,23 +54,6 @@ const MediaSearch = () => {
                         onClick={dropDown.set}
                         placeholder='search for film...'
                     ></input>
-                    {/* {query.length > 0 && (
-                        <div className='media-search__autocomplete'>
-                            {query.length >= 1 && query.length <= 2 ? (
-                                <div>keep typing...</div>
-                            ) : searchResults && (
-                                searchResults.slice(0, 5).map(result => (
-                                    <div
-                                        className='media-search__autocomplete-row'
-                                        key={result.id}
-                                        onClick={() => chooseFilm(result.id)}
-                                    >
-                                        <div>{result.title} {result.release_date && (`(${result.release_date.slice(0, 4)})`)}</div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    )} */}
                     <div className='icon-med'>
                         <i className='fas fa-search' />
                     </div>

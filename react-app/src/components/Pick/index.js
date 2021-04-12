@@ -119,7 +119,7 @@ const Pick = ({ listId, day, pickId }) => {
             )}
             {data && (
                 <>
-                    <div className='header-2'>{data.title}</div>
+                    <div className='header-2'>{`${data.title} ${data.year && (`(${data.year.slice(0, 4)})`)}`}</div>
                     <div className='pick__backdrop'>
                         <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data?.backdrop_path}`} />
                     </div>

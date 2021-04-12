@@ -21,6 +21,7 @@ def upgrade():
     op.create_table('picks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=200), nullable=False),
+    sa.Column('year', sa.String(length=4)),
     sa.Column('editorial', sa.Text(), nullable=True),
     sa.Column('original_poster', sa.String(length=500)),
     sa.Column('date', sa.Date(), nullable=False),

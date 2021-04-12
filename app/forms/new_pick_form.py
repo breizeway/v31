@@ -7,6 +7,7 @@ from app.models import Pick
 
 class NewPickForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
+    year = StringField('year', validators=[DataRequired()])
     editorial = TextAreaField('editorial', validators=[DataRequired()])
     original_poster = StringField('original_poster', validators=[DataRequired()])
     date = StringField('date', validators=[DataRequired()])
