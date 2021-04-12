@@ -36,7 +36,7 @@ const MediaSearch = () => {
         initial: [
             {content: 'Keep typing...', click: null},
         ],
-        search: searchResults.slice(0, 5).map(result => {
+        search: searchResults.slice(0, 8).map(result => {
             return {content: `${result.title} ${result.release_date && (`(${result.release_date.slice(0, 4)})`)}`, click: () => chooseFilm(result.id)}
         })
     }
