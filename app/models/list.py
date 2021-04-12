@@ -12,7 +12,7 @@ class List(db.Model):
     editorial = db.Column(db.Text)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
-    published = db.Column(db.Boolean, nullable=False, default=False)
+    published = db.Column(db.Boolean, nullable=False, default=True)
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     host = db.relationship('User', back_populates='lists')
