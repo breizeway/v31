@@ -1,0 +1,8 @@
+.user {
+  width: 100%;
+}
+
+.user-add {
+  width: 150px;
+  margin-bottom: var(--size__med-space)
+}
