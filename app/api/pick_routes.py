@@ -58,7 +58,6 @@ def stage_pick():
 def commit_pick():
     form = NewPickForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('   :::FORM:::   ', form.data)
     form_date = form.data['date']
     date = datetime.date(int(form_date[0:4]), int(form_date[4:6]), int(form_date[6:8]))
 
@@ -73,7 +72,10 @@ def commit_pick():
         imdb_id=form.data['imdb_id'],
         list_id=form.data['list_id'],
     )
-    old_pick = db.session.query(Pick).filter(Pick.date == date and Pick.list_id == form.data['list_id']).all()
+    print('   :::LIST_ID=FORM.DATALIST_ID:::   ', form.data['list_id']);
+    print('   :::NEW_PICK:::   ', new_pick.to_dict());
+    old_pick = db.session.query(Pick).filter(Pick.date == date, Pick.list_id == int(form.data['list_id'])).all()
+    if len(old_pick) > 0: print('   :::OLD_PICK:::   ', old_pick[0].to_dict());
 
     if len(old_pick) > 0:
         if old_pick[0].media_id == new_pick.media_id:
