@@ -286,3 +286,7 @@ input:focus, textarea:focus, select:focus {
   color: var(--color__theme-1);
   background-color: #00000000;
 }
+
+.logo-div-b {
+  background-image: url('./assets/logo.png');
+}
