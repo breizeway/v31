@@ -16,6 +16,11 @@ const Pick = ({ listId, day, pickId }) => {
 
     const hasPick = pickId !== null
     const pick = useSelector(state => state.picks.allMedia[pickId])
+
+    const loggedIn = useSelector(state => state.session.loggedIn)
+    const user = useSelector(state => state.session.user)
+    const list = useSelector(state => state.lists.all[listId])
+    const owned = loggedIn && user.id === list.host.id
     ////
 
     // get the media chosen from MediaSearch,
@@ -129,7 +134,7 @@ const Pick = ({ listId, day, pickId }) => {
                     </div>
                 </>
             )}
-            {editMode ? (
+                {editMode ? (
                 <div className='pick__editorial-edit form-field'>
                     <textarea
                         value={editorial}
@@ -143,7 +148,7 @@ const Pick = ({ listId, day, pickId }) => {
                     <div>{pick?.editorial}</div>
                 </div>
             )}
-            <div className='pick__edit-controls'>
+            {owned && <div className='pick__edit-controls'>
                 {editMode ? (
                     <>
                         {hasPick && (
@@ -160,7 +165,7 @@ const Pick = ({ listId, day, pickId }) => {
                         <div className='button-big' onClick={() => setEditMode(!editMode)}>edit</div>
                     </div>
                 )}
-            </div>
+            </div>}
         </div>
     )
 }

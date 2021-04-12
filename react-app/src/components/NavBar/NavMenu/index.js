@@ -10,7 +10,7 @@ const NavMenu = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const dropDownId = NavMenu.name
+    const dropDownId = 'NavMenu'
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
         set: () => dispatch(setActive(dropDownId))

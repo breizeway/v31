@@ -16,6 +16,11 @@ const Calendar = ({ listId, day }) => {
 
     const pick = useSelector(state => state.lists.all[listId].picks_by_date[day.sort])
 
+    const loggedIn = useSelector(state => state.session.loggedIn)
+    const user = useSelector(state => state.session.user)
+    const list = useSelector(state => state.lists.all[listId])
+    const owned = loggedIn && user.id === list.host.id
+
     const [addButtonHidden, setAddButtonHidden] = useState(true)
 
     const clickDay = () => {
@@ -39,7 +44,7 @@ const Calendar = ({ listId, day }) => {
                             <span>{`${pick.title} ${pick.year && (`(${pick.year.slice(0, 4)})`)}`}</span>
                         </div>
                     </div>
-                ) : (
+                ) : (owned &&
                     <div
                         className='cal-day__add'
                         onMouseOver={() => setAddButtonHidden(false)}

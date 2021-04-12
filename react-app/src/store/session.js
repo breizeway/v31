@@ -42,7 +42,8 @@ export const logout = () => async dispatch => {
 }
 
 const initialState = {
-    user: null
+    user: null,
+    loggedIn: false,
 }
 
 const sessionReducer = (state = initialState, action) => {
@@ -51,10 +52,12 @@ const sessionReducer = (state = initialState, action) => {
         case SET_USER:
             newState = {...state}
             newState.user = action.user
+            newState.loggedIn = true
             return newState
-        case REMOVE_USER:
+            case REMOVE_USER:
             newState = {...state};
             newState.user = null;
+            newState.loggedIn = false
             return newState;
         default:
             return state;
