@@ -17,10 +17,11 @@ const DropDown = ({ options, justify }) => {
         return {left: '0'}
     })()
 
-    const removeListener = () => document.removeEventListener('click', closeDropDown)
+    const root = document.getElementById('root')
+    const removeListener = () => root.removeEventListener('click', closeDropDown)
     const closeDropDown = () => dropDownVisible.rmv()
     useEffect(() => {
-        document.addEventListener('click', closeDropDown)
+        root.addEventListener('click', closeDropDown)
         return () => removeListener()
     }, [removeListener, closeDropDown])
 

@@ -5,7 +5,7 @@
 }
 
 .dropdown__content {
-  z-index: 899;
+  z-index: 1000;
   width: auto;
   min-width: 150px;
   position: absolute;
