@@ -22,7 +22,7 @@ const NavProfile = () => {
         return <Redirect to={redirect} />;
     };
 
-    const dropDownId = NavProfile.name
+    const dropDownId = 'NavProfile'
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
         set: () => dispatch(setActive(dropDownId))

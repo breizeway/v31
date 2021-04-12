@@ -27,7 +27,7 @@ const MediaSearch = () => {
         dispatch(mediaActions.runSetSearchChoice(id))
     }
 
-    const dropDownId = MediaSearch.name
+    const dropDownId = 'MediaSearch'
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
         set: () => dispatch(setActive(dropDownId))
