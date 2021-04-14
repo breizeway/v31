@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './CalControls.css'
-import { calendarSetView, calendarResetView, calendarGoBack, calendarGoForward } from '../../../store/components/Calendar'
+import { calendarSetView, calendarResetView, calendarGoBack, calendarGoForward } from '../../../store/components/calendar'
 
 
 const CalControls = ({ listId }) => {

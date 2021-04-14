@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './Calendar.css'
-import { calendarInitialize } from '../../store/components/Calendar'
+import { calendarInitialize } from '../../store/components/calendar'
 import CalDay from './CalDay'
 import CalControls from './CalControls'
 

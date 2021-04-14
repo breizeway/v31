@@ -1,7 +1,7 @@
 import { combineReducers} from 'redux';
 
 
-import calendarReducer from './Calendar';
+import calendarReducer from './calendar';
 import dropDownReducer from './DropDown';
 
 
