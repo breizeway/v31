@@ -1,10 +1,26 @@
 export default class Calendar {
     constructor(listStartDate) {
         this.view = 'month'
+        this.viewOptions = ['month', 'week', 'day']
         this.originalDate = this._getDate(listStartDate)
         this.rootDate = new Date(this.originalDate)
         this.viewStart = this._getViewStart()
         this.days = this._getDays()
+        this.viewLabel = this._getViewLabel()
+    }
+
+    setView(newView) {
+        this.view = newView
+        this._updateViewStart()
+        this._updateDays()
+        this._updateViewLabel()
+    }
+
+    resetView() {
+        this.rootDate = new Date(this.originalDate)
+        this._updateViewStart()
+        this._updateDays()
+        this._updateViewLabel()
     }
 
     goBack() {
@@ -25,6 +41,7 @@ export default class Calendar {
         }
         this._updateViewStart()
         this._updateDays()
+        this._updateViewLabel()
     }
 
     goForward() {
@@ -45,12 +62,7 @@ export default class Calendar {
         }
         this._updateViewStart()
         this._updateDays()
-    }
-
-    setView(newView) {
-        this.view = newView
-        this._updateViewStart()
-        this._updateDays()
+        this._updateViewLabel()
     }
 
     _getViewStart() {
@@ -75,6 +87,26 @@ export default class Calendar {
 
     _updateViewStart() {
         this.viewStart = this._getViewStart()
+    }
+
+    _getViewLabel() {
+        switch (this.view) {
+            case 'day':
+                return `${this.days[0].dayNameShort}, ${this.days[0].monthNameShort} ${this.days[0].date}`
+            case 'week':
+                const weekStart = `${this.days[0].monthNameShort} ${this.days[0].date}`
+                const weekEnd = `${this.days[this.days.length - 1].monthNameShort} ${this.days[this.days.length - 1].date}`
+                return `${weekStart} - ${weekEnd}`
+            case 'month':
+                const rootDay = this._makeDay(this.rootDate)
+                return `${rootDay.monthName}`
+            default:
+                return `${this.days[0].dayNameShort}, ${this.days[0].monthNameShort} ${this.days[0].date}`
+        }
+    }
+
+    _updateViewLabel() {
+        this.viewLabel = this._getViewLabel()
     }
 
     _getDays() {
@@ -149,16 +181,20 @@ export default class Calendar {
         const newDate = new Date(date)
         const year = newDate.getFullYear()
         const month = newDate.getMonth()
+        const monthName = this._monthName(month)
         const monthDate = newDate.getDate()
         const day = newDate.getDay()
+        const dayName = this._weekDayName(day)
         return {
             obj: newDate,
             year,
-            month: month,
-            monthName: this._monthName(month),
+            month,
+            monthName,
+            monthNameShort: monthName.slice(0, 3),
             date: monthDate,
             day,
-            dayName: this._weekDayName(day),
+            dayName,
+            dayNameShort: dayName.slice(0, 3),
             sort: this._sortFromDate(newDate)
         }
     }

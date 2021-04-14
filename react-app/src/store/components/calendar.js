@@ -1,91 +1,76 @@
-import * as dateActions from '../../services/dates'
+import Calendar from '../../services/calendar'
 
-const SET_VIEW = 'Calendar/setView'
-const SET_VIEW_START = 'Calendar/setViewStart'
-const SET_INITIAL_VIEW_START = 'Calendar/setInitialViewStart'
-const SET_DAYS = 'Calendar/setDays'
+const CALENDAR_INITIALIZE = 'Calendar/calendarInitialize'
+const CALENDAR_SET_VIEW = 'Calendar/calendarSetView'
+const CALENDAR_RESET_VIEW = 'Calendar/calendarResetView'
+const CALENDAR_GO_BACK = 'Calendar/calendarGoBack'
+const CALENDAR_GO_FORWARD = 'Calendar/calendarGoForward'
 
-export const setView = (listId, data) => {
+export const calendarInitialize = (listId, date) => {
     return {
-        type: SET_VIEW,
+        type: CALENDAR_INITIALIZE,
         listId,
-        data
+        date,
     }
 }
 
-export const setViewStart = (listId, data) => {
+export const calendarSetView = (listId, view) => {
     return {
-        type: SET_VIEW_START,
+        type: CALENDAR_SET_VIEW,
         listId,
-        data
+        view
     }
 }
 
-export const setInitialViewStart = (listId, data) => {
+export const calendarResetView = listId => {
     return {
-        type: SET_INITIAL_VIEW_START,
+        type: CALENDAR_RESET_VIEW,
         listId,
-        data
     }
 }
 
-export const setDays = (listId) => {
+export const calendarGoBack = listId => {
     return {
-        type: SET_DAYS,
-        listId
+        type: CALENDAR_GO_BACK,
+        listId,
     }
 }
 
-export const runSetView = (listId, data) => async dispatch => {
-    const view = dispatch(setView(listId, data))
-    dispatch(setDays(listId))
-    return view
-}
-
-export const runSetViewStart = (listId, data) => async dispatch => {
-    const viewStart = dispatch(setViewStart(listId, data))
-    dispatch(setDays(listId))
-    return viewStart
+export const calendarGoForward = listId => {
+    return {
+        type: CALENDAR_GO_FORWARD,
+        listId,
+    }
 }
 
 const defaultState = {
     rendered: new Set(),
-    view: {},
-    viewStart: {},
-    initialViewStart: {},
-    viewOptions: {
-        month: {id: 1, label: 'Month', days: 42},
-        week: {id: 2, label: 'Week', days: 7},
-        day: {id: 3, label: 'Day', days: 1},
-    },
-    days: {},
+    calendar: {},
 }
 
 const calendarReducer = (state = defaultState, action) => {
     let newState
     switch (action.type) {
-        case SET_VIEW:
+        case CALENDAR_INITIALIZE:
             newState = {...state}
             newState.rendered.add(action.listId)
-            newState.view[action.listId] = action.data
+            newState.calendar[action.listId] = new Calendar(action.date)
             return newState
-        case SET_VIEW_START:
+        case CALENDAR_SET_VIEW:
             newState = {...state}
-            newState.viewStart[action.listId] = action.data
+            newState.calendar[action.listId].setView(action.view)
             return newState
-        case SET_INITIAL_VIEW_START:
+        case CALENDAR_RESET_VIEW:
             newState = {...state}
-            newState.initialViewStart[action.listId] = action.data
+            newState.calendar[action.listId].resetView()
             return newState
-        case SET_DAYS:
+        case CALENDAR_GO_BACK:
             newState = {...state}
-            const listId = action.listId
-            const arg1 = newState.viewStart[listId]
-            const arg2 = newState.viewOptions[newState.view[listId]].days
-            const arg3 = newState.viewOptions[newState.view[listId]].id
-            const days = dateActions.makeDays(arg1, arg2, arg3)
-            newState.days[listId] = []
-            newState.days[listId] = days
+            newState.calendar[action.listId].goBack()
+            return newState
+        case CALENDAR_GO_FORWARD:
+            newState = {...state}
+            newState.calendar[action.listId].goForward()
             return newState
         default:
             return state;

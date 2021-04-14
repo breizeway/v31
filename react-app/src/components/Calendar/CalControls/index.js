@@ -2,33 +2,22 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './CalControls.css'
-import * as dateActions from '../../../services/dates'
-import * as calendarActions from '../../../store/components/Calendar'
+import { calendarSetView, calendarResetView, calendarGoBack, calendarGoForward } from '../../../store/components/Calendar'
 
 
 const CalControls = ({ listId }) => {
     const dispatch = useDispatch()
 
-    const viewOptions = useSelector(state => state.components.Calendar.viewOptions)
-    const days = useSelector(state => state.components.Calendar.days[listId])
+    const view = useSelector(state => state.components.Calendar.calendar[listId].view)
+    const viewOptions = useSelector(state => state.components.Calendar.calendar[listId].viewOptions)
+    const viewLabel = useSelector(state => state.components.Calendar.calendar[listId].viewLabel)
 
-    const view = {
-        val: useSelector(state => state.components.Calendar.view[listId]),
-        set: view => dispatch(calendarActions.runSetView(listId, view)),
-    }
-
-    const viewStart = {
-        val: useSelector(state => state.components.Calendar.viewStart[listId]),
-        set: date => dispatch(calendarActions.runSetViewStart(listId, date)),
-    }
-    const initialViewStart = useSelector(state => state.components.Calendar.initialViewStart[listId])
-
-    const calendarLabel = dateActions.getCalendarLabel(days[0].obj, days[days.length - 1].obj, viewOptions[view.val].id)
     const calendarLabelWidth = (() => {
-        switch (view.val) {
+        switch (view) {
+            case 'day': return '150px'
             case 'week': return '175px'
-            case 'day': return '100px'
-            default: return '125px'
+            case 'month': return '125px'
+            default: return '175px'
         }
     })()
 
@@ -37,20 +26,20 @@ const CalControls = ({ listId }) => {
             <div className='calendar-controls__view-page'>
                 <div
                     className='icon-big'
-                    onClick={() => viewStart.set(dateActions.changeDate(viewStart.val, viewOptions[view.val].days, false))}
+                    onClick={() => dispatch(calendarGoBack(listId))}
                 >
                     <i className='fas fa-chevron-left' />
                 </div>
                 <div
                     className='button-big'
-                    onClick={() => viewStart.set(initialViewStart)}
+                    onClick={() => dispatch(calendarResetView(listId))}
                     style={{width: calendarLabelWidth}}
                 >
-                    {calendarLabel}
+                    {viewLabel}
                 </div>
                 <div
                     className='icon-big'
-                    onClick={() => viewStart.set(dateActions.changeDate(viewStart.val, viewOptions[view.val].days, true))}
+                    onClick={() => dispatch(calendarGoForward(listId))}
                 >
                     <i className='fas fa-chevron-right' />
                 </div>
@@ -58,11 +47,11 @@ const CalControls = ({ listId }) => {
             <div className='calendar-controls__view-length'>
                 <div className='button-big'>
                     <select
-                        value={view.val}
-                        onChange={e => view.set(e.target.value)}
+                        value={view}
+                        onChange={e => dispatch(calendarSetView(listId, e.target.value))}
                     >
-                        {Object.keys(viewOptions).map(key => (
-                            <option key={key} value={key}>{viewOptions[key].label}</option>
+                        {viewOptions.map(view => (
+                            <option key={view} value={view}>{view}</option>
                         ))}
                     </select>
                 </div>

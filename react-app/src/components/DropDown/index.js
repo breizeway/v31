@@ -23,7 +23,7 @@ const DropDown = ({ options, justify }) => {
     useEffect(() => {
         root.addEventListener('click', closeDropDown)
         return () => removeListener()
-    }, [removeListener, closeDropDown])
+    }, [removeListener, closeDropDown, root])
 
     return dropDownVisible.val && (
         <div className='dropdown'>
