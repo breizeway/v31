@@ -25,7 +25,8 @@ const List = () => {
     const owned = list?.host.id === user?.id
 
     const deleteList = () => {
-        window.confirm('Are you sure you want do delete this list?')
+        const confirmed = window.confirm('Are you sure you want to delete this list?\nThis action cannot be reversed.')
+        if (!confirmed) return
         history.push('/')
         dispatch(listActions.runDeleteLists([listId]))
     }
