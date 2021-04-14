@@ -1,15 +1,59 @@
 export default class Calendar {
     constructor(listStartDate) {
-        this.view = 'week'
+        this.view = 'month'
         this.originalDate = this._getDate(listStartDate)
         this.rootDate = new Date(this.originalDate)
+        this.viewStart = this._getViewStart()
+        this.days = this._getDays()
+    }
+
+    goBack() {
+        const newDate = new Date(this.rootDate)
+        switch (this.view) {
+            case 'day':
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 1))
+                break;
+            case 'week':
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 7))
+                break;
+            case 'month':
+                this.rootDate = new Date(newDate.setMonth(newDate.getMonth() - 1))
+                break;
+            default:
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 1))
+                break;
+        }
+        this._updateViewStart()
+        this._updateDays()
+    }
+
+    goForward() {
+        const newDate = new Date(this.rootDate)
+        switch (this.view) {
+            case 'day':
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 1))
+                break;
+            case 'week':
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 7))
+                break;
+            case 'month':
+                this.rootDate = new Date(newDate.setMonth(newDate.getMonth() + 1))
+                break;
+            default:
+                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 1))
+                break;
+        }
+        this._updateViewStart()
+        this._updateDays()
     }
 
     setView(newView) {
         this.view = newView
+        this._updateViewStart()
+        this._updateDays()
     }
 
-    getViewStart() {
+    _getViewStart() {
         const newDate = new Date(this.rootDate)
         switch (this.view) {
             case 'day':
@@ -29,8 +73,12 @@ export default class Calendar {
         }
     }
 
-    getDays() {
-        const newDate = new Date(this.getViewStart())
+    _updateViewStart() {
+        this.viewStart = this._getViewStart()
+    }
+
+    _getDays() {
+        const newDate = new Date(this._getViewStart())
         const days = []
 
         switch (this.view) {
@@ -60,40 +108,8 @@ export default class Calendar {
         return days
     }
 
-    goBack() {
-        const newDate = new Date(this.rootDate)
-        switch (this.view) {
-            case 'day':
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 1))
-                break;
-            case 'week':
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 7))
-                break;
-            case 'month':
-                this.rootDate = new Date(newDate.setMonth(newDate.getMonth() - 1))
-                break;
-            default:
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() - 1))
-                break;
-        }
-    }
-
-    goForward() {
-        const newDate = new Date(this.rootDate)
-        switch (this.view) {
-            case 'day':
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 1))
-                break;
-            case 'week':
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 7))
-                break;
-            case 'month':
-                this.rootDate = new Date(newDate.setMonth(newDate.getMonth() + 1))
-                break;
-            default:
-                this.rootDate = new Date(newDate.setDate(newDate.getDate() + 1))
-                break;
-        }
+    _updateDays() {
+        this.days = this._getDays()
     }
 
     _getDate(date) {
@@ -178,26 +194,3 @@ export default class Calendar {
         }
     }
 }
-
-// const calendar = new Calendar('20210420')
-// console.log('   :::CALENDAR:::   ', calendar);
-// calendar.goBack()
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// calendar.goBack()
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// calendar.goBack()
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// calendar.goBack()
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// calendar.setView('month')
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// calendar.goForward()
-// calendar.goForward()
-// console.log('   :::CALENDAR:::   ', calendar);
-// console.log('   :::CALENDAR:::   ', calendar.getViewStart());
-// console.log('   :::CALENDAR:::   ', calendar.getDays());
