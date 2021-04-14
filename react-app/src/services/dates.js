@@ -99,6 +99,7 @@ const dateFromSort = dateSort => {
     )
 }
 
+// move to class
 export const getPriorSunday = date => {
     const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const weekDay = baseDate.getDay()
@@ -106,6 +107,7 @@ export const getPriorSunday = date => {
     return new Date(baseDate.setDate(monthDay - weekDay))
 }
 
+/// move to class
 export const getFirstSundayOfMonth = date => {
     const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const firstOfMonth = new Date(baseDate.setDate(1))
@@ -126,6 +128,7 @@ export const formatDateRange = (startDate, endDate, startOnly=false) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
+// move to class
 export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
     const dates = [
         typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate),
@@ -138,6 +141,7 @@ export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
+// move to class
 export const makeDays = (date, numDays=1, viewId) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
@@ -146,18 +150,19 @@ export const makeDays = (date, numDays=1, viewId) => {
             case 1:
                 baseDate = getFirstSundayOfMonth(baseDate)
                 break
-            case 2:
-                baseDate = getPriorSunday(baseDate)
-                break
-            default: break
+                case 2:
+                    baseDate = getPriorSunday(baseDate)
+                    break
+                    default: break
+                }
+                baseDate.setDate(baseDate.getDate() + i)
+                const day = makeDay(baseDate)
+                result.push(day)
+            }
+            return result
         }
-        baseDate.setDate(baseDate.getDate() + i)
-        const day = makeDay(baseDate)
-        result.push(day)
-    }
-    return result
-}
 
+// move to class
 export const getCalendarLabel = (startDate, endDate, viewId) => {
     let startBaseDate = typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate)
     switch (viewId) {
