@@ -287,6 +287,19 @@ input:focus, textarea:focus, select:focus {
   background-color: #00000000;
 }
 
+.x-button-group {
+  display: flex;
+  align-items: center;
+}
+
+.x-button-group > *:not(.x-button-group:first-child) {
+  margin-left: var(--size__sml-space)
+}
+
 .logo-div-b {
   background-image: url('./assets/logo.png');
+}
+
+.subtle-shadow {
+  box-shadow: 0 0 20px -15px #000000
 }

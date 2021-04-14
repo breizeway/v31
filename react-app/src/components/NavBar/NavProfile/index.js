@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import './NavProfile.css'
 import DropDown from '../../DropDown'
 import ProfileImg from '../../images/ProfileImg'
-import { setActive } from '../../../store/components/DropDown'
+import { setActive } from '../../../store/components/dropDown'
 import * as sessionActions from '../../../store/session'
 import * as locationActions from '../../../store/location'
 

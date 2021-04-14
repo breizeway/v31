@@ -2,6 +2,7 @@ import * as pickActions from './picks'
 
 const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
+const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
 
 const addLists = lists => {
@@ -15,6 +16,13 @@ const addListsMedia = lists => {
     return {
         type: ADD_LISTS_MEDIA,
         lists
+    }
+}
+
+const deleteLists = listIds => {
+    return {
+        type: DELETE_LISTS,
+        listIds
     }
 }
 
@@ -66,6 +74,20 @@ export const runAddListsMedia = listIds => async dispatch => {
     dispatch(pickActions.addPicksMedia(picks))
 }
 
+export const runDeleteLists = listIds => async dispatch => {
+    console.log('   :::LISTIDS:::   ', listIds);
+    const response = await fetch(`/api/lists/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ids: listIds})
+    })
+    const deleted = await response.json()
+    dispatch(deleteLists(listIds))
+    return deleted
+}
+
 export const runSetFrame = (frameName, media=false, num=20) => async dispatch => {
     const response = await fetch(`/api/lists/${frameName}/${num}`, {
         headers: {
@@ -107,6 +129,7 @@ const initialState = {
 const listsReducer = (state = initialState, action) => {
     let newState
     let all
+    let allMedia
     switch (action.type) {
         case ADD_LISTS:
             newState = {...state}
@@ -123,6 +146,17 @@ const listsReducer = (state = initialState, action) => {
                 all[list.id] = list
             })
             newState.allMedia = all
+            return newState
+        case DELETE_LISTS:
+            newState = {...state}
+            all = {...state.all}
+            allMedia = {...state.allMedia}
+            action.listIds.forEach(listId => {
+                delete all[listId]
+                delete allMedia[listId]
+            })
+            newState.all = all
+            newState.allMedia = allMedia
             return newState
         case SET_FRAME:
             newState = {...state}

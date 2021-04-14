@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './NavAdd.css'
 import DropDown from '../../DropDown'
-import { setActive } from '../../../store/components/DropDown'
+import { setActive } from '../../../store/components/dropDown'
 
 
 const NavAdd = () => {
