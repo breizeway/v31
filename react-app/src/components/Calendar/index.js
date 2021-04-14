@@ -1,31 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './Calendar.css'
-import * as calendarActions from '../../store/components/Calendar'
+import { calendarInitialize } from '../../store/components/Calendar'
 import CalDay from './CalDay'
 import CalControls from './CalControls'
 
 const Calendar = ({ listStartSort, listId }) => {
     const dispatch = useDispatch()
 
-    const viewOptions = useSelector(state => state.components.Calendar.viewOptions)
-    const view = useSelector(state => state.components.Calendar.view[listId]) || 'month'
-    const days = useSelector(state => state.components.Calendar.days[listId])
-
     const rendered = useSelector(state => state.components.Calendar.rendered).has(listId)
-    useEffect(() => {
-        if (!rendered) {
-            dispatch(calendarActions.setView(listId, view))
-            dispatch(calendarActions.setViewStart(listId, listStartSort))
-            dispatch(calendarActions.setInitialViewStart(listId, listStartSort))
-            dispatch(calendarActions.setDays(listId))
-        }
-    }, [dispatch, listId, listStartSort, rendered, view])
-    if (!rendered) return null
+    if (!rendered) dispatch(calendarInitialize(listId, listStartSort))
+    const days = useSelector(state => state.components.Calendar.calendar[listId].days)
+    const view = useSelector(state => state.components.Calendar.calendar[listId].view)
 
     const headers =
-        viewOptions[view].id === 1 || viewOptions[view].id === 2 ?
+        view === 'week' || view === 'month' ?
         ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] :
         []
 
