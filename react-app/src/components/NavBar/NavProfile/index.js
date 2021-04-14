@@ -29,6 +29,7 @@ const NavProfile = () => {
     }
     const dropDownOptions = {
         loggedIn: [
+            {content: 'My Profile', click: () => history.push('/my')},
             {content: 'Account Settings', click: () => history.push('/account')},
             {content: 'Logout', click: onLogout},
         ],
@@ -39,7 +40,7 @@ const NavProfile = () => {
     }
 
     return (
-        <div className='nav-profile'>
+        <div className='nav-profile navbar__item'>
             <div
                 className='dropdown__trigger'
                 onClick={dropDown.set}

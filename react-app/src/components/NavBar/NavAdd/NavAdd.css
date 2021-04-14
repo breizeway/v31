@@ -1,0 +1,8 @@
+.nav-add__trigger {
+  padding: 0 var(--size__sml-space);
+}
+
+.nav-add__plus {
+  margin-right: var(--size__sml-space);
+  font-size: var(--size__med-space)
+}

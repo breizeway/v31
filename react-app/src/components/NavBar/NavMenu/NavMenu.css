@@ -1,11 +1,3 @@
-.nav-menu__content {
-  height: 40px;
-  /* position: relative; */
-  display: flex;
-  align-items: center;
-
-}
-
 .nav-menu__arrow {
   margin: var(--size__sml-space);
   color: var(--color__theme-1);

@@ -21,10 +21,11 @@ const NavMenu = () => {
     ]
 
     return (
-        <div className='nav-menu'>
+        <div className='nav-menu navbar__item'>
             <div
-                className='nav-menu__content dropdown__trigger'
-                onClick={dropDown.set}
+                className='nav-menu__trigger dropdown__trigger'
+                // onClick={dropDown.set}
+                onClick={() => history.push('/')}
             >
                 {/* <div className='logo-div'>
                     <img
@@ -37,19 +38,19 @@ const NavMenu = () => {
                     style={{
                         // backgroundImage: 'url(./assets/logo.png)',
                         width: '32px',
-                        height: '40px',
+                        height: '100%',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'contain'
                     }}
                 >
                 </div>
-                <div className='nav-menu__arrow'>
+                {/* <div className='nav-menu__arrow'>
                     {dropDown.val === dropDownId ? (
                         <i className='fas fa-angle-up'/>
                     ) : (
                         <i className='fas fa-angle-down'/>
                     )}
-                </div>
+                </div> */}
             </div>
             {dropDown.val === dropDownId && (
                 <DropDown options={dropDownOptions} justify='left'/>
