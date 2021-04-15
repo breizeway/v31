@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './NavAdd.css'
 import DropDown from '../../DropDown'
-import { setActive } from '../../../store/components/dropDown'
+import Modal from '../../Modal'
+import NewList from '../../forms/NewList'
+import * as dropDownActions from '../../../store/components/dropDown'
+import * as modalActions from '../../../store/components/modal'
 
 
 const NavAdd = () => {
@@ -17,11 +20,17 @@ const NavAdd = () => {
     const dropDownId = 'NavAdd'
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownId))
+        set: () => dispatch(dropDownActions.setActive(dropDownId))
     }
     const dropDownOptions = [
-            {content: 'New List', click: () => history.push('/my/lists/new')},
+            {content: 'New List', click: () => modal.set()},
     ]
+
+    const modalName = 'NavAdd/newList'
+    const modal = {
+        val: useSelector(state => state.components.Modal.active),
+        set: () => dispatch(modalActions.setActive(modalName))
+    }
 
     return (
         <div className='nav-add navbar__item'>
@@ -42,6 +51,12 @@ const NavAdd = () => {
             </div>
             {dropDown.val === dropDownId && (
                 <DropDown options={dropDownOptions} justify='right'/>
+            )}
+            {modal.val === modalName && (
+                <Modal
+                    width={'400px'}
+                    content={<NewList />}
+                />
             )}
         </div>
     )

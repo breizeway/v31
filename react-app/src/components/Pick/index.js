@@ -21,7 +21,6 @@ const Pick = ({ listId, day, pickId }) => {
     const user = useSelector(state => state.session.user)
     const list = useSelector(state => state.lists.all[listId])
     const owned = loggedIn && user.id === list.host.id
-    ////
 
     // get the media chosen from MediaSearch,
     // then get the staged pick once it's been created from the media

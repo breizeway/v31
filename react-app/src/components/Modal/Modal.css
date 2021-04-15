@@ -19,26 +19,17 @@
 
 .modal__card {
   position: relative;
-  width: 100%;
-  max-width: 700px;
-  height: 100%;
-  max-height: 700px;
+  max-width: calc(100% - calc(var(--size__big-space) * 2));
+  max-height: calc(100% - calc(var(--size__big-space) * 2));
   border: none;
   background-color: var(--color__layer-0);
+  top: none;
 }
 
 .modal__close {
   position: absolute;
   left: -5px;
   top: -5px;
-  /* width: var(--size__big-space);
-  height: var(--size__big-space);
-  border-radius: calc(var(--size__big-space) / 2);
-  background-color: var(--color__layer-2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 3px 1px #111; */
 }
 
 .modal__close:hover {

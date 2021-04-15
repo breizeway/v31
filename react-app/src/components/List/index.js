@@ -17,6 +17,10 @@ const List = () => {
     const history = useHistory()
     const { listId } = useParams()
 
+    useEffect(() => {
+        dispatch(listActions.runAddLists([listId]))
+    }, [dispatch, listId])
+
     useSelector(state => state.components.List.editMode.size) // makes sure a rerender happens when the set changes size
     const editMode = useSelector(state => state.components.List.editMode.has(listId))
 
@@ -27,8 +31,8 @@ const List = () => {
     const deleteList = () => {
         const confirmed = window.confirm('Are you sure you want to delete this list?\nThis action cannot be reversed.')
         if (!confirmed) return
-        history.push('/')
-        const deleted = dispatch(listActions.runDeleteLists([listId]))
+        history.push('/my')
+        dispatch(listActions.runDeleteLists([listId]))
     }
 
     /* dropdown */
@@ -41,13 +45,7 @@ const List = () => {
         {content: 'Edit', click: () => dispatch(activateEditMode(listId))},
         {content: 'Delete', click: () => deleteList()},
     ]
-    /***********/
-
-    useEffect(() => {
-        (async () => {
-            await dispatch(listActions.runAddLists([listId]))
-        })()
-    }, [dispatch, listId])
+    /************/
 
     if (!list) return null
 

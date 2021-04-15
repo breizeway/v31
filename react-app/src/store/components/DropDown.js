@@ -24,20 +24,13 @@ const dropDownReducer = (state = defaultState, action) => {
     switch (action.type) {
         case SET_ACTIVE:
             newState = {...state}
-
-            if (
-                newState.active &&
-                newState.active === action.dropDownName
-            ) {
-                // newState.active = null
-            }
-            else {
+            if (!(newState.active && newState.active === action.dropDownName)) {
                 newState.active = action.dropDownName
             }
             return newState
         case REMOVE_ACTIVE:
             newState = {...state}
-            if ( newState.active === action.dropDownName) {
+            if (newState.active === action.dropDownName) {
                 newState.active = null
             }
             return newState
