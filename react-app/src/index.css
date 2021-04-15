@@ -145,8 +145,15 @@ input:focus, textarea:focus, select:focus {
   margin: var(--size__big-space) 0;
 }
 
-
 .card > *:not(.card > *:first-child) {
+  margin-top: var(--size__med-space);
+}
+
+.space-col-big:not(.space-col-big:first-child) {
+  margin: var(--size__big-space) 0;
+}
+
+.space-col-big > *:not(.space-col-big > *:first-child) {
   margin-top: var(--size__med-space);
 }
 

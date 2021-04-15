@@ -34,14 +34,14 @@ def delete_lists():
 @list_routes.route('/my/<int:num>')
 def get_my_lists(num):
     user_id=current_user.to_dict()['id']
-    lists = db.session.query(List).join(Pick).filter(List.user_id == user_id).order_by(Pick.date).limit(num).all()
+    lists = db.session.query(List).join(Pick, isouter=True).filter(List.user_id == user_id).order_by(Pick.date).limit(num).all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 
 
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
-    lists = db.session.query(List).join(Pick).filter(List.published == True).order_by(Pick.date).limit(num).all()
+    lists = db.session.query(List).join(Pick, isouter=True).filter(List.published == True).order_by(Pick.date).limit(num).all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 

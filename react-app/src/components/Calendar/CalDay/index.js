@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './CalDay.css'
 import Modal from '../../Modal'
 import Pick from '../../Pick'
+import * as modalActions from '../../../store/components/modal'
 
 const Calendar = ({ listId, day }) => {
-    const modalVisible = useSelector(state => state.modal.visible)
-    const [thisModalVisible, setThisModalVisible] = useState(false)
-    useEffect(() => {
-        if (!modalVisible) {
-            setThisModalVisible(false)
-        }
-    }, [modalVisible])
+    const dispatch = useDispatch()
+
+    const modalName = `Calendar/${listId}/${day.sort}`
+    const modal = {
+        val: useSelector(state => state.components.Modal.active),
+        set: () => dispatch(modalActions.setActive(modalName))
+    }
 
     const pick = useSelector(state => state.lists.all[listId].picks_by_date[day.sort])
 
@@ -22,10 +23,6 @@ const Calendar = ({ listId, day }) => {
     const owned = loggedIn && user.id === list.host.id
 
     const [addButtonHidden, setAddButtonHidden] = useState(true)
-
-    const clickDay = () => {
-        setThisModalVisible(true)
-    }
 
     return (
         <>
@@ -40,7 +37,7 @@ const Calendar = ({ listId, day }) => {
                         className='cal-day__content'
                     >
                         <div className='cal-day__title'
-                        onClick={clickDay}>
+                        onClick={() => modal.set()}>
                             <span>{`${pick.title} ${pick.year && (`(${pick.year.slice(0, 4)})`)}`}</span>
                         </div>
                     </div>
@@ -53,14 +50,22 @@ const Calendar = ({ listId, day }) => {
                         <div
                             className='cal-day__add-button icon-bi'
                             style={{display: addButtonHidden ? 'none' : 'flex'}}
-                            onClick={clickDay}
+                            onClick={() => modal.set()}
                         >
                             <i className='fas fa-plus' />&nbsp;Add Pick
                         </div>
                     </div>
                 )}
             </div>
-            {thisModalVisible && <Modal content={<Pick listId={listId} day={day} pickId={pick?.id || null}/>} />}
+            {modal.val === modalName && (
+                <Modal
+                    width='700px'
+                    height='700px'
+                    content={
+                        <Pick listId={listId} day={day} pickId={pick?.id || null}/>
+                    }
+                />
+            )}
         </>
     )
 }

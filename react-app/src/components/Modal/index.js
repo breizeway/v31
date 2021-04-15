@@ -1,29 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Modal.css'
-import * as modalActions from '../../store/modal'
+import { removeActive } from '../../store/components/modal'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
 
-const Modal = ({ content }) => {
+const Modal = ({ content, width='auto', height='auto'}) => {
     const dispatch = useDispatch()
-    const modalVisible = useSelector(state => state.modal.visible)
 
-    useEffect(() => {
-        dispatch(modalActions.toggleVisibility())
-    }, [dispatch])
-
-    if (!modalVisible) return null
-
-    const closeModal = () => {
-        dispatch(modalActions.toggleVisibility())
-        dispatch(pickActions.stagePick(null));
-        dispatch(mediaActions.clearSearchResults());
-
+    const modalVisible = {
+        val: useSelector(state => state.components.Modal.active),
+        rmv: () => dispatch(removeActive(modalVisible.val)),
     }
 
-    return (
+    const closeModal = () => {
+        modalVisible.rmv()
+        dispatch(pickActions.stagePick(null));
+        dispatch(mediaActions.clearSearchResults());
+    }
+
+    return modalVisible.val && (
         <div className='modal'>
             <div
                 className='modal__background'
@@ -32,6 +29,7 @@ const Modal = ({ content }) => {
                 <div
                     className='modal__card card'
                     onClick={e => e.stopPropagation()}
+                    style={{width, height}}
                 >
                     <div
                         className='modal__close icon-big'

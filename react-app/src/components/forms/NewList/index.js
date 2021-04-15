@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 import './NewList.css'
 import * as listActions from '../../../store/lists'
+import * as modalActions from '../../../store/components/modal'
 
 
 const NewList = () => {
@@ -22,12 +23,13 @@ const NewList = () => {
     }
 
     if (newList) {
+        dispatch(modalActions.removeActive('NavAdd/newList'))
         return <Redirect to={`/lists/${newList.id}`} />
     }
 
     return (
         <div className='new-list'>
-            <form onSubmit={submit} className='card'>
+            <form onSubmit={submit} className='space-col-big'>
                 <div className='header-2'>Add New List</div>
                 <div className='form-field'>
                     <input
