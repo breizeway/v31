@@ -11,13 +11,13 @@ const NewList = () => {
 
     const [title, setTitle] = useState('')
     const [editorial, setEditorial] = useState('')
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+    // const [startDate, setStartDate] = useState(new Date())
+    // const [endDate, setEndDate] = useState(new Date())
     const [newList, setNewList] = useState(null)
 
     const submit = async e => {
         e.preventDefault()
-        const list = await dispatch(listActions.runNewList(title, editorial, startDate, endDate))
+        const list = await dispatch(listActions.runNewList(title, editorial/*, startDate, endDate*/))
         setNewList(list)
     }
 
@@ -44,7 +44,7 @@ const NewList = () => {
                         placeholder='editorial'
                     ></textarea>
                 </div>
-                <div className='form-field'>
+                {/* <div className='form-field'>
                     <input
                         type='date'
                         value={startDate}
@@ -59,7 +59,7 @@ const NewList = () => {
                         onChange={e => setEndDate(e.target.value)}
                         placeholder='end date'
                     ></input>
-                </div>
+                </div> */}
                 <div>
                     <div className='button-big'>
                         <input type='submit' value='Add' />
