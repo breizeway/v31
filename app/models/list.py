@@ -2,6 +2,7 @@ from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
 from .db import db
+from app.models.pick import Pick
 
 
 class List(db.Model):
@@ -16,7 +17,10 @@ class List(db.Model):
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     host = db.relationship('User', back_populates='lists')
-    picks = db.relationship('Pick', back_populates='parent_list')
+    picks = db.relationship('Pick',
+                            back_populates='parent_list',
+                            order_by=Pick.date,
+                            cascade='all, delete, delete-orphan')
 
     def to_dict(self):
         return {'id': self.id,
@@ -30,6 +34,8 @@ class List(db.Model):
                 'user_id': self.user_id,
                 'picks': [pick.to_dict() for pick in self.picks],
                 'picks_by_date': {pick.to_dict()['date_sort']: pick.to_dict() for pick in self.picks},
+                'picks_start': None if len(self.picks) == 0 else self.picks[0].to_dict()['date_sort'],
+                'picks_end': None if len(self.picks) == 0 else self.picks[-1].to_dict()['date_sort'],
                 'host': self.host.to_public_dict()}
 
     def to_dict_media(self):

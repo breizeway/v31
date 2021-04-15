@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './NavAdd.css'
@@ -11,8 +11,8 @@ const NavAdd = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const loggedIn = useSelector(state => state.session.loggedIn)
-    const user = useSelector(state => state.session?.user)
+    // const loggedIn = useSelector(state => state.session.loggedIn)
+    // const user = useSelector(state => state.session?.user)
 
     const dropDownId = 'NavAdd'
     const dropDown = {

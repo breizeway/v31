@@ -75,7 +75,6 @@ export const runAddListsMedia = listIds => async dispatch => {
 }
 
 export const runDeleteLists = listIds => async dispatch => {
-    console.log('   :::LISTIDS:::   ', listIds);
     const response = await fetch(`/api/lists/`, {
         method: 'PATCH',
         headers: {

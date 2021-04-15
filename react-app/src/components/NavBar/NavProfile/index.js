@@ -30,7 +30,6 @@ const NavProfile = () => {
     const dropDownOptions = {
         loggedIn: [
             {content: 'My Profile', click: () => history.push('/my')},
-            {content: 'Account Settings', click: () => history.push('/account')},
             {content: 'Logout', click: onLogout},
         ],
         loggedOut: [

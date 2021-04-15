@@ -51,7 +51,9 @@ const CalControls = ({ listId }) => {
                         onChange={e => dispatch(calendarSetView(listId, e.target.value))}
                     >
                         {viewOptions.map(view => (
-                            <option key={view} value={view}>{view}</option>
+                            <option key={view} value={view}>
+                                {view.toUpperCase()[0] + view.slice(1)}
+                            </option>
                         ))}
                     </select>
                 </div>

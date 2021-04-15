@@ -28,7 +28,7 @@ const List = () => {
         const confirmed = window.confirm('Are you sure you want to delete this list?\nThis action cannot be reversed.')
         if (!confirmed) return
         history.push('/')
-        dispatch(listActions.runDeleteLists([listId]))
+        const deleted = dispatch(listActions.runDeleteLists([listId]))
     }
 
     /* dropdown */
