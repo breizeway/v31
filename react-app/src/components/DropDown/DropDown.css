@@ -15,7 +15,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 1px 1px 5px 0 #00000080;
 }
 
 .dropdown__content-row {

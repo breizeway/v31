@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './MediaSearch.css'
 import * as mediaActions from '../../../store/media'
-import { setActive } from '../../../store/components/DropDown'
+import { setActive } from '../../../store/components/dropDown'
 import DropDown from '../../DropDown'
 
 

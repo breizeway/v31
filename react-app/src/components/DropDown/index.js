@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './DropDown.css'
-import { removeActive } from '../../store/components/DropDown'
+import { removeActive } from '../../store/components/dropDown'
 
 const DropDown = ({ options, justify }) => {
     const dispatch = useDispatch()
@@ -27,7 +27,7 @@ const DropDown = ({ options, justify }) => {
 
     return dropDownVisible.val && (
         <div className='dropdown'>
-            <div className='dropdown__content' style={alignment}>
+            <div className='dropdown__content subtle-shadow' style={alignment}>
                 {options.map((option, i) => (
                     <div
                         className='dropdown__content-row'

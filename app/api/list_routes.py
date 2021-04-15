@@ -20,6 +20,16 @@ def get_lists():
                 'lists_media': lists_media}
     return {'lists': lsts}
 
+@list_routes.route('/', methods=['PATCH'])
+def delete_lists():
+    ids = request.json['ids']
+    lists = db.session.query(List).filter(List.id.in_(ids)).all()
+    lists_dicts = [lst.to_dict() for lst in lists]
+    for lst in lists:
+        db.session.delete(lst)
+    db.session.commit()
+    return {'lists': lists_dicts}
+
 
 @list_routes.route('/my/<int:num>')
 def get_my_lists(num):
