@@ -33,6 +33,7 @@ const NewList = () => {
                 <div className='header-2'>Add New List</div>
                 <div className='form-field'>
                     <input
+                        className='modal-focus'
                         type='text'
                         value={title}
                         onChange={e => setTitle(e.target.value)}

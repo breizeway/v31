@@ -165,12 +165,11 @@ input:focus, textarea:focus, select:focus {
   padding: 0 calc(var(--size__big-space) / 3);
   border-radius: calc(var(--size__big-space) / 2);
   background-color: var(--color__input);
-  /* box-shadow: inset 0 0 3px 1px var(--color__border); */
-  /* box-shadow: inset 1px 1px 2px gray; */
 }
 
 .form-footer {
   margin: var(--size__med-space);
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   color: var(--color__text-light)
@@ -308,5 +307,5 @@ input:focus, textarea:focus, select:focus {
 }
 
 .subtle-shadow {
-  box-shadow: 0 0 20px -15px #000000
+  box-shadow: 5px 5px 20px -16px #000000
 }

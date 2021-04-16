@@ -6,7 +6,7 @@ import './UpForms.css'
 import * as sessionActions from '../../store/session'
 
 
-const LoginForm = () => {
+const LoginForm = ({ interceptRedirect=null }) => {
     const dispatch = useDispatch()
 
     const authenticated = useSelector(state => state.session.user)
@@ -31,12 +31,13 @@ const LoginForm = () => {
     }
 
     if (authenticated) {
-        return <Redirect to={redirect} />
+        if (interceptRedirect) interceptRedirect()
+        else return <Redirect to={redirect} />
     }
 
     return (
-        <div className='up-form'>
-            <form onSubmit={onLogin} className='card'>
+        <>
+            <form onSubmit={onLogin} className='space-col-big'>
                 <div className='header-2'>Login</div>
                 {errors.length > 0 && <div className='val-errors'>
                     {errors.map((error, i) => (
@@ -45,7 +46,7 @@ const LoginForm = () => {
                 </div>}
                 <div className='form-field'>
                     <input
-                        className='input-top'
+                        className='input-top modal-focus'
                         name='username'
                         type='text'
                         placeholder='Username'
@@ -72,7 +73,7 @@ const LoginForm = () => {
             <div className='form-footer'>
                 New User?&nbsp;<Link className='lnk' to='/signup'>Sign up</Link>
             </div>
-        </div>
+        </>
     )
 }
 

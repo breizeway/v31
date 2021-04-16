@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import NavBar from './components/NavBar';
 import MainContent from './components/MainContent';
-import LoginForm from './components/auth/LoginForm';
+import LoginPage from './components/LoginPage';
 import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
@@ -41,7 +41,7 @@ function App() {
             <MainContent>
                 <Switch>
                     <Route path='/login' exact={true}>
-                        <LoginForm />
+                        <LoginPage />
                     </Route>
                     <Route path='/signup' exact={true}>
                         <SignUpForm />

@@ -8,6 +8,8 @@ import Backdrop from '../images/Backdrop'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
 import * as listActions from '../../store/lists'
+import ButtonGroup from '../buttons/ButtonGroup'
+import TextButton from '../buttons/TextButton'
 
 
 const Pick = ({ listId, day, pickId }) => {
@@ -150,18 +152,25 @@ const Pick = ({ listId, day, pickId }) => {
             {owned && <div className='pick__edit-controls'>
                 {editMode ? (
                     <>
-                        {hasPick && (
+                        {/* {hasPick && (
                             <div className='button-big' onClick={deletePick}>delete</div>
                         )}
                         <div className='pick__edit-group'>
                             <div className='button-big' onClick={clearPick}>cancel</div>
                             <div className='button-big' onClick={commitPick}>save</div>
-                        </div>
+                        </div> */}
+                        {hasPick && (
+                            <TextButton content='Delete' action={deletePick}/>
+                        )}
+                        <ButtonGroup>
+                            <TextButton content='Cancel' action={clearPick}/>
+                            <TextButton content='Save' action={commitPick}/>
+                        </ButtonGroup>
 
                     </>
                 ) : (
                     <div className='pick__edit-group'>
-                        <div className='button-big' onClick={() => setEditMode(!editMode)}>edit</div>
+                        <TextButton content='Edit' action={() => setEditMode(!editMode)}/>
                     </div>
                 )}
             </div>}
