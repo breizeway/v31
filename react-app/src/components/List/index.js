@@ -38,16 +38,15 @@ const List = () => {
     }
 
     /* dropdown */
-    const dropDownName = `List/${listId}/edit`
     const dropDown = {
+        thisVal: `List/${listId}/edit`,
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownName))
+        set: () => dispatch(setActive(dropDown.thisVal)),
+        options: [
+            {content: 'Edit', click: () => dispatch(activateEditMode(listId))},
+            {content: 'Delete', click: () => deleteList()},
+        ]
     }
-    const dropDownOptions = [
-        {content: 'Edit', click: () => dispatch(activateEditMode(listId))},
-        {content: 'Delete', click: () => deleteList()},
-    ]
-    /************/
 
     if (!list) return null
 
@@ -75,8 +74,8 @@ const List = () => {
                             >
                                 <i className='fas fa-ellipsis-h' />
                             </div>
-                            {dropDown.val === dropDownName && (
-                                <DropDown options={dropDownOptions} justify='right'/>
+                            {dropDown.val === dropDown.thisVal && (
+                                <DropDown options={dropDown.options} justify='right'/>
                             )}
                         </div>
                     )
