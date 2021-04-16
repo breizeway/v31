@@ -29,18 +29,18 @@ const MediaSearch = () => {
         dispatch(mediaActions.runSetSearchChoice(id))
     }
 
-    const dropDownId = 'MediaSearch'
     const dropDown = {
+        thisVal: 'MediaSearch',
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownId))
-    }
-    const dropDownOptions = {
-        initial: [
-            {content: 'Keep typing...', click: null},
-        ],
-        search: searchResults.slice(0, 8).map(result => {
-            return {content: `${result.title} ${result.release_date && (`(${result.release_date.slice(0, 4)})`)}`, click: () => chooseFilm(result.id)}
-        })
+        set: () => dispatch(setActive(dropDown.thisVal)),
+        options: {
+            initial: [
+                {content: 'Keep typing...', click: null},
+            ],
+            search: searchResults.slice(0, 8).map(result => {
+                return {content: `${result.title} ${result.release_date && (`(${result.release_date.slice(0, 4)})`)}`, click: () => chooseFilm(result.id)}
+            })
+        }
     }
 
     return (
@@ -64,9 +64,9 @@ const MediaSearch = () => {
             </div>
             {query.length > 0 && (
                 query.length >= 1 && query.length <= 2 ? (
-                    dropDown.val === dropDownId && <DropDown options={dropDownOptions.initial}/>
+                    dropDown.val === dropDown.thisVal && <DropDown options={dropDown.options.initial}/>
                 ) : searchResults && (
-                    dropDown.val === dropDownId && <DropDown options={dropDownOptions.search}/>
+                    dropDown.val === dropDown.thisVal && <DropDown options={dropDown.options.search}/>
 
                 )
             )}

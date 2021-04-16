@@ -9,10 +9,10 @@ import * as modalActions from '../../../store/components/modal'
 const Calendar = ({ listId, day }) => {
     const dispatch = useDispatch()
 
-    const modalName = `Calendar/${listId}/${day.sort}`
     const modal = {
+        thisVal: `Calendar/${listId}/${day.sort}`,
         val: useSelector(state => state.components.Modal.active),
-        set: () => dispatch(modalActions.setActive(modalName))
+        set: () => dispatch(modalActions.setActive(modal.thisVal))
     }
 
     const pick = useSelector(state => state.lists.all[listId].picks_by_date[day.sort])
@@ -57,7 +57,7 @@ const Calendar = ({ listId, day }) => {
                     </div>
                 )}
             </div>
-            {modal.val === modalName && (
+            {modal.val === modal.thisVal && (
                 <Modal
                     width='700px'
                     height='700px'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import './UpForms.css'
 import * as sessionActions from '../../store/session'
@@ -32,6 +32,7 @@ const LoginForm = ({ goTo=null }) => {
     }
 
     const redirect = goTo ? goTo : () => history.push(lastLocation)
+    console.log('   :::GOTO:::   ', goTo);
     if (authenticated) redirect()
 
     return (

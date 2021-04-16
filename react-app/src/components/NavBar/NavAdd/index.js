@@ -15,21 +15,21 @@ const NavAdd = () => {
 
     const loggedIn = useSelector(state => state.session.loggedIn)
 
-    const dropDownName = 'NavAdd'
     const dropDown = {
+        thisVal: 'NavAdd',
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(dropDownActions.setActive(dropDownName))
-    }
-    const dropDownOptions = [
+        set: () => dispatch(dropDownActions.setActive(dropDown.thisVal)),
+        options: [
             {content: 'New List', click: loggedIn ? () => modal.setNewList() : () => modal.setLogin()},
-    ]
+        ]
+    }
 
-    const newListModalName = 'NavAdd/newList'
-    const loginModalName = 'NavAdd/login'
     const modal = {
+        newListVal: 'NavAdd/newList',
+        loginVal: 'NavAdd/login',
         val: useSelector(state => state.components.Modal.active),
-        setNewList: () => dispatch(modalActions.setActive(newListModalName)),
-        setLogin: () => dispatch(modalActions.setActive(loginModalName)),
+        setNewList: () => dispatch(modalActions.setActive(modal.newListVal)),
+        setLogin: () => dispatch(modalActions.setActive(modal.loginVal)),
     }
 
     return (
@@ -42,23 +42,23 @@ const NavAdd = () => {
                     <i className='fas fa-plus'/>
                 </div>
                 <div className='nav-add__arrow'>
-                    {dropDown.val === dropDownName ? (
+                    {dropDown.val === dropDown.thisVal ? (
                         <i className='fas fa-angle-up'/>
                     ) : (
                         <i className='fas fa-angle-down'/>
                     )}
                 </div>
             </div>
-            {dropDown.val === dropDownName && (
-                <DropDown options={dropDownOptions} justify='right'/>
+            {dropDown.val === dropDown.thisVal && (
+                <DropDown options={dropDown.options} justify='right'/>
             )}
-            {modal.val === newListModalName && (
+            {modal.val === modal.newListVal && (
                 <Modal
                     width={'400px'}
                     content={<NewList />}
                 />
             )}
-            {modal.val === loginModalName && (
+            {modal.val === modal.loginVal && (
                 <Modal
                     width={'400px'}
                     content={<LoginForm goTo={() => modal.setNewList()} />}

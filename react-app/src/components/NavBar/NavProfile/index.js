@@ -26,28 +26,38 @@ const NavProfile = () => {
         return <Redirect to={redirect} />;
     };
 
-    const navProfileLoginModalName = 'NavProfile/login'
-    const navProfileLoginModal = {
+    const loginModal = {
+        thisVal: 'NavProfile/login',
         val: useSelector(state => state.components.Modal.active),
-        setLogin: () => dispatch(modalActions.setActive(navProfileLoginModalName)),
-        clear: () => dispatch(modalActions.removeActive(navProfileLoginModalName))
+        setLogin: () => dispatch(modalActions.setActive(loginModal.thisVal)),
+        clear: () => dispatch(modalActions.removeActive(loginModal.thisVal))
     }
 
-    const dropDownName = 'NavProfile'
     const dropDown = {
+        thisVal: 'NavProfile',
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(dropDownActions.setActive(dropDownName)),
+        set: () => dispatch(dropDownActions.setActive(dropDown.thisVal)),
+        options: {
+            loggedIn: [
+                {content: 'My Profile', click: () => history.push('/my')},
+                {content: 'Logout', click: onLogout},
+            ],
+            loggedOut: [
+                {content: 'Log In', click: () => loginModal.setLogin()},
+                {content: 'Sign Up', click: () => history.push('/signup')},
+            ]
+        }
     }
-    const dropDownOptions = {
-        loggedIn: [
-            {content: 'My Profile', click: () => history.push('/my')},
-            {content: 'Logout', click: onLogout},
-        ],
-        loggedOut: [
-            {content: 'Log In', click: () => navProfileLoginModal.setLogin()},
-            {content: 'Sign Up', click: () => history.push('/signup')},
-        ]
-    }
+    // const dropDown.options = {
+    //     loggedIn: [
+    //         {content: 'My Profile', click: () => history.push('/my')},
+    //         {content: 'Logout', click: onLogout},
+    //     ],
+    //     loggedOut: [
+    //         {content: 'Log In', click: () => loginModal.setLogin()},
+    //         {content: 'Sign Up', click: () => history.push('/signup')},
+    //     ]
+    // }
 
     return (
         <div className='nav-profile navbar__item'>
@@ -71,13 +81,13 @@ const NavProfile = () => {
                     />
                 )}
             </div>
-            {dropDown.val === dropDownName && (
-                <DropDown options={user ? dropDownOptions.loggedIn : dropDownOptions.loggedOut} justify='right'/>
+            {dropDown.val === dropDown.thisVal && (
+                <DropDown options={user ? dropDown.options.loggedIn : dropDown.options.loggedOut} justify='right'/>
             )}
-            {navProfileLoginModal.val === navProfileLoginModalName && (
+            {loginModal.val === loginModal.thisVal && (
                 <Modal
                     width={'400px'}
-                    content={<LoginForm goTo={() => navProfileLoginModal.clear()} />}
+                    content={<LoginForm goTo={() => loginModal.clear()} />}
                 />
             )}
         </div>
