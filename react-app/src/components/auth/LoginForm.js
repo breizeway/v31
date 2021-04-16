@@ -13,8 +13,6 @@ const LoginForm = ({ goTo=null }) => {
     const authenticated = useSelector(state => state.session.user)
     const lastLocation = useSelector(state => state.location.redirect)
 
-    const redirect = goTo ? goTo : () => history.push(lastLocation)
-
     const [errors, setErrors] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -33,6 +31,7 @@ const LoginForm = ({ goTo=null }) => {
         setPassword(e.target.value)
     }
 
+    const redirect = goTo ? goTo : () => history.push(lastLocation)
     if (authenticated) redirect()
 
     return (
