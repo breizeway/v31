@@ -22,10 +22,10 @@ const NavProfile = () => {
         return <Redirect to={redirect} />;
     };
 
-    const dropDownId = 'NavProfile'
+    const dropDownName = 'NavProfile'
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownId))
+        set: () => dispatch(setActive(dropDownName))
     }
     const dropDownOptions = {
         loggedIn: [
@@ -60,7 +60,7 @@ const NavProfile = () => {
                     />
                 )}
             </div>
-            {dropDown.val === dropDownId && (
+            {dropDown.val === dropDownName && (
                 <DropDown options={user ? dropDownOptions.loggedIn : dropDownOptions.loggedOut} justify='right'/>
             )}
         </div>

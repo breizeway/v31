@@ -10,6 +10,8 @@ import { setActive } from '../../store/components/dropDown'
 import Calendar from '../Calendar'
 import Host from '../Host'
 import DropDown from '../DropDown'
+import ButtonGroup from '../buttons/ButtonGroup'
+import TextButton from '../buttons/TextButton'
 
 
 const List = () => {
@@ -36,10 +38,10 @@ const List = () => {
     }
 
     /* dropdown */
-    const dropDownId = `List/${listId}/edit`
+    const dropDownName = `List/${listId}/edit`
     const dropDown = {
         val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownId))
+        set: () => dispatch(setActive(dropDownName))
     }
     const dropDownOptions = [
         {content: 'Edit', click: () => dispatch(activateEditMode(listId))},
@@ -61,10 +63,10 @@ const List = () => {
                 )}
                 {owned && (
                     editMode ? (
-                        <div className='x-button-group'>
-                            <div className='button-big' onClick={() => dispatch(deactivateEditMode(listId))} >cancel</div>
-                            <div className='button-big' >save</div>
-                        </div>
+                        <ButtonGroup>
+                            <TextButton content='Cancel' action={() => dispatch(deactivateEditMode(listId))}/>
+                            <TextButton content='Save'/>
+                        </ButtonGroup>
                     ) : (
                         <div>
                             <div
@@ -73,7 +75,7 @@ const List = () => {
                             >
                                 <i className='fas fa-ellipsis-h' />
                             </div>
-                            {dropDown.val === dropDownId && (
+                            {dropDown.val === dropDownName && (
                                 <DropDown options={dropDownOptions} justify='right'/>
                             )}
                         </div>

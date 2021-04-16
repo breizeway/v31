@@ -5,7 +5,6 @@ import sessionReducer from './session';
 import listsReducer from './lists';
 import picksReducer from './picks';
 import locationReducer from './location';
-import modalReducer from './modal';
 import mediaReducer from './media';
 
 import componentReducer from './components'
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     lists: listsReducer,
     picks: picksReducer,
     location: locationReducer,
-    modal: modalReducer,
     media: mediaReducer,
     components: componentReducer,
 });

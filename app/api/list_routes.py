@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
+from datetime import date
+from sqlalchemy import func
 
 from app.models import Pick, List, db
 from app.forms import NewListForm
@@ -33,15 +35,20 @@ def delete_lists():
 
 @list_routes.route('/my/<int:num>')
 def get_my_lists(num):
+    # implement group by to solve the limit issue eventually
     user_id=current_user.to_dict()['id']
-    lists = db.session.query(List).join(Pick, isouter=True).filter(List.user_id == user_id).order_by(Pick.date).limit(num).all()
+    lists = db.session.query(List).join(Pick, isouter=True).filter(List.user_id == user_id).order_by(Pick.date, List.title).all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 
 
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
-    lists = db.session.query(List).join(Pick, isouter=True).filter(List.published == True).order_by(Pick.date).limit(num).all()
+    # implement group by to solve the limit issue eventually
+    lists = db.session.query(List).join(Pick, isouter=True) \
+                                  .filter(List.published == True) \
+                                  .order_by(Pick.date, List.title) \
+                                  .all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 

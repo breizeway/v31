@@ -9,11 +9,11 @@ const ProtectedRoute = props => {
     const dispatch = useDispatch()
 
     dispatch(locationActions.addRedirect(useLocation().pathname))
-    const authenticated = useSelector(state => state.session.user)
+    const loggedIn = useSelector(state => state.session.loggedIn)
 
     return (
         <Route {...props}>
-            {authenticated ? props.children  : <Redirect to='/login' />}
+            {loggedIn ? props.children  : <Redirect to='/login' />}
         </Route>
     )
 }

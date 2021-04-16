@@ -20,6 +20,8 @@ const MediaSearch = () => {
                 await dispatch(mediaActions.runSetSearchResults(query))
             })();
         }
+        const initialInput = document.querySelector('.modal-focus')
+        initialInput && initialInput.focus()
     }, [query, dispatch]);
 
     const chooseFilm = id => {
@@ -48,6 +50,7 @@ const MediaSearch = () => {
             >
                 <div className='media-search__field form-field'>
                     <input
+                        className='modal-focus'
                         type='text'
                         value={query}
                         onChange={e => setQuery(e.target.value)}
