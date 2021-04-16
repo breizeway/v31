@@ -21,15 +21,15 @@ const NavAdd = () => {
         set: () => dispatch(dropDownActions.setActive(dropDownName))
     }
     const dropDownOptions = [
-            {content: 'New List', click: loggedIn? () => modal.setNewList() : () => modal.setLogin()},
+            {content: 'New List', click: loggedIn ? () => modal.setNewList() : () => modal.setLogin()},
     ]
 
-    const newListModal = 'NavAdd/newList'
-    const loginModal = 'NavAdd/login'
+    const newListModalName = 'NavAdd/newList'
+    const loginModalName = 'NavAdd/login'
     const modal = {
         val: useSelector(state => state.components.Modal.active),
-        setNewList: () => dispatch(modalActions.setActive(newListModal)),
-        setLogin: () => dispatch(modalActions.setActive(loginModal)),
+        setNewList: () => dispatch(modalActions.setActive(newListModalName)),
+        setLogin: () => dispatch(modalActions.setActive(loginModalName)),
     }
 
     return (
@@ -52,15 +52,16 @@ const NavAdd = () => {
             {dropDown.val === dropDownName && (
                 <DropDown options={dropDownOptions} justify='right'/>
             )}
-            {modal.val === newListModal ? (
+            {modal.val === newListModalName && (
                 <Modal
                     width={'400px'}
                     content={<NewList />}
                 />
-            ) : (
+            )}
+            {modal.val === loginModalName && (
                 <Modal
                     width={'400px'}
-                    content={<LoginForm interceptRedirect={() => modal.setNewList()} />}
+                    content={<LoginForm goTo={() => modal.setNewList()} />}
                 />
             )}
         </div>
