@@ -3,6 +3,7 @@ const ACITVATE_EDIT_MODE = 'List/activateEditMode'
 const DEACITVATE_EDIT_MODE = 'List/deactivateEditMode'
 const SET_TITLE = 'List/setTitle'
 const SET_EDITORITAL = 'List/setEditorial'
+const SET_PUBLISHED = 'List/setPublished'
 
 export const setRendered = listId  => {
     return {
@@ -41,11 +42,20 @@ export const setEditorial = (listId, editorial)  => {
     }
 }
 
+export const setPublished = (listId, published)  => {
+    return {
+        type: SET_PUBLISHED,
+        listId,
+        published,
+    }
+}
+
 const defaultState = {
     rendered: new Set(),
     editMode: new Set(),
     title: {},
     editorial: {},
+    published: {},
 }
 
 const listReducer = (state = defaultState, action) => {
@@ -70,6 +80,10 @@ const listReducer = (state = defaultState, action) => {
         case SET_EDITORITAL:
             newState = {...state}
             newState.editorial[action.listId] = action.editorial
+            return newState
+        case SET_PUBLISHED:
+            newState = {...state}
+            newState.published[action.listId] = action.published
             return newState
         default:
             return state;

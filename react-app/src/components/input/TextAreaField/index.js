@@ -1,29 +1,28 @@
 import React from 'react'
 
-import './TextField.css'
+import './TextAreaField.css'
 import '../input.css'
 
 
-const TextField = ({
+const TextAreaField = ({
     height='var(--size__big-space)',
     fontSize='inherit',
     val='',
     setVal=null,
     placeholder='',
-    max=100,
+    max=Infinity,
 }) => {
     return (
         <div
-            className='input-field text-field'
+            className='input-field textarea-field'
             style={{
                 height,
                 fontSize,
                 borderRadius: height === 'auto' ? 'calc(var(--size__big-space) / 4)' : 'calc(var(--size__big-space) / 2)',
             }}
         >
-            <input
-                className='input-input text-field-input'
-                type='text'
+            <textarea
+                className='input-input textarea-field-input'
                 value={val}
                 onChange={e => e.target.value.length <= max ? setVal(e.target.value) : null}
                 placeholder={placeholder}
@@ -33,4 +32,4 @@ const TextField = ({
 }
 
 
-export default TextField
+export default TextAreaField

@@ -2,4 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  position: relative;
+}
+
+.list-title__title {
+  width: calc(100% - calc(var(--size__big-space) * 1.5) )
+}
+
+.list-title__controls {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

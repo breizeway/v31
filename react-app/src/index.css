@@ -106,7 +106,6 @@ textarea {
   height: 100px;
   padding-top: calc(var(--size__big-space) / 3);
   font-family: inherit;
-  font-size: inherit;
 }
 
 input:focus, textarea:focus, select:focus {

@@ -7,7 +7,7 @@ import * as listActions from '../../../store/components/list'
 import { setActive } from '../../../store/components/dropDown'
 import DropDown from '../../DropDown'
 import ButtonGroup from '../../buttons/ButtonGroup'
-import TextButton from '../../buttons/TextButton'
+import IconButton from '../../buttons/IconButton'
 import TextField from '../../input/TextField'
 
 import './ListTitle.css'
@@ -19,7 +19,11 @@ const ListTitle = () => {
     const { listId } = useParams()
 
     useSelector(state => state.components.List.editMode.size) // makes sure a rerender happens when the set changes size
-    const editMode = useSelector(state => state.components.List.editMode.has(listId))
+    const editMode = {
+        val: useSelector(state => state.components.List.editMode.has(listId)),
+        set: () => dispatch(listActions.activateEditMode(listId)),
+        rmv: () => dispatch(listActions.deactivateEditMode(listId)),
+    }
 
     const list = useSelector(state => state.lists.all[listId])
     const user = useSelector(state => state.session.user)
@@ -31,7 +35,7 @@ const ListTitle = () => {
         val: useSelector(state => state.components.DropDown.active),
         set: () => dispatch(setActive(dropDown.thisVal)),
         options: [
-            {content: 'Edit', click: () => dispatch(listActions.activateEditMode(listId))},
+            {content: 'Edit', click: () => editMode.set()},
             {content: 'Delete', click: () => deleteList()},
         ]
     }
@@ -41,6 +45,16 @@ const ListTitle = () => {
         set: (title) => dispatch(listActions.setTitle(listId, title)),
     }
 
+    const editorial = {
+        val: useSelector(state => state.components.List.editorial[listId]),
+        set: (editorial) => dispatch(listActions.setEditorial(listId, editorial)),
+    }
+
+    const published = {
+        val: useSelector(state => state.components.List.published[listId]),
+        set: (published) => dispatch(listActions.setPublished(listId, published)),
+    }
+
     const deleteList = () => {
         const confirmed = window.confirm('Are you sure you want to delete this list?\nThis action cannot be reversed.')
         if (!confirmed) return
@@ -48,40 +62,44 @@ const ListTitle = () => {
         dispatch(listDataActions.runDeleteLists([listId]))
     }
 
+    const saveList = () => {
+        dispatch(listDataActions.runEditList(listId, title.val, editorial.val, published.val))
+        editMode.rmv()
+    }
+
     return (
         <div className='list-title'>
-            {editMode ? (
-                <>
-                    <TextField
-                        height='auto'
-                        fontSize='var(--size__text-1)'
-                        val={title.val}
-                        setVal={title.set}
-                    />
-                </>
-            ) : (
-                <div className='header-1'>{list.title}</div>
-            )}
-            {owned && (
-                editMode ? (
-                    <ButtonGroup>
-                        <TextButton content='Cancel' action={() => dispatch(listActions.deactivateEditMode(listId))}/>
-                        <TextButton content='Save'/>
-                    </ButtonGroup>
+            <div className='list-title__title'>
+                {editMode.val ? (
+                    <>
+                        <TextField
+                            height='auto'
+                            fontSize='var(--size__text-1)'
+                            val={title.val}
+                            setVal={title.set}
+                        />
+                    </>
                 ) : (
-                    <div>
-                        <div
-                            className='icon-big'
-                            onClick={() => dropDown.set()}
-                        >
-                            <i className='fas fa-ellipsis-h' />
+                    <div className='header-1'>{list.title}</div>
+                )}
+            </div>
+            <div className='list-title__controls'>
+                {owned && (
+                    editMode.val ? (
+                        <ButtonGroup flexDirection='column'>
+                            <IconButton content='fas fa-times' action={() => editMode.rmv()}/>
+                            <IconButton content='fas fa-check' action={() => saveList()}/>
+                        </ButtonGroup>
+                    ) : (
+                        <div>
+                            <IconButton content='fas fa-ellipsis-h' action={() => dropDown.set()}/>
+                            {dropDown.val === dropDown.thisVal && (
+                                <DropDown options={dropDown.options} justify='right'/>
+                            )}
                         </div>
-                        {dropDown.val === dropDown.thisVal && (
-                            <DropDown options={dropDown.options} justify='right'/>
-                        )}
-                    </div>
-                )
-            )}
+                    )
+                )}
+            </div>
         </div>
     )
 }

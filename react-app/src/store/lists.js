@@ -4,7 +4,6 @@ const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
-const EDIT_LIST = 'lists/editList'
 
 const addLists = lists => {
     return {
@@ -31,14 +30,6 @@ const setFrame = (frameName, frame) => {
     return {
         type: SET_FRAME,
         payload: {frameName, frame}
-    }
-}
-
-const editList = (title, editorial) => {
-    return {
-        type: EDIT_LIST,
-        title,
-        editorial,
     }
 }
 
@@ -118,6 +109,24 @@ export const runNewList = (title, editorial) => async dispatch => {
         body: JSON.stringify({
             title,
             editorial,
+        })
+    })
+    const list = await response.json()
+    dispatch(addLists([list]))
+    return list
+}
+
+export const runEditList = (listId, title, editorial, published) => async dispatch => {
+    const response = await fetch(`/api/lists/edit`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            list_id: listId,
+            title,
+            editorial,
+            published,
         })
     })
     const list = await response.json()

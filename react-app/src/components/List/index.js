@@ -8,7 +8,7 @@ import * as listActions from '../../store/components/list'
 import { formatDateRange } from '../../services/dates'
 import Calendar from '../Calendar'
 import Host from '../Host'
-import TextField from '../input/TextField'
+import TextAreaField from '../input/TextAreaField'
 import ListTitle from './ListTitle'
 
 
@@ -36,11 +36,17 @@ const List = () => {
         set: (editorial) => dispatch(listActions.setEditorial(listId, editorial)),
     }
 
+    const published = {
+        val: useSelector(state => state.components.List.published[listId]),
+        set: (published) => dispatch(listActions.setPublished(listId, published)),
+    }
+
     if (!list) return null
 
     if (!rendered) {
         title.set(list.title)
         editorial.set(list.editorial)
+        published.set(list.published)
         dispatch(listActions.setRendered(listId))
     }
 
@@ -52,7 +58,7 @@ const List = () => {
             <div className='list__date'>{dates}</div>
             <Host host={list.host} />
             {editMode ? (
-                    <TextField
+                    <TextAreaField
                         height='auto'
                         val={editorial.val}
                         setVal={editorial.set}

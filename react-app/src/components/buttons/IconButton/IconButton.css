@@ -1,0 +1,10 @@
+.icon-button {
+  width: var(--size__big-space);
+  font-size: calc(var(--size__big-space) / 2);
+}
+
+.icon-button:hover, .icon-button:hover * {
+  cursor: pointer;
+  color: var(--color__theme-1);
+  background-color: #00000000;
+}
