@@ -4,7 +4,7 @@
   --color__layer-2: #d6d6d6;
   --color__test: #4492b1;
 
-  --color__theme-1: rgb(133, 34, 34);
+  --color__theme-1: rgb(170, 80, 80);
   --color__error: rgb(218, 54, 54);
 
   --color__control: #767682;
@@ -39,7 +39,7 @@
     --color__layer-1: #262630;
     --color__layer-2: #363640;
 
-    --color__theme-1: rgb(148, 56, 56);
+    --color__theme-1: rgb(170, 80, 80);
     --color__error: rgb(218, 54, 54);
 
     --color__control: #767682;
@@ -112,8 +112,6 @@ textarea {
 input:focus, textarea:focus, select:focus {
   outline: none;
 }
-
-
 
 .header-1 {
   font-size: var(--size__text-1);

@@ -48,16 +48,6 @@ const NavProfile = () => {
             ]
         }
     }
-    // const dropDown.options = {
-    //     loggedIn: [
-    //         {content: 'My Profile', click: () => history.push('/my')},
-    //         {content: 'Logout', click: onLogout},
-    //     ],
-    //     loggedOut: [
-    //         {content: 'Log In', click: () => loginModal.setLogin()},
-    //         {content: 'Sign Up', click: () => history.push('/signup')},
-    //     ]
-    // }
 
     return (
         <div className='nav-profile navbar__item'>

@@ -4,6 +4,7 @@ const ADD_LISTS = 'lists/addLists'
 const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
+const EDIT_LIST = 'lists/editList'
 
 const addLists = lists => {
     return {
@@ -30,6 +31,14 @@ const setFrame = (frameName, frame) => {
     return {
         type: SET_FRAME,
         payload: {frameName, frame}
+    }
+}
+
+const editList = (title, editorial) => {
+    return {
+        type: EDIT_LIST,
+        title,
+        editorial,
     }
 }
 

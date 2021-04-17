@@ -22,6 +22,7 @@ def get_lists():
                 'lists_media': lists_media}
     return {'lists': lsts}
 
+
 @list_routes.route('/', methods=['PATCH'])
 def delete_lists():
     ids = request.json['ids']
@@ -36,8 +37,12 @@ def delete_lists():
 @list_routes.route('/my/<int:num>')
 def get_my_lists(num):
     # implement group by to solve the limit issue eventually
-    user_id=current_user.to_dict()['id']
-    lists = db.session.query(List).join(Pick, isouter=True).filter(List.user_id == user_id).order_by(Pick.date, List.title).all()
+    user_id = current_user.to_dict()['id']
+    lists = db.session.query(List) \
+                      .join(Pick, isouter=True) \
+                      .filter(List.user_id == user_id) \
+                      .order_by(Pick.date, List.title) \
+                      .all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 
@@ -45,10 +50,11 @@ def get_my_lists(num):
 @list_routes.route('/next/<int:num>')
 def get_next_lists(num):
     # implement group by to solve the limit issue eventually
-    lists = db.session.query(List).join(Pick, isouter=True) \
-                                  .filter(List.published == True) \
-                                  .order_by(Pick.date, List.title) \
-                                  .all()
+    lists = db.session.query(List) \
+                      .join(Pick, isouter=True) \
+                      .filter(List.published is True) \
+                      .order_by(Pick.date, List.title) \
+                      .all()
     frame = {lst.to_dict()['id']: [pick['id'] for pick in lst.to_dict()['picks']] for lst in lists}
     return frame
 
@@ -66,3 +72,18 @@ def new_list():
         db.session.add(new_list)
         db.session.commit()
         return new_list.to_dict()
+
+
+# @list_routes.route('/edit', methods=['PUT'])
+# def edit_list():
+#     form = NewListForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
+#     if form.validate_on_submit():
+#         new_list = List(
+#             title=form.data['title'],
+#             editorial=form.data['editorial'],
+#             user_id=current_user.to_dict()['id']
+#         )
+#         db.session.add(new_list)
+#         db.session.commit()
+#         return new_list.to_dict()

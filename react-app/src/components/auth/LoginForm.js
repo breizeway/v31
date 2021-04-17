@@ -32,7 +32,6 @@ const LoginForm = ({ goTo=null }) => {
     }
 
     const redirect = goTo ? goTo : () => history.push(lastLocation)
-    console.log('   :::GOTO:::   ', goTo);
     if (authenticated) redirect()
 
     return (
