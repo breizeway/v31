@@ -2,6 +2,7 @@
   --color__layer-0: #f6f6f6;
   --color__layer-1: #e6e6e6;
   --color__layer-2: #d6d6d6;
+  --color__layer-3: #c6c6c6;
   --color__test: #4492b1;
 
   --color__theme-1: rgb(170, 80, 80);
@@ -38,6 +39,7 @@
     --color__layer-0: #161620;
     --color__layer-1: #262630;
     --color__layer-2: #363640;
+    --color__layer-3: #464650;
 
     --color__theme-1: rgb(170, 80, 80);
     --color__error: rgb(218, 54, 54);

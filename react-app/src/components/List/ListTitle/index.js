@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,6 +9,7 @@ import DropDown from '../../DropDown'
 import ButtonGroup from '../../buttons/ButtonGroup'
 import IconButton from '../../buttons/IconButton'
 import TextField from '../../input/TextField'
+import ListControlPanel from './ListControlPanel'
 
 import './ListTitle.css'
 
@@ -37,6 +38,8 @@ const ListTitle = () => {
         options: [
             {content: 'Edit', click: () => editMode.set()},
             {content: 'Delete', click: () => deleteList()},
+            {content: '', type: 'divider', click: () => deleteList()},
+            {content: <ListControlPanel />, type: 'panel', click: () => null},
         ]
     }
 
@@ -66,6 +69,11 @@ const ListTitle = () => {
         dispatch(listDataActions.runEditList(listId, title.val, editorial.val, published.val))
         editMode.rmv()
     }
+
+    // update the datanase when published changes
+    useEffect(() => {
+        dispatch(listDataActions.runEditList(listId, list.title, list.editorial, published.val))
+    }, [published.val])
 
     return (
         <div className='list-title'>
