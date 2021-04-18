@@ -1,0 +1,15 @@
+.input-field {
+  width: 100%;
+  height: var(--size__big-space);
+  padding: 0 calc(var(--size__big-space) / 3);
+  background-color: var(--color__input);
+}
+
+.input-input {
+  color: inherit;
+  width: 100%;
+  border: none;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}

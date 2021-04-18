@@ -1,0 +1,26 @@
+.boolean-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boolean-field:hover {
+  cursor: pointer;
+}
+
+.boolean-field-toggle {
+  display: flex;
+  width: calc(var(--size__big-space) * 2);
+  border-radius: calc(var(--size__big-space) / 2);
+  padding: 3px;
+}
+
+.boolean-field-input {
+  --boolean-field-input__height: calc(var(--size__big-space) - 6px);
+  display: flex;
+  height: var(--boolean-field-input__height);
+  width: var(--boolean-field-input__height);
+  border-radius: calc(var(--boolean-field-input__height) / 2);
+  background-color: var(--color__layer-2);
+  /* background-color: var(--color__theme-1); */
+}

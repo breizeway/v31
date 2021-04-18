@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import './UpForms.css'
 import * as sessionActions from '../../store/session'
 
 
-const LoginForm = ({ interceptRedirect=null }) => {
+const LoginForm = ({ goTo=null }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const authenticated = useSelector(state => state.session.user)
-    const redirect = useSelector(state => state.location.redirect)
+    const lastLocation = useSelector(state => state.location.redirect)
 
     const [errors, setErrors] = useState([])
     const [username, setUsername] = useState('')
@@ -30,10 +31,8 @@ const LoginForm = ({ interceptRedirect=null }) => {
         setPassword(e.target.value)
     }
 
-    if (authenticated) {
-        if (interceptRedirect) interceptRedirect()
-        else return <Redirect to={redirect} />
-    }
+    const redirect = goTo ? goTo : () => history.push(lastLocation)
+    if (authenticated) redirect()
 
     return (
         <>

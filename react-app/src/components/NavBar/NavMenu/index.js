@@ -8,17 +8,17 @@ import { setActive } from '../../../store/components/dropDown'
 
 const NavMenu = () => {
     const history = useHistory()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const dropDownId = 'NavMenu'
-    const dropDown = {
-        val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownId))
-    }
-    const dropDownOptions = [
-        {content: <strong>Home</strong>, click: () => history.push('/')},
-        {content: 'Me', click:  () => history.push('/my')},
-    ]
+    // const dropDownId = 'NavMenu'
+    // const dropDown = {
+    //     val: useSelector(state => state.components.DropDown.active),
+    //     set: () => dispatch(setActive(dropDownId))
+    // }
+    // const dropDownOptions = [
+    //     {content: <strong>Home</strong>, click: () => history.push('/')},
+    //     {content: 'Me', click:  () => history.push('/my')},
+    // ]
 
     return (
         <div className='nav-menu navbar__item'>
@@ -52,9 +52,9 @@ const NavMenu = () => {
                     )}
                 </div> */}
             </div>
-            {dropDown.val === dropDownId && (
+            {/* {dropDown.val === dropDownId && (
                 <DropDown options={dropDownOptions} justify='left'/>
-            )}
+            )} */}
         </div>
     )
 }

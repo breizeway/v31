@@ -67,15 +67,11 @@ def commit_pick():
         editorial=form.data['editorial'],
         original_poster=form.data['original_poster'],
         date=date,
-        # date=form.data['date'],
         media_id=form.data['media_id'],
         imdb_id=form.data['imdb_id'],
         list_id=form.data['list_id'],
     )
-    print('   :::LIST_ID=FORM.DATALIST_ID:::   ', form.data['list_id']);
-    print('   :::NEW_PICK:::   ', new_pick.to_dict());
     old_pick = db.session.query(Pick).filter(Pick.date == date, Pick.list_id == int(form.data['list_id'])).all()
-    if len(old_pick) > 0: print('   :::OLD_PICK:::   ', old_pick[0].to_dict());
 
     if len(old_pick) > 0:
         if old_pick[0].media_id == new_pick.media_id:

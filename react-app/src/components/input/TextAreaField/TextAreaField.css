@@ -1,0 +1,6 @@
+.textarea-field-input {
+  height: 100px;
+  padding-top: calc(var(--size__big-space) / 3);
+  max-width: 100%;
+  min-width: 100%;
+}

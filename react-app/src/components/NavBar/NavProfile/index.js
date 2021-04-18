@@ -5,9 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import './NavProfile.css'
 import DropDown from '../../DropDown'
 import ProfileImg from '../../images/ProfileImg'
-import { setActive } from '../../../store/components/dropDown'
+import Modal from '../../Modal'
+import LoginForm from '../../auth/LoginForm'
+import * as dropDownActions from '../../../store/components/dropDown'
 import * as sessionActions from '../../../store/session'
 import * as locationActions from '../../../store/location'
+import * as modalActions from '../../../store/components/modal'
+
 
 
 const NavProfile = () => {
@@ -22,20 +26,27 @@ const NavProfile = () => {
         return <Redirect to={redirect} />;
     };
 
-    const dropDownName = 'NavProfile'
-    const dropDown = {
-        val: useSelector(state => state.components.DropDown.active),
-        set: () => dispatch(setActive(dropDownName))
+    const loginModal = {
+        thisVal: 'NavProfile/login',
+        val: useSelector(state => state.components.Modal.active),
+        setLogin: () => dispatch(modalActions.setActive(loginModal.thisVal)),
+        clear: () => dispatch(modalActions.removeActive(loginModal.thisVal))
     }
-    const dropDownOptions = {
-        loggedIn: [
-            {content: 'My Profile', click: () => history.push('/my')},
-            {content: 'Logout', click: onLogout},
-        ],
-        loggedOut: [
-            {content: 'Log In', click:  () => history.push('/login')},
-            {content: 'Sign Up', click: () => history.push('/signup')},
-        ]
+
+    const dropDown = {
+        thisVal: 'NavProfile',
+        val: useSelector(state => state.components.DropDown.active),
+        set: () => dispatch(dropDownActions.setActive(dropDown.thisVal)),
+        options: {
+            loggedIn: [
+                {content: 'My Profile', click: () => history.push('/my')},
+                {content: 'Logout', click: onLogout},
+            ],
+            loggedOut: [
+                {content: 'Log In', click: () => loginModal.setLogin()},
+                {content: 'Sign Up', click: () => history.push('/signup')},
+            ]
+        }
     }
 
     return (
@@ -60,8 +71,14 @@ const NavProfile = () => {
                     />
                 )}
             </div>
-            {dropDown.val === dropDownName && (
-                <DropDown options={user ? dropDownOptions.loggedIn : dropDownOptions.loggedOut} justify='right'/>
+            {dropDown.val === dropDown.thisVal && (
+                <DropDown options={user ? dropDown.options.loggedIn : dropDown.options.loggedOut} justify='right'/>
+            )}
+            {loginModal.val === loginModal.thisVal && (
+                <Modal
+                    width={'400px'}
+                    content={<LoginForm goTo={() => loginModal.clear()} />}
+                />
             )}
         </div>
     )

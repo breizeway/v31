@@ -116,6 +116,24 @@ export const runNewList = (title, editorial) => async dispatch => {
     return list
 }
 
+export const runEditList = (listId, title, editorial, published) => async dispatch => {
+    const response = await fetch(`/api/lists/edit`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            list_id: listId,
+            title,
+            editorial,
+            published,
+        })
+    })
+    const list = await response.json()
+    dispatch(addLists([list]))
+    return list
+}
+
 const initialState = {
     all: {},
     allMedia: {},

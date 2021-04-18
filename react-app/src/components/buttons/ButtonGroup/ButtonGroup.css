@@ -6,3 +6,8 @@
 .button-group > *:not(.button-group > *:first-child) {
   margin-left: calc(var(--size__big-space) / 4);
 }
+
+.button-group-col > *:not(.button-group-col > *:first-child) {
+  margin-left: 0;
+  margin-top: calc(var(--size__big-space) / 4);
+}
