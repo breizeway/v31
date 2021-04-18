@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
 import datetime
 
-from app.models import Pick, db
+from app.models import List, Pick, db
 from app.forms import NewPickForm
 
 
@@ -20,6 +20,21 @@ def get_picks():
         return {'picks': picks_dicts,
                 'picks_media': picks_media}
     return {'picks': picks_dicts}
+
+
+@pick_routes.route('/from_list', methods=['PUT'])
+def get_picks_from_list():
+    list_id = request.json['list_id']
+    date = request.json['date']
+
+    pick = db.session.query(Pick) \
+                     .filter(Pick.list_id == list_id,
+                             Pick.date == date) \
+                     .first()
+    pick_dict = None
+    if pick:
+        pick_dict = pick.to_dict_media()
+    return {'pick': pick_dict}
 
 
 @pick_routes.route('/', methods=['PATCH'])

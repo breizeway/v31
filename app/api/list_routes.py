@@ -43,9 +43,9 @@ def get_my_lists(num):
                       .filter(List.user_id == user_id) \
                       .order_by(Pick.date, List.title) \
                       .all()
-    frame = {lst.to_dict()['id']: [pick['id']
-                                   for pick
-                                   in lst.to_dict()['picks']]
+    frame = {lst.to_dict()['id']: [pickId
+                                   for pickId
+                                   in lst.to_dict()['picks'].keys()]
              for lst in lists}
     return frame
 
@@ -58,9 +58,9 @@ def get_next_lists(num):
                       .filter(List.published == True) \
                       .order_by(Pick.date, List.title) \
                       .all()
-    frame = {lst.to_dict()['id']: [pick['id']
-                                   for pick
-                                   in lst.to_dict()['picks']]
+    frame = {lst.to_dict()['id']: [pickId
+                                   for pickId
+                                   in lst.to_dict()['picks'].keys()]
              for lst in lists}
     return frame
 

@@ -47,12 +47,12 @@ class List(db.Model):
                 'end_date_sort': self.end_date_sort,
                 'published': self.published,
                 'user_id': self.user_id,
-                'picks': [pick.to_dict() for pick in self.picks],
+                'picks': {pick.to_dict()['id']: pick.to_dict() for pick in self.picks},
                 'picks_by_date': {pick.to_dict()['date_sort']: pick.to_dict() for pick in self.picks},
                 'host': self.host.to_public_dict()}
 
     def to_dict_media(self):
         list_dict = self.to_dict()
-        list_dict['picks'] = [pick.to_dict_media() for pick in self.picks],
+        list_dict['picks'] = {pick.to_dict()['id']: pick.to_dict_media() for pick in self.picks},
         list_dict['picks_by_date'] = {pick.to_dict()['date_sort']: pick.to_dict_media() for pick in self.picks},
         return list_dict
