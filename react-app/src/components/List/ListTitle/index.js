@@ -73,7 +73,7 @@ const ListTitle = () => {
     // update the datanase when published changes
     useEffect(() => {
         dispatch(listDataActions.runEditList(listId, list.title, list.editorial, published.val))
-    }, [published.val])
+    }, [dispatch, listId, list.title, list.editorial, published.val])
 
     return (
         <div className='list-title'>
