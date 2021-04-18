@@ -46,9 +46,9 @@ const Pick = ({ listId, day, pickId }) => {
     useEffect(() => {
         if (!editMode) clearSearch();
         (async () => {
-            await dispatch(pickActions.runAddPicksMedia([pickId]))
+            dispatch(pickActions.runAddPicksMedia([pickId]))
             if (chosenMedia) {
-                await dispatch(pickActions.runStagePick(
+                dispatch(pickActions.runStagePick(
                     chosenMedia, // ? chosenMedia : pick?.media_data,
                     '',
                     listId,
@@ -81,7 +81,7 @@ const Pick = ({ listId, day, pickId }) => {
     const commitPick = async () => {
         let finalStagedPick
         if (chosenMedia) {
-            finalStagedPick = await dispatch(pickActions.runStagePick(
+            finalStagedPick = dispatch(pickActions.runStagePick(
                 chosenMedia,
                 editorial,
                 listId,
@@ -89,7 +89,7 @@ const Pick = ({ listId, day, pickId }) => {
             ))
         }
         else if (pick.media_data) {
-            finalStagedPick = await dispatch(pickActions.runStagePick(
+            finalStagedPick = dispatch(pickActions.runStagePick(
                 pick.media_data,
                 editorial,
                 listId,
@@ -97,10 +97,10 @@ const Pick = ({ listId, day, pickId }) => {
             ))
         }
 
-        await dispatch(pickActions.runCommitPick(finalStagedPick))
+        dispatch(pickActions.runCommitPick(finalStagedPick))
 
         // update Calendar
-        await dispatch(listActions.runAddLists([listId]))
+        dispatch(listActions.runAddLists([listId]))
         dispatch(pickActions.stagePick(null));
         setEditMode(false)
     }
@@ -112,8 +112,8 @@ const Pick = ({ listId, day, pickId }) => {
 
     const deletePick = async () => {
         clearSearch()
-        await dispatch(pickActions.runDeletePick([pick.id]));
-        await dispatch(listActions.runAddLists([listId]))
+        dispatch(pickActions.runDeletePick([pick.id]));
+        dispatch(listActions.runAddLists([listId]))
         setEditMode(true)
     }
 
