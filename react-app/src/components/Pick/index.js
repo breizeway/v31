@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -16,18 +16,28 @@ import TextButton from '../buttons/TextButton'
 
 const Pick = ({ listId, day, pickId=0 }) => {
     const dispatch = useDispatch()
+    const [mediaDataLoaded, setMediaDataLoaded] = useState(false)
 
     // state vars
     const hasPick = pickId !== 0
     const pick = {
         val: useSelector(state => state.lists.all[listId].picks_by_date[day.sort]),
-        set: () => {
-            dispatch(listDataActions.runSetMediaPick(listId, day))
+        set: async () => {
+            await dispatch(listDataActions.runSetMediaPick(listId, day))
         }
     }
+    const chosenPick = {
+        val: useSelector(state => state.components.Pick.chosen[pickId]),
+        set: () => dispatch(pickActions.setChosen(pickId, null))
+    }
+
+    const data = chosenPick.val || pick.val || null
+    const hasData = data !== null
+    console.log('   :::DATA:::   ', data);
 
     useEffect(() => {
-        if (hasPick) pick.set()
+        if (hasPick) pick.set();
+        setMediaDataLoaded(true)
     }, [hasPick])
 
     const editMode = {
@@ -55,8 +65,6 @@ const Pick = ({ listId, day, pickId=0 }) => {
 
     const loggedIn = useSelector(state => state.session.loggedIn)
     const user = useSelector(state => state.session.user)
-
-    // standard vars
     const owned = loggedIn && user.id === list.host.id
 
     if (!rendered.val) {
@@ -66,14 +74,16 @@ const Pick = ({ listId, day, pickId=0 }) => {
     if (!rendered.val) {
 
         if (hasPick) {
-            title.set(list.title)
-            editorial.set(pick.val.editorial)
+            title.set(`${data.title} (${data.year})`)
+            editorial.set(data.editorial)
+            chosenPick.set()
 
         }
         else {
             title.set('')
             editorial.set('')
             editMode.set()
+            chosenPick.set()
 
         }
 
@@ -81,9 +91,24 @@ const Pick = ({ listId, day, pickId=0 }) => {
     }
 
     return (
-        <div className='pick'>
-            {editMode.val && <MediaSearch pickId={pickId} />}
-            <PickOptions listId={listId} pickId={pickId} />
+        <div className='pick flex-column-med'>
+            {editMode.val ? (
+                <MediaSearch listId={listId} pickId={pickId} date={day.sort} />
+            ) : (
+                hasPick ? (
+                    <div className='header-2'>{`${pick.val.title} (${pick.val.year})`}</div>
+                ) : (
+                    null
+                )
+            )}
+            {data?.media_data ? (
+                <div className='pick__backdrop'>
+                    <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
+                </div>
+            ) : (
+                null
+            )}
+            {owned && <PickOptions listId={listId} pickId={pickId} />}
         </div>
     )
 }

@@ -27,7 +27,7 @@ class Pick(db.Model):
                 'year': self.year,
                 'editorial': self.editorial,
                 'date': self.date,
-                'date_sort': str(self.date).replace('-',''),
+                'date_sort': str(self.date).replace('-', ''),
                 'original_poster': self.original_poster,
                 'original_poster_url': f'{Meta.secure_image_base_url[0]}original{self.original_poster}' if self.original_poster else '',
                 'media_id': self.media_id,

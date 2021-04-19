@@ -8,7 +8,7 @@ import TextField from '../../input/TextField'
 import DropDown from '../../DropDown'
 
 
-const MediaSearch = ({ pickId }) => {
+const MediaSearch = ({ listId, pickId, date }) => {
     const dispatch = useDispatch()
 
     const query = {
@@ -16,9 +16,14 @@ const MediaSearch = ({ pickId }) => {
         set: (query) => dispatch(pickActions.setQuery(pickId, query)),
     }
 
+    const editorial = {
+        val: useSelector(state => state.components.Pick.editorial[pickId]),
+        set: (editorial) => dispatch(pickActions.setEditorial(pickId, editorial)),
+    }
+
     const chosen = {
         val: useSelector(state => state.components.Pick.chosen[pickId]),
-        set: (mediaId) => dispatch(pickActions.runSetChosen(pickId, mediaId)),
+        set: (mediaId) => dispatch(pickActions.runSetChosen(pickId, listId, mediaId, date, editorial.val)),
     }
 
     const searchResults = {
@@ -64,7 +69,7 @@ const MediaSearch = ({ pickId }) => {
                 fontSize='var(--size__text-2)'
                 val={query.val}
                 setVal={query.set}
-                placeholder='search for film...'
+                placeholder='Title'
             />
             {query.val.length > 0 && (
                 query.val.length >= 1 && query.val.length <= 2 ? (

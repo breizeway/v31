@@ -68,7 +68,7 @@ export const runSetSearchResults = (pickId, query) => async dispatch => {
     }
 }
 
-const setChosen = (pickId, chosen)  => {
+export const setChosen = (pickId, chosen)  => {
     return {
         type: SET_CHOSEN,
         pickId,
@@ -76,12 +76,26 @@ const setChosen = (pickId, chosen)  => {
     }
 }
 
-export const runSetChosen = (pickId, mediaId) => async dispatch => {
-    const response = await fetch(`/api/media/${mediaId}`)
+export const runSetChosen = (pickId, listId, mediaId, dateSort, editorial='', commit=false) => async dispatch => {
+    const response = await fetch(`/api/picks/add`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            list_id: listId,
+            media_id: mediaId,
+            date: dateSort,
+            editorial,
+            commit,
+        }),
+    })
     if (response.ok) {
-        const result = await response.json();
-        dispatch(setChosen(pickId, result))
+        const chosen = await response.json();
+        dispatch(setChosen(pickId, chosen))
+        return chosen
     }
+    return null
 }
 
 const defaultState = {
@@ -108,6 +122,7 @@ const pickReducer = (state = defaultState, action) => {
         case DEACITVATE_EDIT_MODE:
             newState = {...state}
             newState.editMode.delete(action.pickId)
+            delete newState.chosen[action.pickId]
             return newState
         case SET_TITLE:
             newState = {...state}

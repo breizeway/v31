@@ -3,7 +3,8 @@ from flask_login import current_user
 import datetime
 
 from app.models import List, Pick, db
-from app.forms import NewPickForm
+from app.forms import PickForm
+from app.requests import media_db
 
 
 pick_routes = Blueprint('picks', __name__)
@@ -48,30 +49,37 @@ def delete_picks():
     return {'picks': picks_dicts}
 
 
-@pick_routes.route('/stage', methods=['PUT'])
+@pick_routes.route('/add', methods=['PUT'])
 def stage_pick():
-    media_data = request.json['media_data']
-    editorial = request.json['editorial']
-    list_id = request.json['list_id']
-    date = request.json['date']
+    form = PickForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    commit = request.json['commit']
+
+    media_data = media_db.get(resource_id=form.data['media_id'])
 
     pick = Pick(title=media_data['title'],
                 year=media_data['release_date'][0:4],
-                editorial=editorial,
+                editorial=form.data['editorial'],
                 original_poster=media_data['poster_path'],
-                date=datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8])),
-                media_id=media_data['id'],
+                date=datetime.date(int(form.data['date'][0:4]),
+                                   int(form.data['date'][4:6]),
+                                   int(form.data['date'][6:8])),
+                media_id=form.data['media_id'],
                 imdb_id=media_data['imdb_id'],
-                list_id=list_id)
+                list_id=form.data['list_id'])
 
     pick_dict = pick.to_dict()
     pick_dict['media_data'] = media_data
-    return {'pick': pick_dict}
+    if (commit):
+        db.session.add(pick)
+        db.session.commit()
+    return pick_dict
 
 
 @pick_routes.route('/commit', methods=['POST'])
 def commit_pick():
-    form = NewPickForm()
+    form = PickForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     form_date = form.data['date']
     date = datetime.date(int(form_date[0:4]), int(form_date[4:6]), int(form_date[6:8]))

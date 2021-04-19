@@ -15,7 +15,7 @@ const PickOptions = ({ listId, pickId }) => {
     const dispatch = useDispatch()
 
     // makes sure a rerender happens when the set changes size
-    useSelector(state => state.components.Pick.editMode.size)
+    // useSelector(state => state.components.Pick.editMode.size)
     const editMode = {
         val: useSelector(state => state.components.Pick.editMode.has(pickId)),
         set: () => dispatch(pickActions.activateEditMode(pickId)),
