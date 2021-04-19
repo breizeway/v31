@@ -156,13 +156,16 @@ export const runSetMediaPick = (listId, day) => async dispatch => {
         })
     })
     const { pick } = await response.json()
-    if (pick) dispatch(setMediaPick(listId, day.sort, pick))
+    if (pick) {
+        dispatch(setMediaPick(listId, day.sort, pick))
+        dispatch(pickActions.addPicks([pick]))
+    }
     return pick
 }
 
 const initialState = {
     all: {},
-    allMedia: {},
+    // allMedia: {},
     next: {},
     my: {},
 }

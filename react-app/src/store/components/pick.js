@@ -3,6 +3,9 @@ const ACITVATE_EDIT_MODE = 'Pick/activateEditMode'
 const DEACITVATE_EDIT_MODE = 'Pick/deactivateEditMode'
 const SET_TITLE = 'Pick/setTitle'
 const SET_EDITORITAL = 'Pick/setEditorial'
+const SET_QUERY = 'Pick/setQuery'
+const SET_SEARCH_RESULTS = 'Pick/setSearchResults'
+const SET_CHOSEN = 'Pick/setChosen'
 
 export const setRendered = pickId  => {
     return {
@@ -41,11 +44,54 @@ export const setEditorial = (pickId, editorial)  => {
     }
 }
 
+export const setQuery = (pickId, query)  => {
+    return {
+        type: SET_QUERY,
+        pickId,
+        query,
+    }
+}
+
+const setSearchResults = (pickId, results)  => {
+    return {
+        type: SET_SEARCH_RESULTS,
+        pickId,
+        results,
+    }
+}
+
+export const runSetSearchResults = (pickId, query) => async dispatch => {
+    const response = await fetch(`/api/media/search?query=${query}`)
+    if (response.ok) {
+        const { results } = await response.json();
+        dispatch(setSearchResults(pickId, results))
+    }
+}
+
+const setChosen = (pickId, chosen)  => {
+    return {
+        type: SET_CHOSEN,
+        pickId,
+        chosen,
+    }
+}
+
+export const runSetChosen = (pickId, mediaId) => async dispatch => {
+    const response = await fetch(`/api/media/${mediaId}`)
+    if (response.ok) {
+        const result = await response.json();
+        dispatch(setChosen(pickId, result))
+    }
+}
+
 const defaultState = {
     rendered: new Set(),
     editMode: new Set(),
     title: {},
     editorial: {},
+    query: {},
+    searchResults: {},
+    chosen: {},
 }
 
 const pickReducer = (state = defaultState, action) => {
@@ -70,6 +116,18 @@ const pickReducer = (state = defaultState, action) => {
         case SET_EDITORITAL:
             newState = {...state}
             newState.editorial[action.pickId] = action.editorial
+            return newState
+        case SET_QUERY:
+            newState = {...state}
+            newState.query[action.pickId] = action.query
+            return newState
+        case SET_SEARCH_RESULTS:
+            newState = {...state}
+            newState.searchResults[action.pickId] = action.results
+            return newState
+        case SET_CHOSEN:
+            newState = {...state}
+            newState.chosen[action.pickId] = action.chosen
             return newState
         default:
             return state;

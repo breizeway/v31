@@ -8,7 +8,7 @@ const TextField = ({
     height='var(--size__big-space)',
     fontSize='inherit',
     val='',
-    setVal=null,
+    setVal= (e) => null,
     placeholder='',
     max=100,
 }) => {

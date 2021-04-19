@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 
 import './Pick.css'
-import MediaSearch from '../forms/MediaSearch'
+import MediaSearch from './MediaSearch'
+import PickOptions from './PickOptions'
 import Backdrop from '../images/Backdrop'
 import * as pickDataActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
@@ -13,11 +14,11 @@ import ButtonGroup from '../buttons/ButtonGroup'
 import TextButton from '../buttons/TextButton'
 
 
-const Pick = ({ listId, day, pickId }) => {
+const Pick = ({ listId, day, pickId=0 }) => {
     const dispatch = useDispatch()
 
     // state vars
-    const hasPick = pickId !== null
+    const hasPick = pickId !== 0
     const pick = {
         val: useSelector(state => state.lists.all[listId].picks_by_date[day.sort]),
         set: () => {
@@ -28,16 +29,24 @@ const Pick = ({ listId, day, pickId }) => {
     useEffect(() => {
         if (hasPick) pick.set()
     }, [hasPick])
-    // makes sure a rerender happens when the set changes size
-    useSelector(state => state.components.Pick.editMode.size)
 
-    const editMode = useSelector(state => state.components.Pick.editMode.has(pickId))
+    const editMode = {
+        val: useSelector(state => state.components.Pick.editMode.has(pickId)),
+        set: () => dispatch(pickActions.activateEditMode(pickId)),
+        rmv: () => dispatch(pickActions.deactivateEditMode(pickId)),
+    }
+
     const rendered = {
         val: useSelector(state => state.components.Pick.rendered.has(pickId)),
         set: () => dispatch(pickActions.setRendered(pickId)),
     }
 
     const list = useSelector(state => state.lists.all[listId])
+
+    const title = {
+        val: useSelector(state => state.components.Pick.title[pickId]),
+        set: (title) => dispatch(pickActions.setTitle(pickId, title)),
+    }
 
     const editorial = {
         val: useSelector(state => state.components.Pick.editorial[pickId]),
@@ -50,24 +59,33 @@ const Pick = ({ listId, day, pickId }) => {
     // standard vars
     const owned = loggedIn && user.id === list.host.id
 
-    if (!hasPick) return (
-        <MediaSearch />
-    )
+    if (!rendered.val) {
+        dispatch(pickActions.setQuery(pickId, ''))
+    }
 
     if (!rendered.val) {
-        // title.set(list.title)
-        editorial.set(pick.val.editorial)
+
+        if (hasPick) {
+            title.set(list.title)
+            editorial.set(pick.val.editorial)
+
+        }
+        else {
+            title.set('')
+            editorial.set('')
+            editMode.set()
+
+        }
+
         rendered.set()
     }
 
-    const pickChanged = (() => {
-        return (
-            editorial.val !== pick.val.editorial
-        )
-    })()
-    console.log('   :::PICKCHANGED:::   ', pickChanged);
-
-    return null
+    return (
+        <div className='pick'>
+            {editMode.val && <MediaSearch pickId={pickId} />}
+            <PickOptions listId={listId} pickId={pickId} />
+        </div>
+    )
 }
 
 

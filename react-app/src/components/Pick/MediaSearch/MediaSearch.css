@@ -1,0 +1,3 @@
+.pick-search {
+  width: calc(100% - calc(var(--size__big-space) * 1.5) )
+}

@@ -62,7 +62,7 @@ const Calendar = ({ listId, day }) => {
                     width='700px'
                     height='700px'
                     content={
-                        <Pick listId={listId} day={day} pickId={pick?.id || null}/>
+                        <Pick listId={listId} day={day} pickId={pick?.id || undefined}/>
                     }
                 />
             )}

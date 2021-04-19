@@ -20,7 +20,6 @@ const List = () => {
         dispatch(listDataActions.runAddLists([listId]))
     }, [dispatch, listId])
 
-    useSelector(state => state.components.List.editMode.size) // makes sure a rerender happens when the set changes size
     const editMode = useSelector(state => state.components.List.editMode.has(listId))
     const rendered = {
         val: useSelector(state => state.components.List.rendered.has(listId)),

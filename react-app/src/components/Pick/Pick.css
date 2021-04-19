@@ -4,6 +4,7 @@
 
 .pick {
   display: flex;
+  position: relative;
   flex-direction: column;
   height: 100%;
   /* position: relative; */

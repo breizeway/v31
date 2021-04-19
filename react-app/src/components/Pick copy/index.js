@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 import './Pick.css'
-import MediaSearch from '../forms/MediaSearch'
+import MediaSearch from '../Pick/MediaSearch'
 import Backdrop from '../images/Backdrop'
 import * as pickActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
