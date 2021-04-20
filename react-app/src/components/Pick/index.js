@@ -28,6 +28,7 @@ const Pick = ({ listId, day, pickIdRaw }) => {
             await dispatch(listDataActions.runSetMediaPick(listId, day))
         }
     }
+    console.log('   :::PICK:::   ', pick.val);
     const chosenPick = {
         val: useSelector(state => state.components.Pick.chosen[pickId]),
         set: () => dispatch(pickActions.setChosen(pickId, null))
@@ -108,7 +109,7 @@ const Pick = ({ listId, day, pickIdRaw }) => {
                             <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
                         </div>
                     )}
-                    {data.editorial && (
+                    {hasData && data.editorial && (
                         <PickEditorial listId={listId} pickId={pickId} />
                     )}
                     {data.media_data.overview && (

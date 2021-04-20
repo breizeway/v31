@@ -117,6 +117,7 @@ const pickReducer = (state = defaultState, action) => {
         case ACITVATE_EDIT_MODE:
             newState = {...state}
             newState.editMode.add(action.pickId)
+            newState.query[action.pickId] = ''
             return newState
         case DEACITVATE_EDIT_MODE:
             newState = {...state}
@@ -142,6 +143,7 @@ const pickReducer = (state = defaultState, action) => {
         case SET_CHOSEN:
             newState = {...state}
             newState.chosen[action.pickId] = action.chosen
+            // if (action.chosen) newState.query[action.pickId] = action.chosen.title
             return newState
         default:
             return state;

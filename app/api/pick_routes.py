@@ -80,7 +80,7 @@ def commit_pick():
                          int(form.data['date'][4:6]),
                          int(form.data['date'][6:8])),
 
-    media_data = media_db.get(resource_id=form.data['media_id'])
+    media_data = request.json['media_data']
 
     new_pick = Pick(title=media_data['title'],
                     year=media_data['release_date'][0:4],
@@ -102,7 +102,9 @@ def commit_pick():
         if old_pick.media_id == new_pick.media_id:
             old_pick.editorial = new_pick.editorial
             db.session.commit()
-            return old_pick.to_dict()
+            old_pick_dict = old_pick.to_dict()
+            old_pick_dict['media_data'] = media_data
+            return old_pick_dict
         else:
             db.session.delete(old_pick)
             db.session.commit()

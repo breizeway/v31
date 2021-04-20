@@ -22,7 +22,9 @@ const PickOptions = ({ listId, pickId }) => {
         rmv: () => dispatch(pickActions.deactivateEditMode(pickId)),
     }
 
-    const chosen = useSelector(state => state.components.Pick.chosen[pickId])
+    const pick = useSelector(state => state.lists.all[listId].picks[pickId])
+    const chosenPick = useSelector(state => state.components.Pick.chosen[pickId])
+
 
     const list = useSelector(state => state.lists.all[listId])
     const user = useSelector(state => state.session.user)
@@ -38,12 +40,6 @@ const PickOptions = ({ listId, pickId }) => {
             {content: 'Delete', click: () => deletePick()},
         ]
     }
-
-    const existingPick = useSelector(state => {
-        const listPicks = state.lists.all[listId].picks
-        if (Object.keys(listPicks).includes(pickId)) return listPicks[pickId]
-        return null
-    })
     // const newPick = useSelector(state => state.components.Pick.newPick[pickId])
     // const pick = newPick || existingPick
 
@@ -58,7 +54,12 @@ const PickOptions = ({ listId, pickId }) => {
     }
 
     const savePick = () => {
-        dispatch(pickDataActions.runCommitPick(chosen))
+        const pickWithEditorial = {...pick}
+        pickWithEditorial.editorial = editorial
+
+        const chosenWithEditorial = {...chosenPick}
+        chosenWithEditorial.editorial = editorial
+        dispatch(pickDataActions.runCommitPick(chosenWithEditorial || pickWithEditorial))
         editMode.rmv()
     }
 

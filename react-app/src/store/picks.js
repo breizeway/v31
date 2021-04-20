@@ -1,7 +1,6 @@
 import * as listActions from './lists'
 
 const ADD_PICKS = 'lists/addPicks'
-const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
 
 export const addPicks = picks => {
@@ -60,6 +59,7 @@ export const runCommitPick = stagedPick => async dispatch => {
         body: JSON.stringify({
             list_id: stagedPick.list_id,
             media_id: stagedPick.media_id,
+            media_data: stagedPick.media_data,
             date: stagedPick.date_sort,
             editorial: stagedPick.editorial,
         })
@@ -79,7 +79,6 @@ export const runDeletePicks = pickIds => async dispatch => {
         body: JSON.stringify({ids: pickIds})
     })
     const { picks } = await response.json()
-    console.log('   :::DELETED:::   ', picks);
     picks.forEach(pick => {
         dispatch(listActions.removePick(pick.list_id, pick.date_sort, pick.id))
     })
@@ -88,7 +87,6 @@ export const runDeletePicks = pickIds => async dispatch => {
 
 const initialState = {
     all: {},
-    // allMedia: {},
     staged: null,
 }
 

@@ -32,6 +32,8 @@ const MediaSearch = ({ listId, pickId, date }) => {
         set: () => dispatch(pickActions.runSetSearchResults(pickId, query.val))
     }
 
+    const title = useSelector(state => state.components.Pick.title[pickId])
+
     useEffect(() => {
         if (query.val.length === 0) searchResults.set()
         else if (query.val.length >= 3) {
@@ -70,7 +72,7 @@ const MediaSearch = ({ listId, pickId, date }) => {
                 fontSize='var(--size__text-2)'
                 val={query.val}
                 setVal={query.set}
-                placeholder='search...'
+                placeholder={'search...'}
                 inputClass='modal-focus'
             />
             {query.val.length > 0 && (
