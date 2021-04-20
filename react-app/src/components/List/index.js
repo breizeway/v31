@@ -54,8 +54,6 @@ const List = () => {
     }
 
     const dates = formatDateRange(list.start_date_sort, list.end_date_sort)
-    // because we're just adding the pick to existing list, days are not updating since these values are return from the list model
-    console.log('   :::DATES:::   ', dates);
 
     return (
         <div className='list flex-column-med'>
