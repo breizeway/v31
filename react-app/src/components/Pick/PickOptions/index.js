@@ -14,8 +14,6 @@ import './PickOptions.css'
 const PickOptions = ({ listId, pickId }) => {
     const dispatch = useDispatch()
 
-    // makes sure a rerender happens when the set changes size
-    // useSelector(state => state.components.Pick.editMode.size)
     const editMode = {
         val: useSelector(state => state.components.Pick.editMode.has(pickId)),
         set: () => dispatch(pickActions.activateEditMode(pickId)),
@@ -30,7 +28,6 @@ const PickOptions = ({ listId, pickId }) => {
     const user = useSelector(state => state.session.user)
     const owned = list?.host.id === user?.id
 
-    /* dropdown */
     const dropDown = {
         thisVal: `Pick/${pickId}/edit`,
         val: useSelector(state => state.components.DropDown.active),
@@ -40,8 +37,6 @@ const PickOptions = ({ listId, pickId }) => {
             {content: 'Delete', click: () => deletePick()},
         ]
     }
-    // const newPick = useSelector(state => state.components.Pick.newPick[pickId])
-    // const pick = newPick || existingPick
 
     const editorial = useSelector(state => state.components.Pick.editorial[pickId])
 
@@ -63,7 +58,6 @@ const PickOptions = ({ listId, pickId }) => {
         editMode.rmv()
     }
 
-    //pick-title__controls
     return (
         <div className='pick-options'>
             {owned && (

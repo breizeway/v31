@@ -1,7 +1,7 @@
 import * as listActions from './lists'
 
-const ADD_PICKS = 'lists/addPicks'
-const STAGE_PICK = 'lists/stagePick'
+const ADD_PICKS = 'picks/addPicks'
+const STAGE_PICK = 'picks/stagePick'
 
 export const addPicks = picks => {
     return {
@@ -50,7 +50,7 @@ export const runStagePick = (mediaData, editorial, listId, date) => async dispat
     return pick
 }
 
-export const runCommitPick = stagedPick => async dispatch => {
+export const runCommitPick = (stagedPick) => async dispatch => {
     const response = await fetch(`/api/picks/commit`, {
         method: 'POST',
         headers: {
@@ -66,7 +66,7 @@ export const runCommitPick = stagedPick => async dispatch => {
     })
     const pick = await response.json()
     dispatch(addPicks([pick]))
-    dispatch(listActions.setMediaPick(pick.list_id, pick.date_sort, pick))
+    dispatch(listActions.setMediaPick(pick))
     return pick
 }
 
@@ -80,7 +80,7 @@ export const runDeletePicks = pickIds => async dispatch => {
     })
     const { picks } = await response.json()
     picks.forEach(pick => {
-        dispatch(listActions.removePick(pick.list_id, pick.date_sort, pick.id))
+        dispatch(listActions.removePick(pick))
     })
     return picks
 }

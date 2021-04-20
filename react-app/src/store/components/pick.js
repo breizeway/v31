@@ -143,7 +143,6 @@ const pickReducer = (state = defaultState, action) => {
         case SET_CHOSEN:
             newState = {...state}
             newState.chosen[action.pickId] = action.chosen
-            // if (action.chosen) newState.query[action.pickId] = action.chosen.title
             return newState
         default:
             return state;
