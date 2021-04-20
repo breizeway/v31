@@ -1,9 +1,11 @@
 import * as pickActions from './picks'
 
 const ADD_LISTS = 'lists/addLists'
-const ADD_LISTS_MEDIA = 'lists/addListsMedia'
+// const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
+const SET_MEDIA_PICK = 'lists/setMediaPick'
+const REMOVE_PICK = 'lists/removePick'
 
 const addLists = lists => {
     return {
@@ -12,12 +14,12 @@ const addLists = lists => {
     }
 }
 
-const addListsMedia = lists => {
-    return {
-        type: ADD_LISTS_MEDIA,
-        lists
-    }
-}
+// const addListsMedia = lists => {
+//     return {
+//         type: ADD_LISTS_MEDIA,
+//         lists
+//     }
+// }
 
 const deleteLists = listIds => {
     return {
@@ -33,8 +35,26 @@ const setFrame = (frameName, frame) => {
     }
 }
 
-export const runAddLists = (listIds, addMedia=false) => async dispatch => {
-    if (addMedia) dispatch(runAddListsMedia(listIds))
+export const setMediaPick = (listId, sortDate, pick) => {
+    return {
+        type: SET_MEDIA_PICK,
+        listId,
+        sortDate,
+        pick
+    }
+}
+
+export const removePick = (listId, sortDate, pickId) => {
+    return {
+        type: REMOVE_PICK,
+        listId,
+        sortDate,
+        pickId
+    }
+}
+
+export const runAddLists = (listIds/*, addMedia=false*/) => async dispatch => {
+    // if (addMedia) dispatch(runAddListsMedia(listIds))
     const response = await fetch(`/api/lists/`, {
         method: 'PUT',
         headers: {
@@ -54,25 +74,25 @@ export const runAddLists = (listIds, addMedia=false) => async dispatch => {
     dispatch(pickActions.addPicks(picks))
 }
 
-export const runAddListsMedia = listIds => async dispatch => {
-    const response = await fetch(`/api/lists/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            ids: listIds,
-            media: true,
-        }),
-    })
-    const { lists_media } = await response.json()
-    dispatch(addListsMedia(lists_media))
+// export const runAddListsMedia = listIds => async dispatch => {
+//     const response = await fetch(`/api/lists/`, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             ids: listIds,
+//             media: true,
+//         }),
+//     })
+//     const { lists_media } = await response.json()
+//     dispatch(addListsMedia(lists_media))
 
-    const picks = lists_media.reduce((picks, list) => {
-        return picks.concat(list.picks)
-    }, [])
-    dispatch(pickActions.addPicksMedia(picks))
-}
+//     const picks = lists_media.reduce((picks, list) => {
+//         return picks.concat(list.picks)
+//     }, [])
+//     dispatch(pickActions.addPicksMedia(picks))
+// }
 
 export const runDeleteLists = listIds => async dispatch => {
     const response = await fetch(`/api/lists/`, {
@@ -134,9 +154,28 @@ export const runEditList = (listId, title, editorial, published) => async dispat
     return list
 }
 
+export const runSetMediaPick = (listId, day) => async dispatch => {
+    const response = await fetch(`/api/picks/from_list`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            list_id: listId,
+            date: day.obj,
+        })
+    })
+    const { pick } = await response.json()
+    if (pick) {
+        dispatch(setMediaPick(listId, day.sort, pick))
+        dispatch(pickActions.addPicks([pick]))
+    }
+    return pick
+}
+
 const initialState = {
     all: {},
-    allMedia: {},
+    // allMedia: {},
     next: {},
     my: {},
 }
@@ -154,14 +193,14 @@ const listsReducer = (state = initialState, action) => {
             })
             newState.all = all
             return newState
-        case ADD_LISTS_MEDIA:
-            newState = {...state}
-            all = {...state.all}
-            action.lists.forEach(list => {
-                all[list.id] = list
-            })
-            newState.allMedia = all
-            return newState
+        // case ADD_LISTS_MEDIA:
+        //     newState = {...state}
+        //     all = {...state.all}
+        //     action.lists.forEach(list => {
+        //         all[list.id] = list
+        //     })
+        //     newState.allMedia = all
+        //     return newState
         case DELETE_LISTS:
             newState = {...state}
             all = {...state.all}
@@ -176,6 +215,17 @@ const listsReducer = (state = initialState, action) => {
         case SET_FRAME:
             newState = {...state}
             newState[action.payload.frameName] = action.payload.frame
+            return newState
+        case SET_MEDIA_PICK:
+            newState = {...state}
+            const pickId = action.pick.id
+            newState.all[action.listId].picks[pickId] = action.pick
+            newState.all[action.listId].picks_by_date[action.sortDate] = action.pick
+            return newState
+        case REMOVE_PICK:
+            newState = {...state}
+            delete newState.all[action.listId].picks[action.pickId]
+            delete newState.all[action.listId].picks_by_date[action.sortDate]
             return newState
         default:
             return state

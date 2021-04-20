@@ -33,10 +33,10 @@ const ListCard = ({ dataKey }) => {
             <div className='list-card__editorial card-fade'>
                 {list.editorial}
             </div>
-            {list.picks.length ? (
+            {Object.values(list.picks).length ? (
                 <PosterGoRound
                     height={'200px'}
-                    sources={list.picks.map(pick => {
+                    sources={Object.values(list.picks).map(pick => {
                         return pick.original_poster_url
                     })}
                 />

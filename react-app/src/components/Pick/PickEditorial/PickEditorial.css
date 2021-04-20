@@ -1,0 +1,7 @@
+.pick-about, .pick-about > * {
+  width: 100%;
+}
+
+.pick-about__text {
+  text-align: justify;
+}

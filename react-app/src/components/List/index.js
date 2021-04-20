@@ -20,9 +20,11 @@ const List = () => {
         dispatch(listDataActions.runAddLists([listId]))
     }, [dispatch, listId])
 
-    useSelector(state => state.components.List.editMode.size) // makes sure a rerender happens when the set changes size
     const editMode = useSelector(state => state.components.List.editMode.has(listId))
-    const rendered = useSelector(state => state.components.List.rendered.has(listId))
+    const rendered = {
+        val: useSelector(state => state.components.List.rendered.has(listId)),
+        set: () => dispatch(listActions.setRendered(listId)),
+    }
 
     const list = useSelector(state => state.lists.all[listId])
 
@@ -43,11 +45,11 @@ const List = () => {
 
     if (!list) return null
 
-    if (!rendered) {
+    if (!rendered.val) {
         title.set(list.title)
         editorial.set(list.editorial)
         published.set(list.published)
-        dispatch(listActions.setRendered(listId))
+        rendered.set()
     }
 
     const dates = formatDateRange(list.start_date_sort, list.end_date_sort)

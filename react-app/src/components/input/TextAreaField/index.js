@@ -5,7 +5,7 @@ import '../input.css'
 
 
 const TextAreaField = ({
-    height='var(--size__big-space)',
+    height='auto',
     fontSize='inherit',
     val='',
     setVal=null,

@@ -19,7 +19,8 @@ const ListTitle = () => {
     const history = useHistory()
     const { listId } = useParams()
 
-    useSelector(state => state.components.List.editMode.size) // makes sure a rerender happens when the set changes size
+    // makes sure a rerender happens when the set changes size
+    useSelector(state => state.components.List.editMode.size)
     const editMode = {
         val: useSelector(state => state.components.List.editMode.has(listId)),
         set: () => dispatch(listActions.activateEditMode(listId)),
@@ -59,7 +60,9 @@ const ListTitle = () => {
     }
 
     const deleteList = () => {
-        const confirmed = window.confirm('Are you sure you want to delete this list?\nThis action cannot be reversed.')
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this list?\nThis action cannot be reversed.'
+        )
         if (!confirmed) return
         history.push('/my')
         dispatch(listDataActions.runDeleteLists([listId]))
@@ -73,7 +76,7 @@ const ListTitle = () => {
     // update the datanase when published changes
     useEffect(() => {
         dispatch(listDataActions.runEditList(listId, list.title, list.editorial, published.val))
-    }, [published.val])
+    }, [dispatch, listId, list.title, list.editorial, published.val])
 
     return (
         <div className='list-title'>

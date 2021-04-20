@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
 import listsReducer from './lists';
-import picksReducer from './picks';
+// import picksReducer from './picks';
 import locationReducer from './location';
 import mediaReducer from './media';
 
@@ -12,7 +12,7 @@ import componentReducer from './components'
 const rootReducer = combineReducers({
     session: sessionReducer,
     lists: listsReducer,
-    picks: picksReducer,
+    // picks: picksReducer,
     location: locationReducer,
     media: mediaReducer,
     components: componentReducer,
