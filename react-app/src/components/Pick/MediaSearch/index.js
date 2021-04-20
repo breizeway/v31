@@ -6,6 +6,7 @@ import * as pickActions from '../../../store/components/pick'
 import { setActive } from '../../../store/components/dropDown'
 import TextField from '../../input/TextField'
 import DropDown from '../../DropDown'
+import Loading from '../../Loading'
 
 
 const MediaSearch = ({ listId, pickId, date }) => {
@@ -54,7 +55,7 @@ const MediaSearch = ({ listId, pickId, date }) => {
         set: () => dispatch(setActive(dropDown.thisVal)),
         options: {
             initial: [
-                {content: 'Keep typing...', click: null},
+                {content: <div style={{display: 'flex', alignItems: 'center'}}><Loading size='inherit' />&nbsp;keep typing...</div>, click: null},
             ],
             search: searchResults.val.slice(0, 8).map(result => {
                 return {content: `${result.title} ${result.release_date && (`(${result.release_date.slice(0, 4)})`)}`, click: () => chooseFilm(result.id)}
@@ -69,7 +70,8 @@ const MediaSearch = ({ listId, pickId, date }) => {
                 fontSize='var(--size__text-2)'
                 val={query.val}
                 setVal={query.set}
-                placeholder='Title'
+                placeholder='search...'
+                inputClass='modal-focus'
             />
             {query.val.length > 0 && (
                 query.val.length >= 1 && query.val.length <= 2 ? (

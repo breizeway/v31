@@ -46,3 +46,16 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.pick__nothing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color__text-light);
+}
+
+.pick__about-text {
+  text-align: justify;
+}

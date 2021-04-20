@@ -11,6 +11,7 @@ const TextField = ({
     setVal= (e) => null,
     placeholder='',
     max=100,
+    inputClass=''
 }) => {
     return (
         <div
@@ -22,7 +23,7 @@ const TextField = ({
             }}
         >
             <input
-                className='input-input text-field-input'
+                className={`input-input text-field-input ${inputClass}`}
                 type='text'
                 value={val}
                 onChange={e => e.target.value.length <= max ? setVal(e.target.value) : null}

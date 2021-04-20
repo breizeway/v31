@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-
 import './Pick.css'
 import MediaSearch from './MediaSearch'
 import PickOptions from './PickOptions'
+import PickEditorial from './PickEditorial'
+import Loading from '../Loading'
 import Backdrop from '../images/Backdrop'
 import * as pickDataActions from '../../store/picks'
 import * as mediaActions from '../../store/media'
@@ -14,12 +15,13 @@ import ButtonGroup from '../buttons/ButtonGroup'
 import TextButton from '../buttons/TextButton'
 
 
-const Pick = ({ listId, day, pickId=0 }) => {
+const Pick = ({ listId, day, pickIdRaw }) => {
+    const pickIdIfNone = `list-${listId}_day-${day.sort}`
+    const pickId = pickIdRaw ? pickIdRaw : pickIdIfNone
     const dispatch = useDispatch()
-    const [mediaDataLoaded, setMediaDataLoaded] = useState(false)
 
     // state vars
-    const hasPick = pickId !== 0
+    const hasPick = pickId !== pickIdIfNone
     const pick = {
         val: useSelector(state => state.lists.all[listId].picks_by_date[day.sort]),
         set: async () => {
@@ -33,11 +35,9 @@ const Pick = ({ listId, day, pickId=0 }) => {
 
     const data = chosenPick.val || pick.val || null
     const hasData = data !== null
-    console.log('   :::DATA:::   ', data);
 
     useEffect(() => {
         if (hasPick) pick.set();
-        setMediaDataLoaded(true)
     }, [hasPick])
 
     const editMode = {
@@ -98,15 +98,29 @@ const Pick = ({ listId, day, pickId=0 }) => {
                 hasPick ? (
                     <div className='header-2'>{`${pick.val.title} (${pick.val.year})`}</div>
                 ) : (
-                    null
+                    <div className='pick__nothing'>There's nothing here yet...</div>
                 )
             )}
             {data?.media_data ? (
-                <div className='pick__backdrop'>
-                    <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
-                </div>
+                <>
+                    {data.media_data.backdrop_path && (
+                        <div className='pick__backdrop'>
+                            <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
+                        </div>
+                    )}
+                    {data.editorial && (
+                        <PickEditorial listId={listId} pickId={pickId} />
+                    )}
+                    {data.media_data.overview && (
+                        <div className='pick__about'>
+                            <div className='text-explanation-small'>overview</div>
+                            <div className='pick__about-text'>{data.media_data.overview}</div>
+                        </div>
+                    )}
+                    {/* <PickAbout listId={listId} pickId={pickId} /> */}
+                </>
             ) : (
-                null
+                hasData && <Loading size='var(--size__text-1)' />
             )}
             {owned && <PickOptions listId={listId} pickId={pickId} />}
         </div>
