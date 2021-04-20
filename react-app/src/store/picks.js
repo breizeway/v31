@@ -1,7 +1,8 @@
+import * as listActions from './lists'
+
 const ADD_PICKS = 'lists/addPicks'
 const ADD_PICKS_MEDIA = 'lists/addPicksMedia'
 const STAGE_PICK = 'lists/stagePick'
-const UPDATE_EDITED_PICK = 'lists/updateEditedPick'
 
 export const addPicks = picks => {
     return {
@@ -17,15 +18,7 @@ export const stagePick = (pick) => {
     }
 }
 
-export const updateEditedPick = pick => {
-    return {
-        type: UPDATE_EDITED_PICK,
-        edited: {date_sort: pick.date_sort, list_id: pick.list_id}
-    }
-}
-
-export const runAddPicks = (pickIds, addMedia=false) => async dispatch => {
-    // if (addMedia) dispatch(runAddPicksMedia(pickIds))
+export const runAddPicks = (pickIds) => async dispatch => {
     const response = await fetch(`/api/picks/`, {
         method: 'PUT',
         headers: {
@@ -65,23 +58,19 @@ export const runCommitPick = stagedPick => async dispatch => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            title: stagedPick.title,
-            year: stagedPick.year,
-            editorial: stagedPick.editorial,
-            original_poster: stagedPick.original_poster,
-            date: stagedPick.date_sort,
-            media_id: stagedPick.media_id,
-            imdb_id: stagedPick.imdb_id,
             list_id: stagedPick.list_id,
+            media_id: stagedPick.media_id,
+            date: stagedPick.date_sort,
+            editorial: stagedPick.editorial,
         })
     })
     const pick = await response.json()
     dispatch(addPicks([pick]))
-    dispatch(updateEditedPick(pick))
+    dispatch(listActions.setMediaPick(pick.list_id, pick.date_sort, pick))
     return pick
 }
 
-export const runDeletePick = pickIds => async dispatch => {
+export const runDeletePicks = pickIds => async dispatch => {
     const response = await fetch(`/api/picks/`, {
         method: 'PATCH',
         headers: {
@@ -89,8 +78,12 @@ export const runDeletePick = pickIds => async dispatch => {
         },
         body: JSON.stringify({ids: pickIds})
     })
-    const deleted = await response.json()
-    return deleted
+    const { picks } = await response.json()
+    console.log('   :::DELETED:::   ', picks);
+    picks.forEach(pick => {
+        dispatch(listActions.removePick(pick.list_id, pick.date_sort, pick.id))
+    })
+    return picks
 }
 
 const initialState = {
@@ -111,10 +104,6 @@ const picksReducer = (state = initialState, action) => {
         case STAGE_PICK:
             newState = {...state}
             newState.staged = action.pick
-            return newState
-        case UPDATE_EDITED_PICK:
-            newState = {...state}
-            newState.editedPick = action.edited
             return newState
         default:
             return state

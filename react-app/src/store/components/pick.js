@@ -76,7 +76,7 @@ export const setChosen = (pickId, chosen)  => {
     }
 }
 
-export const runSetChosen = (pickId, listId, mediaId, dateSort, editorial='', commit=false) => async dispatch => {
+export const runSetChosen = (pickId, listId, mediaId, dateSort, editorial='') => async dispatch => {
     const response = await fetch(`/api/picks/add`, {
         method: 'PUT',
         headers: {
@@ -87,7 +87,6 @@ export const runSetChosen = (pickId, listId, mediaId, dateSort, editorial='', co
             media_id: mediaId,
             date: dateSort,
             editorial,
-            commit,
         }),
     })
     if (response.ok) {

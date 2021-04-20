@@ -54,8 +54,6 @@ def stage_pick():
     form = PickForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    commit = request.json['commit']
-
     media_data = media_db.get(resource_id=form.data['media_id'])
 
     pick = Pick(title=media_data['title'],
@@ -71,9 +69,6 @@ def stage_pick():
 
     pick_dict = pick.to_dict()
     pick_dict['media_data'] = media_data
-    if (commit):
-        db.session.add(pick)
-        db.session.commit()
     return pick_dict
 
 
@@ -81,29 +76,39 @@ def stage_pick():
 def commit_pick():
     form = PickForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form_date = form.data['date']
-    date = datetime.date(int(form_date[0:4]), int(form_date[4:6]), int(form_date[6:8]))
+    date = datetime.date(int(form.data['date'][0:4]),
+                         int(form.data['date'][4:6]),
+                         int(form.data['date'][6:8])),
 
-    new_pick = Pick(
-        title=form.data['title'],
-        year=form.data['year'],
-        editorial=form.data['editorial'],
-        original_poster=form.data['original_poster'],
-        date=date,
-        media_id=form.data['media_id'],
-        imdb_id=form.data['imdb_id'],
-        list_id=form.data['list_id'],
-    )
-    old_pick = db.session.query(Pick).filter(Pick.date == date, Pick.list_id == int(form.data['list_id'])).all()
+    media_data = media_db.get(resource_id=form.data['media_id'])
 
-    if len(old_pick) > 0:
-        if old_pick[0].media_id == new_pick.media_id:
-            old_pick[0].editorial = new_pick.editorial
+    new_pick = Pick(title=media_data['title'],
+                    year=media_data['release_date'][0:4],
+                    editorial=form.data['editorial'],
+                    original_poster=media_data['poster_path'],
+                    date=datetime.date(int(form.data['date'][0:4]),
+                                       int(form.data['date'][4:6]),
+                                       int(form.data['date'][6:8])),
+                    media_id=form.data['media_id'],
+                    imdb_id=media_data['imdb_id'],
+                    list_id=form.data['list_id'])
+
+    old_pick = db.session.query(Pick) \
+                         .filter(Pick.date == date,
+                                 Pick.list_id == int(form.data['list_id'])) \
+                         .first()
+
+    if old_pick:
+        if old_pick.media_id == new_pick.media_id:
+            old_pick.editorial = new_pick.editorial
             db.session.commit()
-            return old_pick[0].to_dict()
+            return old_pick.to_dict()
         else:
-            db.session.delete(old_pick[0])
+            db.session.delete(old_pick)
             db.session.commit()
     db.session.add(new_pick)
     db.session.commit()
-    return new_pick.to_dict()
+
+    new_pick_dict = new_pick.to_dict()
+    new_pick_dict['media_data'] = media_data
+    return new_pick_dict

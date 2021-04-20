@@ -5,6 +5,7 @@ const ADD_LISTS = 'lists/addLists'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
 const SET_MEDIA_PICK = 'lists/setMediaPick'
+const REMOVE_PICK = 'lists/removePick'
 
 const addLists = lists => {
     return {
@@ -34,12 +35,21 @@ const setFrame = (frameName, frame) => {
     }
 }
 
-const setMediaPick = (listId, sortDate, pick) => {
+export const setMediaPick = (listId, sortDate, pick) => {
     return {
         type: SET_MEDIA_PICK,
         listId,
         sortDate,
         pick
+    }
+}
+
+export const removePick = (listId, sortDate, pickId) => {
+    return {
+        type: REMOVE_PICK,
+        listId,
+        sortDate,
+        pickId
     }
 }
 
@@ -211,6 +221,11 @@ const listsReducer = (state = initialState, action) => {
             const pickId = action.pick.id
             newState.all[action.listId].picks[pickId] = action.pick
             newState.all[action.listId].picks_by_date[action.sortDate] = action.pick
+            return newState
+        case REMOVE_PICK:
+            newState = {...state}
+            delete newState.all[action.listId].picks[action.pickId]
+            delete newState.all[action.listId].picks_by_date[action.sortDate]
             return newState
         default:
             return state

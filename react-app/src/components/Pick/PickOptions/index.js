@@ -22,6 +22,8 @@ const PickOptions = ({ listId, pickId }) => {
         rmv: () => dispatch(pickActions.deactivateEditMode(pickId)),
     }
 
+    const chosen = useSelector(state => state.components.Pick.chosen[pickId])
+
     const list = useSelector(state => state.lists.all[listId])
     const user = useSelector(state => state.session.user)
     const owned = list?.host.id === user?.id
@@ -52,11 +54,11 @@ const PickOptions = ({ listId, pickId }) => {
             'Are you sure you want to delete this pick?\nThis action cannot be reversed.'
         )
         if (!confirmed) return
-        // dispatch(pickDataActions.runDeletePicks([pickId])) // add delete or figure thi sout
+        dispatch(pickDataActions.runDeletePicks([pickId]))
     }
 
     const savePick = () => {
-        // dispatch(pickDataActions.runEditPick(pickId, editorial))
+        dispatch(pickDataActions.runCommitPick(chosen))
         editMode.rmv()
     }
 
