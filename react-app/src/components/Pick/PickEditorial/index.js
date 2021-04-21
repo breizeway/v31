@@ -21,26 +21,28 @@ const PickEditorial = ({ listId, pickId}) => {
     }
 
     return (
-        <>
-            {editMode && hasData ? (
-                <>
-                    <div className='text-explanation-small'>editorial</div>
-                    <TextAreaField
-                        height='auto'
-                        val={editorial.val}
-                        setVal={editorial.set}
-                        placeholder=''
-                    />
-                </>
-            ) : (
-                data.editorial && (
+        ((editMode && hasData) || data.editorial) && (
+            <div>
+                {editMode && hasData ? (
                     <>
                         <div className='text-explanation-small'>editorial</div>
-                        <div className='pick__about-text'>{data.editorial}</div>
+                        <TextAreaField
+                            height='auto'
+                            val={editorial.val}
+                            setVal={editorial.set}
+                            placeholder=''
+                        />
                     </>
-                )
-            )}
-        </>
+                ) : (
+                    data.editorial && (
+                        <>
+                            <div className='text-explanation-small'>editorial</div>
+                            <div className='pick__about-text'>{data.editorial}</div>
+                        </>
+                    )
+                )}
+            </div>)
+
     )
 }
 

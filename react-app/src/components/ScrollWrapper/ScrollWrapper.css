@@ -1,0 +1,7 @@
+.scroll-wrapper {
+  overflow-y: scroll;
+  width: calc(100% + calc(var(--size__big-space) * 0.85));
+  padding-right: calc(var(--size__big-space) * 0.85);
+  height: 100%;
+  scrollbar-width: thin;
+}

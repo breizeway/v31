@@ -1,6 +1,7 @@
 .navbar {
   display: flex;
   justify-content: center;
+  /* background-color: #16101d; */
   background-color: var(--color__layer-0);
   padding: var(--size__sml-space) var(--size__big-space);
   width: 100%;

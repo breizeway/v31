@@ -54,7 +54,7 @@ const PickOptions = ({ listId, pickId }) => {
 
         const chosenWithEditorial = {...chosenPick}
         chosenWithEditorial.editorial = editorial
-        dispatch(pickDataActions.runCommitPick(chosenWithEditorial || pickWithEditorial))
+        dispatch(pickDataActions.runCommitPick(chosenPick ? chosenWithEditorial : pickWithEditorial))
         editMode.rmv()
     }
 

@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Pick.css'
+import ScrollWrapper from '../ScrollWrapper'
 import MediaSearch from './MediaSearch'
 import PickOptions from './PickOptions'
 import PickEditorial from './PickEditorial'
 import Loading from '../Loading'
 import Backdrop from '../images/Backdrop'
+import PickDetails from './PickDetails'
 import * as listDataActions from '../../store/lists'
 import * as pickActions from '../../store/components/pick'
 
@@ -82,38 +84,41 @@ const Pick = ({ listId, day, pickIdRaw }) => {
     }
 
     return (
-        <div className='pick flex-column-med'>
-            {editMode.val ? (
-                <MediaSearch listId={listId} pickId={pickId} date={day.sort} />
-            ) : (
-                hasPick ? (
-                    <div className='header-2'>{`${pick.val.title} (${pick.val.year})`}</div>
+            <div className='pick flex-column-med'>
+                {editMode.val ? (
+                    <MediaSearch listId={listId} pickId={pickId} date={day.sort} />
                 ) : (
-                    <div className='pick__nothing'>There's nothing here yet...</div>
-                )
-            )}
-            {data?.media_data ? (
-                <>
-                    {data.media_data.backdrop_path && (
-                        <div className='pick__backdrop'>
-                            <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
-                        </div>
+                    hasPick ? (
+                        <div className='header-2'>{`${pick.val.title} (${pick.val.year})`}</div>
+                    ) : (
+                        <div className='pick__nothing'>There's nothing here yet...</div>
+                    )
+                )}
+                <ScrollWrapper moreClasses='flex-column-med'>
+                    {data?.media_data ? (
+                        <>
+                            {data.media_data.backdrop_path && (
+                                <div className='pick__backdrop'>
+                                    <Backdrop className='test' source={`https://image.tmdb.org/t/p/original${data.media_data.backdrop_path}`} />
+                                </div>
+                            )}
+                            {hasData && (
+                                <PickEditorial listId={listId} pickId={pickId} />
+                            )}
+                            {data.media_data.overview && (
+                                <div className='pick__about'>
+                                    <div className='text-explanation-small'>overview</div>
+                                    <div className='pick__about-text'>{data.media_data.overview}</div>
+                                </div>
+                            )}
+                            <PickDetails listId={listId} pickId={pickId} />
+                        </>
+                    ) : (
+                        hasData && <Loading size='var(--size__text-1)' />
                     )}
-                    {hasData && (
-                        <PickEditorial listId={listId} pickId={pickId} />
-                    )}
-                    {data.media_data.overview && (
-                        <div className='pick__about'>
-                            <div className='text-explanation-small'>overview</div>
-                            <div className='pick__about-text'>{data.media_data.overview}</div>
-                        </div>
-                    )}
-                </>
-            ) : (
-                hasData && <Loading size='var(--size__text-1)' />
-            )}
-            {owned && <PickOptions listId={listId} pickId={pickId} />}
-        </div>
+                </ScrollWrapper>
+                {owned && <PickOptions listId={listId} pickId={pickId} />}
+            </div>
     )
 }
 

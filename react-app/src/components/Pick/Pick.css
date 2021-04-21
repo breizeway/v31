@@ -9,7 +9,7 @@
   height: 100%;
   /* position: relative; */
   z-index: 20;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 /* .pick__backdrop {

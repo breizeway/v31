@@ -43,5 +43,6 @@ class Pick(db.Model):
     def to_dict_media(self):
         pick_dict = self.to_dict()
         pick_dict['media_data'] = media_db.get(resource_id=self.media_id,
-                                               categories=['credits'])
+                                               categories=['credits',
+                                                           'watch/providers'])
         return pick_dict
