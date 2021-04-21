@@ -18,23 +18,36 @@ const PickDetails = ({ listId, pickId}) => {
         return member.job === 'Director'
     })[0]
 
-    const budget = Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-    }).format(mediaData.budget)
+
+    const budget = (() => {
+        const lessThanMil = mediaData.budget < 1000000
+        const budgetInMil = mediaData.budget / 1000000
+        const budgetNum = `${Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: lessThanMil ? 1 : 0,
+        }).format(lessThanMil ? mediaData.budget : budgetInMil)}`
+        const suffix = `${(lessThanMil ? '' : ' million')}`
+        return budgetNum + suffix
+    })()
 
     return (
         <div className='pick-details'>
-            <PickDetail label={'release date'}>
-                {`${new Date(mediaData.release_date).toDateString().slice(4)}`}
-            </PickDetail>
-            <PickDetail label={'budget'}>
-                {budget}
-            </PickDetail>
-            <PickDetail label={'director'}>
-                {director.name}
-            </PickDetail>
+            {mediaData.release_date && (
+                <PickDetail label={'release date'}>
+                    {`${new Date(mediaData.release_date).toDateString().slice(4)}`}
+                </PickDetail>
+            )}
+            {budget && (
+                <PickDetail label={'budget'}>
+                    {budget}
+                </PickDetail>
+            )}
+            {director && (
+                <PickDetail label={'director'}>
+                    {director.name}
+                </PickDetail>
+            )}
         </div>
     )
 }
