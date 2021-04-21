@@ -45,6 +45,7 @@ def delete_picks():
     picks_dicts = [pick.to_dict() for pick in picks]
     for pick in picks:
         db.session.delete(pick)
+
     db.session.commit()
     return {'picks': picks_dicts}
 

@@ -27,6 +27,7 @@ const List = () => {
     }
 
     const list = useSelector(state => state.lists.all[listId])
+    useSelector(state => state.lists.all[listId]?.picks.length)
 
     const title = {
         val: useSelector(state => state.components.List.title[listId]),

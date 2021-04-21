@@ -21,9 +21,9 @@ const PickEditorial = ({ listId, pickId}) => {
     }
 
     return (
-        <div className='pick-editorial'>
-            <div className='pick__about'>
-                {editMode ? (
+        ((editMode && hasData) || data.editorial) && (
+            <div>
+                {editMode && hasData ? (
                     <>
                         <div className='text-explanation-small'>editorial</div>
                         <TextAreaField
@@ -41,8 +41,8 @@ const PickEditorial = ({ listId, pickId}) => {
                         </>
                     )
                 )}
-            </div>
-        </div>
+            </div>)
+
     )
 }
 

@@ -3,11 +3,17 @@ import requests
 from .meta import Meta
 
 
-def get(resource_id, resource='movie'):
+def formatCategories(categories):
+    catString = ','.join(categories)
+    return f'?append_to_response={catString}'
+
+
+def get(resource_id, resource='movie', categories=[]):
     resource_fragment = f'/{resource}'
     resource_id_fragment = f'/{resource_id}'
+    append_fragment = formatCategories(categories) if categories else ''
 
-    url = f'{Meta.base_url}{resource_fragment}{resource_id_fragment}'
+    url = f'{Meta.base_url}{resource_fragment}{resource_id_fragment}{append_fragment}'
     headers = {'authorization': f'Bearer {Meta.token}',
                'content-type': 'application/json;charset=utf-8'}
 

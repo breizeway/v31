@@ -60,20 +60,26 @@ const weekDayName = weekDay => {
 //     }
 // }
 
-export const makeDay = dateObj => {
-    const year = dateObj.getFullYear()
-    const month = dateObj.getMonth()
-    const date = dateObj.getDate()
-    const weekDay = dateObj.getDay()
+export const makeDay = date => {
+    const newDate = new Date(date)
+    const year = newDate.getFullYear()
+    const month = newDate.getMonth()
+    const monthNameVal = monthName(month)
+    const monthDate = newDate.getDate()
+    const day = newDate.getDay()
+    const dayName = weekDayName(day)
     return {
-        obj: dateObj,
+        obj: newDate,
         year,
-        month: month + 1,
-        monthName: monthName(month),
-        date,
-        weekDay: weekDay + 1,
-        weekDayName: weekDayName(weekDay),
-        sort: sortFromDate(dateObj)
+        month,
+        monthName: monthNameVal,
+        monthNameShort: monthNameVal.slice(0, 3),
+        date: monthDate,
+        day,
+        dayName,
+        dayNameShort: dayName.slice(0, 3),
+        sort: sortFromDate(newDate),
+        database: `${dayName.slice(0, 3)}, ${monthDate} ${monthNameVal.slice(0, 3)} ${year} 00:00:00 GMT`
     }
 }
 

@@ -19,11 +19,11 @@ const MediaSearch = ({ listId, pickId, date }) => {
 
     const editorial = {
         val: useSelector(state => state.components.Pick.editorial[pickId]),
-        set: (editorial) => dispatch(pickActions.setEditorial(pickId, editorial)),
+        set: (editorial) => dispatch(pickActions.setEditorial(pickId, editorial)), // not used
     }
 
     const chosen = {
-        val: useSelector(state => state.components.Pick.chosen[pickId]),
+        val: useSelector(state => state.components.Pick.chosen[pickId]), // not used
         set: (mediaId) => dispatch(pickActions.runSetChosen(pickId, listId, mediaId, date, editorial.val)),
     }
 
@@ -31,8 +31,6 @@ const MediaSearch = ({ listId, pickId, date }) => {
         val: useSelector(state => state.components.Pick.searchResults[pickId]) || [],
         set: () => dispatch(pickActions.runSetSearchResults(pickId, query.val))
     }
-
-    const title = useSelector(state => state.components.Pick.title[pickId])
 
     useEffect(() => {
         if (query.val.length === 0) searchResults.set()

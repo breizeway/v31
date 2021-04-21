@@ -1,6 +1,8 @@
 import * as pickActions from './picks'
+import { makeDay } from '../services/dates'
 
 const ADD_LISTS = 'lists/addLists'
+const UPDATE_DATES = 'lists/updateDates'
 // const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
@@ -11,6 +13,13 @@ const addLists = lists => {
     return {
         type: ADD_LISTS,
         lists
+    }
+}
+
+const updateDates = list => {
+    return {
+        type: UPDATE_DATES,
+        list
     }
 }
 
@@ -35,21 +44,17 @@ const setFrame = (frameName, frame) => {
     }
 }
 
-export const setMediaPick = (listId, sortDate, pick) => {
+export const setMediaPick = pick => {
     return {
         type: SET_MEDIA_PICK,
-        listId,
-        sortDate,
         pick
     }
 }
 
-export const removePick = (listId, sortDate, pickId) => {
+export const removePick = pick => {
     return {
         type: REMOVE_PICK,
-        listId,
-        sortDate,
-        pickId
+        pick
     }
 }
 
@@ -72,6 +77,21 @@ export const runAddLists = (listIds/*, addMedia=false*/) => async dispatch => {
         return picks.concat(list.picks)
     }, [])
     dispatch(pickActions.addPicks(picks))
+}
+
+export const runUpdateDates = listId => async dispatch => {
+    const response = await fetch(`/api/lists/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ids: [listId],
+            media: false,
+        }),
+    })
+    const { lists } = await response.json()
+    dispatch(updateDates(lists[0]))
 }
 
 // export const runAddListsMedia = listIds => async dispatch => {
@@ -167,7 +187,7 @@ export const runSetMediaPick = (listId, day) => async dispatch => {
     })
     const { pick } = await response.json()
     if (pick) {
-        dispatch(setMediaPick(listId, day.sort, pick))
+        dispatch(setMediaPick(pick))
         dispatch(pickActions.addPicks([pick]))
     }
     return pick
@@ -175,7 +195,6 @@ export const runSetMediaPick = (listId, day) => async dispatch => {
 
 const initialState = {
     all: {},
-    // allMedia: {},
     next: {},
     my: {},
 }
@@ -183,7 +202,12 @@ const initialState = {
 const listsReducer = (state = initialState, action) => {
     let newState
     let all
-    let allMedia
+    let parentList
+    let pick
+    let pickId
+    let listId
+    let pickDate
+    let pickDateSort
     switch (action.type) {
         case ADD_LISTS:
             newState = {...state}
@@ -193,39 +217,85 @@ const listsReducer = (state = initialState, action) => {
             })
             newState.all = all
             return newState
-        // case ADD_LISTS_MEDIA:
-        //     newState = {...state}
-        //     all = {...state.all}
-        //     action.lists.forEach(list => {
-        //         all[list.id] = list
-        //     })
-        //     newState.allMedia = all
-        //     return newState
+        case UPDATE_DATES:
+            newState = {...state}
+            all = newState.all
+
+            all[action.list.id].start_date = action.list.start_date
+            all[action.list.id].start_date_sort = action.list.start_date_sort
+            all[action.list.id].end_date = action.list.end_date
+            all[action.list.id].end_date_sort = action.list.end_date_sort
+
+            newState.all = all
+            return newState
         case DELETE_LISTS:
             newState = {...state}
             all = {...state.all}
-            allMedia = {...state.allMedia}
             action.listIds.forEach(listId => {
                 delete all[listId]
-                delete allMedia[listId]
             })
             newState.all = all
-            newState.allMedia = allMedia
             return newState
         case SET_FRAME:
             newState = {...state}
             newState[action.payload.frameName] = action.payload.frame
             return newState
         case SET_MEDIA_PICK:
-            newState = {...state}
-            const pickId = action.pick.id
-            newState.all[action.listId].picks[pickId] = action.pick
-            newState.all[action.listId].picks_by_date[action.sortDate] = action.pick
+            newState = JSON.parse(JSON.stringify(state))
+            pick = action.pick
+            parentList = pick.parent_list
+            pickId = action.pick.id
+            listId = action.pick.list_id
+            pickDateSort = action.pick.date_sort
+
+            // set picks
+            newState.all[listId].picks[pickId] = pick
+            newState.all[listId].picks_by_date[pickDateSort] = pick
+
+            // set list dates
+            newState.all[listId].start_date_sort = parentList.start_date_sort
+            newState.all[listId].start_date = parentList.start_date
+            newState.all[listId].end_date_sort = parentList.end_date_sort
+            newState.all[listId].end_date = parentList.end_date
+
             return newState
         case REMOVE_PICK:
-            newState = {...state}
-            delete newState.all[action.listId].picks[action.pickId]
-            delete newState.all[action.listId].picks_by_date[action.sortDate]
+            newState = JSON.parse(JSON.stringify(state))
+            pick = action.pick
+            parentList = pick.parent_list
+            console.log('   :::PARENTLIST:::   ', parentList);
+            pickId = action.pick.id
+            listId = action.pick.list_id
+            pickDate = action.pick.date
+            pickDateSort = action.pick.date_sort
+            const pickDay = makeDay(new Date())
+
+            // set picks
+
+            delete newState.all[listId].picks[pickId]
+            delete newState.all[listId].picks_by_date[pickDateSort]
+
+            // set list dates
+            const sortKeys = Object.keys(newState.all[listId].picks_by_date)
+            if (sortKeys.length === 0) {
+                newState.all[listId].start_date_sort = pickDay.sort
+                newState.all[listId].start_date = pickDay.database
+                newState.all[listId].end_date_sort = pickDay.sort
+                newState.all[listId].end_date = pickDay.database
+            }
+            else if (pickDateSort < sortKeys[0]) {
+                const newStartSort = sortKeys[0]
+                const newStartDate = newState.all[listId].picks_by_date[newStartSort].date
+                newState.all[listId].start_date_sort = newStartSort
+                newState.all[listId].start_date = newStartDate
+            }
+            else if (pickDateSort > sortKeys[sortKeys.length - 1]) {
+                const newEndSort = sortKeys[sortKeys.length - 1]
+                const newEndDate = newState.all[listId].picks_by_date[newEndSort].date
+                newState.all[listId].end_date_sort = newEndSort
+                newState.all[listId].end_date = newEndDate
+            }
+
             return newState
         default:
             return state
@@ -233,4 +303,5 @@ const listsReducer = (state = initialState, action) => {
 }
 
 
+//"Tue Apr 20 2021"
 export default listsReducer

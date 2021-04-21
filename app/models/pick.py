@@ -21,7 +21,7 @@ class Pick(db.Model):
 
     parent_list = db.relationship('List', back_populates='picks')
 
-    def to_dict(self):
+    def to_dict_simple(self):
         return {'id': self.id,
                 'title': self.title,
                 'year': self.year,
@@ -34,16 +34,15 @@ class Pick(db.Model):
                 'imdb_id': self.imdb_id,
                 'list_id': self.list_id}
 
+    def to_dict(self):
+        pick_dict = self.to_dict_simple()
+        if (self.parent_list):
+            pick_dict['parent_list'] = self.parent_list.to_dict_simple()
+        return pick_dict
+
     def to_dict_media(self):
-        return {'id': self.id,
-                'title': self.title,
-                'year': self.year,
-                'editorial': self.editorial,
-                'date': self.date,
-                'date_sort': str(self.date).replace('-',''),
-                'original_poster': self.original_poster,
-                'original_poster_url': f'{Meta.secure_image_base_url[0]}original{self.original_poster}' if self.original_poster else '',
-                'media_id': self.media_id,
-                'imdb_id': self.imdb_id,
-                'list_id': self.list_id,
-                'media_data': media_db.get(resource_id=self.media_id)}
+        pick_dict = self.to_dict()
+        pick_dict['media_data'] = media_db.get(resource_id=self.media_id,
+                                               categories=['credits',
+                                                           'watch/providers'])
+        return pick_dict
