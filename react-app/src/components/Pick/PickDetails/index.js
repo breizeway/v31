@@ -17,10 +17,12 @@ const PickDetails = ({ listId, pickId}) => {
     const cast = mediaData.credits?.cast || []
     const crew = mediaData.credits?.crew || []
     console.log('   :::CREW:::   ', crew);
-    const releventCrew = crew.filter(member => {
-        const positions = ['Director', 'Screenplay']
+    const releventCrew = crew
+        .filter(member => {
+        const positions = ['Director', 'Screenplay', 'Producer', 'Executive Producer']
         return positions.includes(member.job)
-    })
+        })
+    console.log('   :::RELEVENTCREW:::   ', releventCrew);
 
     const budget = (() => {
         const lessThanMil = mediaData.budget < 1000000
@@ -48,14 +50,14 @@ const PickDetails = ({ listId, pickId}) => {
             )}
             {crew && (
                 <PickDetail label='cast' gridArea='cast' scroll={true}>
-                    {cast.slice(0, 4).map((member, i) => (
+                    {cast.slice(0, 10).map((member, i) => (
                         <CastAndCrew key={i} member={member}/>
                     ))}
                 </PickDetail>
             )}
             {crew && (
                 <PickDetail label='crew' gridArea='crew' scroll={true}>
-                    {releventCrew.slice(0, 4).map((member, i) => (
+                    {releventCrew.slice(0, 10).map((member, i) => (
                         <CastAndCrew key={i} member={member}/>
                     ))}
                 </PickDetail>

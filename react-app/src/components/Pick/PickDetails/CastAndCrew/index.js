@@ -7,25 +7,32 @@ import './CastAndCrew.css'
 const CastAndCrew = ({ member }) => {
     const imgBaseUrl = useSelector(state => state.media.imgBaseUrl)
     const src = `${imgBaseUrl}w185${member.profile_path}`
-    console.log('   :::src:::   ', src);
-
     // w45 w185
 
 
     return (
         <div className='cast-and-crew'>
-            {member.profile_path && (
-                <div className='cast-and-crew__img-div'>
-                    <img className='cast-and-crew__img' src={src} />
-                </div>
+            <div
+                className='cast-and-crew__img-div'
+                style={{
+                    backgroundImage: member.profile_path ? `url(${src})` : null,
+                    backgroundColor: member.profile_path ? 'inherit' : 'var(--color__layer-2)'
+                }}
+            >
+            {!member.profile_path && (
+                <>
+                    <i className='fas fa-frown' />
+                    <div>NO IMAGE</div>
+                </>
+            )}
+            </div>
+            {member.name}
+            {member.character && (
+                <div className='label-small' style={{marginBottom: '0'}}>{member.character}</div>
             )}
             {member.job && (
-                <div className='label-small'>{member.job}</div>
+                <div className='label-small' style={{marginBottom: '0'}}>{member.job}</div>
             )}
-            {member.character && (
-                <div className='label-small'>{member.character}</div>
-            )}
-            {member.name}
         </div>
     )
 }
