@@ -1,20 +1,37 @@
-import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import './User.css'
+import * as userActions from '../../store/components/user'
+import * as usersDataActions from '../../store/users'
+import Loading from '../Loading'
 
 
-const User = (props) => {
-    const history = useHistory()
+const User = () => {
+    const dispatch = useDispatch()
+    const username = useParams().username.toLowerCase()
 
-    const path = useLocation().pathname
+    useEffect(() => {
+        dispatch(usersDataActions.runAddUserFromUsername(username))
+    }, [dispatch, username])
+
+    const user = useSelector(state => state.users.byUsername[username])
+
+    const rendered = {
+        val: useSelector(state => state.components.User.rendered[username]),
+        set: () => dispatch(userActions.setRendered(username)),
+    }
+
+    if (!user) return <Loading />
+
+    if (!rendered.val) {
+        rendered.set()
+    }
 
     return (
         <div className='user'>
-            <div className='user-add'>
-                {path === '/my' && <div className='button-big' onClick={() => history.push('/my/lists/new')}>New List</div>}
-            </div>
-            {props.children}
+            user
         </div>
     )
 }

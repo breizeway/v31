@@ -8,7 +8,6 @@ import LoginPage from './components/LoginPage';
 import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
-import NewList from './components/forms/NewList';
 import List from './components/List';
 import Dev from './components/Dev';
 import ListsRepeater from './components/ListsRepeater';
@@ -57,16 +56,14 @@ function App() {
                     <Route path='/lists/:listId' exact={true}>
                         <List />
                     </Route>
+                    <Route path='/u/:username' exact={true}>
+                        <User />
+                    </Route>
                     <ProtectedRoute path='/my' exact={true}>
                         <User />
                         <ListsRepeater dir={[
                             { listsType: 'my', listsTitle: 'My Lists'},
                         ]} />
-                    </ProtectedRoute>
-                    <ProtectedRoute path='/my/lists/new' exact={true}>
-                        <User>
-                            <NewList />
-                        </User>
                     </ProtectedRoute>
                     <ProtectedRoute path='/dev' exact={true}>
                         <Dev />
