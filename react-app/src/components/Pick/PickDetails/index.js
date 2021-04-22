@@ -12,17 +12,17 @@ const PickDetails = ({ listId, pickId}) => {
 
     const data = chosenPick || pick
     const mediaData = data.media_data
-    console.log('   :::DATA:::   ', mediaData);
+    console.log('   :::mediaData:::   ', mediaData);
 
+    const crewSort = {Director: 0, Screenplay: 1, Producer: 1, 'Executive Producer': 1}
     const cast = mediaData.credits?.cast || []
     const crew = mediaData.credits?.crew || []
-    console.log('   :::CREW:::   ', crew);
+
     const releventCrew = crew
         .filter(member => {
-        const positions = ['Director', 'Screenplay', 'Producer', 'Executive Producer']
+        const positions = Object.keys(crewSort)
         return positions.includes(member.job)
         })
-    console.log('   :::RELEVENTCREW:::   ', releventCrew);
 
     const budget = (() => {
         const lessThanMil = mediaData.budget < 1000000

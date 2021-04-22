@@ -4,7 +4,7 @@ import './TextButton.css'
 import '../buttons.css'
 
 
-const TextButton = ({content, action}) => {
+const TextButton = ({content, action=() => null}) => {
     return (
         <div
             className='button text-button'
