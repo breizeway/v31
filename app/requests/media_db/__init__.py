@@ -43,4 +43,6 @@ def config():
                'content-type': 'application/json;charset=utf-8'}
 
     response = requests.get(url, headers=headers)
-    print('   :::CONFIG:::   ', response.json())
+    json = response.json()
+    print('   :::CONFIG:::   ', json)
+    return json

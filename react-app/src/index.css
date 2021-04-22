@@ -25,7 +25,8 @@
   --size__text-1: 40px;
   --size__text-2: 32px;
   --size__text-3: 24px;
-  --size__text-explanation: 12px;
+  --size__text-explanation: 13px;
+  --size__text-sml-label: 11px;
   --size__line-height: 1.4em;
   --size__bgr-space: 64px;
   --size__big-space: 32px;
@@ -130,6 +131,13 @@ input:focus, textarea:focus, select:focus {
   color: var(--color__text-light);
   text-transform: uppercase;
   font-size: var(--size__text-explanation);
+  margin-bottom: var(--size__sml-space)
+}
+
+.label-small {
+  color: var(--color__text-light);
+  text-transform: uppercase;
+  font-size: var(--size__text-sml-label);
   margin-bottom: var(--size__sml-space)
 }
 

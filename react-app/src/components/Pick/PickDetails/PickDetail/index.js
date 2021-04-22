@@ -3,11 +3,17 @@ import React from 'react'
 import './PickDetail.css'
 
 
-const PickDetail = ({ label, children }) => {
+const PickDetail = ({ label, gridArea, scroll, children }) => {
     return (
-        <div className='pick-detail'>
+        <div
+            style={{gridArea}}
+        >
             <div className='text-explanation-small'>{label}</div>
-            {children}
+            <div
+                className={scroll ? 'pick-detail__scroll' : ''}
+            >
+                {children}
+            </div>
         </div>
     )
 }

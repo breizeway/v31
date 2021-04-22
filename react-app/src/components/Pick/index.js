@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Pick.css'
@@ -18,7 +18,6 @@ const Pick = ({ listId, day, pickIdRaw }) => {
     const pickId = pickIdRaw ? pickIdRaw : pickIdIfNone
     const dispatch = useDispatch()
 
-    // state vars
     const hasPick = pickId !== pickIdIfNone
     const pick = {
         val: useSelector(state => state.lists.all[listId].picks_by_date[day.sort]),
@@ -33,10 +32,6 @@ const Pick = ({ listId, day, pickIdRaw }) => {
 
     const data = chosenPick.val || pick.val || null
     const hasData = data !== null
-
-    useEffect(() => {
-        if (hasPick) pick.set();
-    }, [hasPick])
 
     const editMode = {
         val: useSelector(state => state.components.Pick.editMode.has(pickId)),
@@ -66,6 +61,7 @@ const Pick = ({ listId, day, pickIdRaw }) => {
 
     if (!rendered.val) {
         dispatch(pickActions.setQuery(pickId, ''))
+        if (hasPick) pick.set();
     }
 
     if (!rendered.val) {

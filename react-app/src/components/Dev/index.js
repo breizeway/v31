@@ -23,6 +23,13 @@ const Dev = () => {
                 setQuery('')
                 setChosen(null)
             })();
+            (async () => {
+                const response = await fetch(`/api/media/config`)
+                if (response.ok) {
+                    const config = await response.json(); // get both standardized and raw rss feed
+                    console.log('   :::CONFIG:::   ', config);
+                }
+            })();
         }
     }, [queried]);
 

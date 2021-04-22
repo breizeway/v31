@@ -1,0 +1,5 @@
+.cast-and-crew__img {
+  height: 120px;
+  width: auto;
+  border-radius: calc(var(--size__sml-space) / 2);
+}

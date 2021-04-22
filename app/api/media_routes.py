@@ -23,3 +23,8 @@ def search():
 
     searched = media_db.search(query=query)
     return searched
+
+
+@media_routes.route('/config')
+def config():
+    return media_db.config()

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import './PickDetails.css'
 import PickDetail from './PickDetail'
+import CastAndCrew from './CastAndCrew'
 
 
 const PickDetails = ({ listId, pickId}) => {
@@ -13,11 +14,13 @@ const PickDetails = ({ listId, pickId}) => {
     const mediaData = data.media_data
     console.log('   :::DATA:::   ', mediaData);
 
+    const cast = mediaData.credits?.cast || []
     const crew = mediaData.credits?.crew || []
-    const director = crew.filter(member => {
-        return member.job === 'Director'
-    })[0]
-
+    console.log('   :::CREW:::   ', crew);
+    const releventCrew = crew.filter(member => {
+        const positions = ['Director', 'Screenplay']
+        return positions.includes(member.job)
+    })
 
     const budget = (() => {
         const lessThanMil = mediaData.budget < 1000000
@@ -34,18 +37,27 @@ const PickDetails = ({ listId, pickId}) => {
     return (
         <div className='pick-details'>
             {mediaData.release_date && (
-                <PickDetail label={'release date'}>
+                <PickDetail label='release date' gridArea='release-date'>
                     {`${new Date(mediaData.release_date).toDateString().slice(4)}`}
                 </PickDetail>
             )}
-            {budget && (
-                <PickDetail label={'budget'}>
+            {(mediaData.budget !== 0) && (
+                <PickDetail label='budget' gridArea='budget'>
                     {budget}
                 </PickDetail>
             )}
-            {director && (
-                <PickDetail label={'director'}>
-                    {director.name}
+            {crew && (
+                <PickDetail label='cast' gridArea='cast' scroll={true}>
+                    {cast.slice(0, 4).map((member, i) => (
+                        <CastAndCrew key={i} member={member}/>
+                    ))}
+                </PickDetail>
+            )}
+            {crew && (
+                <PickDetail label='crew' gridArea='crew' scroll={true}>
+                    {releventCrew.slice(0, 4).map((member, i) => (
+                        <CastAndCrew key={i} member={member}/>
+                    ))}
                 </PickDetail>
             )}
         </div>

@@ -1,19 +1,11 @@
 import * as listActions from './lists'
 
 const ADD_PICKS = 'picks/addPicks'
-const STAGE_PICK = 'picks/stagePick'
 
 export const addPicks = picks => {
     return {
         type: ADD_PICKS,
         picks
-    }
-}
-
-export const stagePick = (pick) => {
-    return {
-        type: STAGE_PICK,
-        pick
     }
 }
 
@@ -30,24 +22,6 @@ export const runAddPicks = (pickIds) => async dispatch => {
     })
     const { picks } = await response.json()
     dispatch(addPicks(picks))
-}
-
-export const runStagePick = (mediaData, editorial, listId, date) => async dispatch => {
-    const response = await fetch(`/api/picks/stage`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            media_data: mediaData,
-            editorial,
-            list_id: listId,
-            date,
-        }),
-    })
-    const { pick } = await response.json()
-    dispatch(stagePick(pick))
-    return pick
 }
 
 export const runCommitPick = (stagedPick) => async dispatch => {
@@ -87,7 +61,6 @@ export const runDeletePicks = pickIds => async dispatch => {
 
 const initialState = {
     all: {},
-    staged: null,
 }
 
 const picksReducer = (state = initialState, action) => {
@@ -98,10 +71,6 @@ const picksReducer = (state = initialState, action) => {
             action.picks.forEach(pick => {
                 newState.all[pick.id] = pick
             })
-            return newState
-        case STAGE_PICK:
-            newState = {...state}
-            newState.staged = action.pick
             return newState
         default:
             return state
