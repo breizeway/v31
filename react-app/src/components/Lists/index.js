@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import './Lists.css'
 import * as listActions from '../../store/lists'
@@ -7,6 +8,8 @@ import ListCard from '../ListCard';
 
 
 const Lists = ({ listsInfo }) => {
+    const username = useParams().username?.toLowerCase()
+    const user = useSelector(state => state.users.byUsername[username])
     const { listsType, listsTitle } = listsInfo
     const dispatch = useDispatch()
     const lists = useSelector(state => state.lists.all)
@@ -14,7 +17,7 @@ const Lists = ({ listsInfo }) => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runSetFrame(listsType))
+            await dispatch(listActions.runSetFrame(listsType, false, 20, {user_id: user?.id}))
         })()
     }, [dispatch, listsType])
 

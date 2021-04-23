@@ -12,3 +12,14 @@
   height: 100%;
   width: auto;
 }
+
+.logo-text {
+  height: 100%;
+  margin-left: var(--size__sml-space);
+  display: flex;
+}
+
+.logo-text-inner {
+  color: var(--color__theme-1);
+  align-items: center;
+}

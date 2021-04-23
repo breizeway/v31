@@ -8,6 +8,7 @@ import * as usersDataActions from '../../store/users'
 import Loading from '../Loading'
 import UserCard from '../UserCard'
 import ViewBar from '../ViewBar'
+import ListsRepeater from '../ListsRepeater'
 
 
 const User = () => {
@@ -29,28 +30,12 @@ const User = () => {
 
     if (!rendered.val) {
         rendered.set();
-
-        (async () => {
-            const response = await fetch(`/api/lists/user`, {
-                method: 'PUT',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_id: user.id,
-                }),
-            })
-            const frame = await response.json()
-            console.log('   :::LISTS:::   ', frame);
-         })()
-
-
     }
 
     const viewBarViews = [
-        {header: 'Lists', content: <div>Lists Content</div>},
-        {header: 'Followers', content: <div>Followers Content</div>},
-        {header: 'Following', content: <div>Following Content</div>},
+        {header: 'Lists', content: <ListsRepeater dir={[{ listsType: 'user', listsTitle: ''},]} />},
+        {header: 'Followers', content: <div>followers go here...</div>},
+        {header: 'Following', content: <div>folowwing goes here...</div>},
     ]
 
     return (

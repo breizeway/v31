@@ -25,9 +25,9 @@
 
   /* --size__text-1: 40px;
   --size__text-2: 32px; */
-  --size__text-1: 48px;
-  --size__text-2: 40px;
-  --size__text-3: 32px;
+  --size__text-1: 44px;
+  --size__text-2: 36px;
+  --size__text-3: 28px;
   --size__text-explanation: 13px;
   --size__text-sml-label: 11px;
   --size__line-height: 1.4em;
@@ -46,7 +46,7 @@
     --color__layer-3: #464650;
 
     --color__theme-1: rgb(184, 80, 80);
-    --color__theme-2: rgb(119, 85, 85);
+    --color__theme-2: rgb(146, 104, 104);
     --color__error: rgb(218, 54, 54);
 
     --color__control: #767682;
@@ -134,7 +134,7 @@ input:focus, textarea:focus, select:focus {
 .header-3 {
   font-size: var(--size__text-3);
   font-family: 'Yantramanav', sans-serif;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .text-explanation-small {

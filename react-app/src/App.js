@@ -50,7 +50,7 @@ function App() {
                     </Route>
                     <Route path='/discover' exact={true}>
                         <ListsRepeater dir={[
-                            { listsType: 'next', listsTitle: 'Coming Soon'},
+                            { listsType: 'next', listsTitle: ''},
                         ]} />
                     </Route>
                     <Route path='/lists/:listId' exact={true}>
@@ -59,12 +59,6 @@ function App() {
                     <Route path='/u/:username' exact={true}>
                         <User />
                     </Route>
-                    <ProtectedRoute path='/my' exact={true}>
-                        <User />
-                        <ListsRepeater dir={[
-                            { listsType: 'my', listsTitle: 'My Lists'},
-                        ]} />
-                    </ProtectedRoute>
                     <ProtectedRoute path='/dev' exact={true}>
                         <Dev />
                     </ProtectedRoute>

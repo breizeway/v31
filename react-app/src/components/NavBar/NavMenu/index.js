@@ -21,6 +21,7 @@ const NavMenu = () => {
                     }}
                 >
                 </div>
+                <div className='logo-text header-3'>video<div className='logo-text-inner'>thirty</div>one</div>
             </div>
         </div>
     )

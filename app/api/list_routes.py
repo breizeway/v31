@@ -34,9 +34,10 @@ def delete_lists():
     return {'lists': lists_dicts}
 
 
-@list_routes.route('/my/<int:num>')
-def get_my_lists(num):
-    # implement group by to solve the limit issue eventually
+@list_routes.route('/my', methods=['PUT'])
+def get_my_lists():
+    num = request.json['num']
+
     user_id = current_user.to_dict()['id']
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
@@ -52,9 +53,10 @@ def get_my_lists(num):
     return frame
 
 
-@list_routes.route('/next/<int:num>')
-def get_next_lists(num):
-    # implement group by to solve the limit issue eventually
+@list_routes.route('/next', methods=['PUT'])
+def get_next_lists():
+    num = request.json['num']
+
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
                       .filter(List.published == True) \
@@ -71,7 +73,8 @@ def get_next_lists(num):
 
 @list_routes.route('/user', methods=['PUT'])
 def get_user_lists():
-    user_id = request.json['user_id']
+    num = request.json['num']
+    user_id = request.json['data']['user_id']
 
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
@@ -79,7 +82,7 @@ def get_user_lists():
                               List.user_id == user_id) \
                       .group_by(List.id, Pick.id) \
                       .order_by(func.max(Pick.date)) \
-                      .limit(20) \
+                      .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
                                    for pickId

@@ -1,6 +1,6 @@
 .user-card__bio {
   display: flex;
-  height: 100px;
+  height: 80px;
 }
 
 .user-card__bio > *:first-child {
