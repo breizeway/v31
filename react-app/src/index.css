@@ -5,7 +5,7 @@
   --color__layer-3: #c6c6c6;
   --color__test: #4492b1;
 
-  --color__theme-1: rgb(170, 80, 80);
+  --color__theme-1: rgb(184, 80, 80);
   --color__theme-2: rgb(228, 202, 202);
   --color__error: rgb(187, 155, 155);
 
@@ -23,9 +23,11 @@
 
   --color__a: default;
 
-  --size__text-1: 40px;
-  --size__text-2: 32px;
-  --size__text-3: 24px;
+  /* --size__text-1: 40px;
+  --size__text-2: 32px; */
+  --size__text-1: 44px;
+  --size__text-2: 36px;
+  --size__text-3: 28px;
   --size__text-explanation: 13px;
   --size__text-sml-label: 11px;
   --size__line-height: 1.4em;
@@ -43,8 +45,8 @@
     --color__layer-2: #363640;
     --color__layer-3: #464650;
 
-    --color__theme-1: rgb(170, 80, 80);
-    --color__theme-2: rgb(119, 85, 85);
+    --color__theme-1: rgb(184, 80, 80);
+    --color__theme-2: rgb(146, 104, 104);
     --color__error: rgb(218, 54, 54);
 
     --color__control: #767682;
@@ -119,14 +121,20 @@ input:focus, textarea:focus, select:focus {
 
 .header-1 {
   font-size: var(--size__text-1);
+  font-family: 'Yantramanav', sans-serif;
+  font-weight: 900;
 }
 
 .header-2 {
   font-size: var(--size__text-2);
+  font-family: 'Yantramanav', sans-serif;
+  font-weight: 900;
 }
 
 .header-3 {
   font-size: var(--size__text-3);
+  font-family: 'Yantramanav', sans-serif;
+  font-weight: 700;
 }
 
 .text-explanation-small {

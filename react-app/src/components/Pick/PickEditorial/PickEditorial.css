@@ -10,7 +10,6 @@
 .pick-editorial__editorial-host {
   color: var(--color__text-light);
   margin-bottom: 2px;
-  font-weight: bold;
 }
 
 .pick-editorial__editorial-bubble {

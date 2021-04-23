@@ -127,11 +127,16 @@ export const runDeleteLists = listIds => async dispatch => {
     return deleted
 }
 
-export const runSetFrame = (frameName, media=false, num=20) => async dispatch => {
-    const response = await fetch(`/api/lists/${frameName}/${num}`, {
+export const runSetFrame = (frameName, media=false, num=20, data) => async dispatch => {
+    const response = await fetch(`/api/lists/${frameName}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify({
+            num,
+            data,
+        })
     })
     const frame = await response.json()
     dispatch(setFrame(frameName, frame))
@@ -197,6 +202,7 @@ const initialState = {
     all: {},
     next: {},
     my: {},
+    user: {},
 }
 
 const listsReducer = (state = initialState, action) => {
@@ -212,7 +218,7 @@ const listsReducer = (state = initialState, action) => {
             newState = {...state}
             all = {...state.all}
             action.lists.forEach(list => {
-                all[list.id] = list
+                if (!all[list.id]) all[list.id] = list
             })
             newState.all = all
             return newState

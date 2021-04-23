@@ -8,6 +8,7 @@ import * as usersDataActions from '../../store/users'
 import Loading from '../Loading'
 import UserCard from '../UserCard'
 import ViewBar from '../ViewBar'
+import ListsRepeater from '../ListsRepeater'
 
 
 const User = () => {
@@ -28,13 +29,13 @@ const User = () => {
     if (!user) return <Loading />
 
     if (!rendered.val) {
-        rendered.set()
+        rendered.set();
     }
 
     const viewBarViews = [
-        {header: 'Lists', content: <div>Lists Content</div>},
-        {header: 'Followers', content: <div>Followers Content</div>},
-        {header: 'Following', content: <div>Following Content</div>},
+        {header: 'Lists', content: <ListsRepeater dir={[{ listsType: 'user', listsTitle: ''},]} />},
+        {header: 'Followers', content: <div>followers go here...</div>},
+        {header: 'Following', content: <div>folowwing goes here...</div>},
     ]
 
     return (

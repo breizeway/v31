@@ -25,7 +25,7 @@ const ViewBar = ({ views, viewBarName }) => {
 
     return (
         <div className='view-bar space-col-big'>
-            <div className='view-bar__bar header-2'>
+            <div className='view-bar__bar header-3'>
                 {views.map((view, i) => (
                     <div
                         key={i}

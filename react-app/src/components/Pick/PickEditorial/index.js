@@ -37,7 +37,7 @@ const PickEditorial = ({ listId, pickId}) => {
                     data.editorial && (
                         <>
                             <div className='pick-editorial__editorial-host'>
-                                {`${pick.parent_list.host.username}`} said...
+                                <strong>{`${pick.parent_list.host.username}`}</strong> says...
                             </div>
                             <div className='pick-editorial__editorial-bubble pick__about-text'>{data.editorial}</div>
                         </>

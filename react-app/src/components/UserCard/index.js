@@ -30,11 +30,11 @@ const UserCard = ({ username }) => {
     }
 
     return (
-        <div className='user-card card card-header'>
+        <div className='user-card'>
             <div className='user-card__bio'>
                 <ProfileImg
                     url={user.profile_img}
-                    length={100}
+                    length={80}
                     userId={user.id}
                     username={user.username}
                 />
