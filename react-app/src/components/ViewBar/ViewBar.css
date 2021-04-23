@@ -7,7 +7,7 @@
 }
 
 .view-bar__header {
-  padding-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 .view-bar__header:hover {
@@ -16,5 +16,5 @@
 }
 
 .view-bar__header:not(.view-bar__header:first-child) {
-  margin-left: var(--size__med-space);
+  margin-left: var(--size__big-space);
 }

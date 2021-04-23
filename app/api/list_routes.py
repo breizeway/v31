@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
 from datetime import date
-from sqlalchemy import func
+from sqlalchemy import func, text
 
 from app.models import Pick, List, db
 from app.forms import ListForm
@@ -41,7 +41,9 @@ def get_my_lists(num):
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
                       .filter(List.user_id == user_id) \
-                      .order_by(Pick.date, List.title) \
+                      .group_by(List.id, Pick.id) \
+                      .order_by(func.max(Pick.date)) \
+                      .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
                                    for pickId
@@ -56,13 +58,35 @@ def get_next_lists(num):
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
                       .filter(List.published == True) \
-                      .order_by(Pick.date, List.title) \
+                      .group_by(List.id, Pick.id) \
+                      .order_by(func.max(Pick.date)) \
+                      .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
                                    for pickId
                                    in lst.to_dict()['picks'].keys()]
              for lst in lists}
     return frame
+
+
+@list_routes.route('/user', methods=['PUT'])
+def get_user_lists():
+    user_id = request.json['user_id']
+
+    lists = db.session.query(List) \
+                      .join(Pick, isouter=True) \
+                      .filter(List.published == True,
+                              List.user_id == user_id) \
+                      .group_by(List.id, Pick.id) \
+                      .order_by(func.max(Pick.date)) \
+                      .limit(20) \
+                      .all()
+    frame = {lst.to_dict()['id']: [pickId
+                                   for pickId
+                                   in lst.to_dict()['picks'].keys()]
+             for lst in lists}
+    return frame
+
 
 
 @list_routes.route('/new', methods=['POST'])
@@ -110,3 +134,22 @@ def edit_list():
         db.session.commit()
 
     return lst.to_dict()
+
+    # user_id = request.json['user_id']
+
+    # sql = text(f'''
+    #     select
+    #         a.id
+    #     from
+    #         lists a
+    #       left join
+    #         picks b
+    #           on a.id = b.list_id
+    #     where
+    #         a.user_id = {user_id}
+    # ''')
+    # lists = db.engine.execute(sql)
+    # # print('   :::LISTS.items:::   ', lists.items())
+    # names = [row.items() for row in lists]
+    # print('   :::LISTS_ARR:::   ', names)
+    # return {'test': 'test'}

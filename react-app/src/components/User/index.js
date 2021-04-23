@@ -28,7 +28,23 @@ const User = () => {
     if (!user) return <Loading />
 
     if (!rendered.val) {
-        rendered.set()
+        rendered.set();
+
+        (async () => {
+            const response = await fetch(`/api/lists/user`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_id: user.id,
+                }),
+            })
+            const frame = await response.json()
+            console.log('   :::LISTS:::   ', frame);
+         })()
+
+
     }
 
     const viewBarViews = [
