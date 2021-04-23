@@ -23,9 +23,6 @@ const Lists = ({ listsInfo }) => {
 
     return (
         <div className='lists'>
-            <div className='lists__title header-1'>
-                {listsTitle}
-            </div>
             {lists && Object.keys(listsFrame).map(id => (
                 <ListCard
                     key={id}

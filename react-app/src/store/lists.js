@@ -209,6 +209,8 @@ const listsReducer = (state = initialState, action) => {
     let newState
     let all
     let parentList
+    let picks
+    let picks_by_date
     let pick
     let pickId
     let listId
@@ -218,7 +220,15 @@ const listsReducer = (state = initialState, action) => {
             newState = {...state}
             all = {...state.all}
             action.lists.forEach(list => {
-                if (!all[list.id]) all[list.id] = list
+                picks = list.picks
+                picks_by_date = list.picks_by_date
+
+                const listExists = all[list.id]
+                all[list.id] = list
+                if (!listExists) {
+                    all[list.id].picks = picks
+                    all[list.id].picks_by_date = picks_by_date
+                }
             })
             newState.all = all
             return newState
