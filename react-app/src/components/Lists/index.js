@@ -17,7 +17,7 @@ const Lists = ({ listsInfo }) => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(listActions.runSetFrame(listsType, false, 20, {user_id: user?.id}))
+            await dispatch(listActions.runSetFrame(listsType, false, 1000, {user_id: user?.id}))
         })()
     }, [dispatch, listsType])
 
