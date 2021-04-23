@@ -74,11 +74,23 @@ def get_next_lists():
 @list_routes.route('/user', methods=['PUT'])
 def get_user_lists():
     num = request.json['num']
+
     user_id = request.json['data']['user_id']
+    # session_id = None
+    # print('   :::CURRENT_USER:::   ', current_user.to_dict())
+    # if current_user:
+    #     session_id = current_user.to_dict()['id']
+
+    # def published_vals():
+    #     if not current_user:
+    #         return [True]
+    #     elif user_id == session_id:
+    #         return [True, False]
+    #     return [True]
 
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
-                      .filter(List.published == True,
+                      .filter(List.published.in_([True, False]),
                               List.user_id == user_id) \
                       .group_by(List.id, Pick.id) \
                       .order_by(func.max(Pick.date)) \

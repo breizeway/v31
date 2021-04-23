@@ -6,5 +6,5 @@
 .icon-button:hover, .icon-button:hover * {
   cursor: pointer;
   color: var(--color__theme-1);
-  background-color: #00000000;
+  background-color: var(--color__layer-0)
 }
