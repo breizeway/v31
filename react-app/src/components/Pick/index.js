@@ -60,7 +60,7 @@ const Pick = ({ listId, day, pickIdRaw }) => {
     const owned = loggedIn && user.id === list.host.id
 
     // hack to make sure media_data reloads. Need to figure out how not to overwrite in state
-    const hasMediaData = Object.keys(pick.val).includes('media_data')
+    const hasMediaData = hasPick && Object.keys(pick.val).includes('media_data')
     if (!rendered.val || !hasMediaData) {
         dispatch(pickActions.setQuery(pickId, ''))
         if (hasPick) pick.set();
