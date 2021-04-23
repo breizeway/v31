@@ -1,4 +1,4 @@
-const SET_RENDERED = 'User/setRendered'
+const SET_RENDERED = 'UserCard/setRendered'
 
 export const setRendered = username  => {
     return {
@@ -9,10 +9,9 @@ export const setRendered = username  => {
 
 const defaultState = {
     rendered: new Set(),
-    viewBar: {},
 }
 
-const userReducer = (state = defaultState, action) => {
+const userCardReducer = (state = defaultState, action) => {
     let newState
     switch (action.type) {
         case SET_RENDERED:
@@ -25,4 +24,4 @@ const userReducer = (state = defaultState, action) => {
 }
 
 
-export default userReducer
+export default userCardReducer

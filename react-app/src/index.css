@@ -6,7 +6,8 @@
   --color__test: #4492b1;
 
   --color__theme-1: rgb(170, 80, 80);
-  --color__error: rgb(218, 54, 54);
+  --color__theme-2: rgb(228, 202, 202);
+  --color__error: rgb(187, 155, 155);
 
   --color__control: #767682;
   --color__input: #ffffff;
@@ -38,11 +39,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color__layer-0: #161620;
-    --color__layer-1: #262630;
+    --color__layer-1: #2a2a3a;
     --color__layer-2: #363640;
     --color__layer-3: #464650;
 
     --color__theme-1: rgb(170, 80, 80);
+    --color__theme-2: rgb(119, 85, 85);
     --color__error: rgb(218, 54, 54);
 
     --color__control: #767682;
@@ -139,6 +141,12 @@ input:focus, textarea:focus, select:focus {
   text-transform: uppercase;
   font-size: var(--size__text-sml-label);
   margin-bottom: var(--size__sml-space)
+}
+
+.card-header.card-header {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: var(--size__med-space);
 }
 
 .card {

@@ -55,7 +55,9 @@ def stage_pick():
     form = PickForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    media_data = media_db.get(resource_id=form.data['media_id'])
+    media_data = media_db.get(resource_id=form.data['media_id'],
+                              categories=['credits',
+                                          'watch/providers'])
 
     pick = Pick(title=media_data['title'],
                 year=media_data['release_date'][0:4],

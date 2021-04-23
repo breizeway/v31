@@ -1,18 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import './Host.css'
 import ProfileImg from '../images/ProfileImg'
-import TextButton from '../buttons/TextButton'
 
 
 const Host = ({ host }) => {
+    const history = useHistory()
+
     const loggedIn = useSelector(state => state.session.loggedIn)
     const user = useSelector(state => state.session.user)
     const owned = loggedIn && user.id === host.id
 
     return (
-        <div className='host'>
+        <div className='host' onClick={() => history.push(`/u/${host.username}`)}>
             <div>
                 <div className='text-explanation-small'>hosted by</div>
                 <div className='host__data'>

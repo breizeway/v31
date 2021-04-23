@@ -1,5 +1,9 @@
 .host {
-  display: flex;
+  display: inline-flex;
+}
+
+.host:hover {
+  cursor: pointer;
 }
 
 .host__data {

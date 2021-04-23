@@ -87,7 +87,7 @@ const Pick = ({ listId, day, pickIdRaw }) => {
                     hasPick ? (
                         <div className='header-2'>{`${pick.val.title} (${pick.val.year})`}</div>
                     ) : (
-                        <div className='pick__nothing'>There's nothing here yet...</div>
+                        <div className='pick__nothing'>Nothing to see here...</div>
                     )
                 )}
                 <ScrollWrapper moreClasses='flex-column-med'>

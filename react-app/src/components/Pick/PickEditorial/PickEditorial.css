@@ -6,3 +6,18 @@
   text-align: justify;
   margin-top: 0;
 }
+
+.pick-editorial__editorial-host {
+  color: var(--color__text-light);
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.pick-editorial__editorial-bubble {
+  background-color:  var(--color__theme-2);
+  border-radius: var(--size__med-space);
+  border-top-left-radius: 0;
+  padding: var(--size__sml-space) var(--size__med-space);
+  display: inline-block;
+  max-width: 80%;
+}

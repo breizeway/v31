@@ -23,9 +23,11 @@ const ListCard = ({ dataKey }) => {
     return (
         <div
             className='list-card card'
-            onClick={openList}
         >
-            <div className='list-card__title'>
+            <div
+                className='list-card__title header-2'
+                onClick={openList}
+            >
                 {list.title}
             </div>
             <div className='list-card__date'>{dates}</div>

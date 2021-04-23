@@ -39,7 +39,7 @@ const NavProfile = () => {
         set: () => dispatch(dropDownActions.setActive(dropDown.thisVal)),
         options: {
             loggedIn: [
-                {content: 'My Profile', click: () => history.push('/my')},
+                {content: 'My Profile', click: () => history.push(`/u/${user.username}`)},
                 {content: 'Logout', click: onLogout},
             ],
             loggedOut: [

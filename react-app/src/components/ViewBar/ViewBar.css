@@ -1,6 +1,20 @@
-.view-bar {
+.view-bar__bar {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+
+}
+
+.view-bar__header {
+  padding-bottom: 5px;
+}
+
+.view-bar__header:hover {
+  cursor: pointer;
+  color: var(--color__theme-1)
+}
+
+.view-bar__header:not(.view-bar__header:first-child) {
+  margin-left: var(--size__med-space);
 }

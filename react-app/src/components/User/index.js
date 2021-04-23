@@ -6,6 +6,8 @@ import './User.css'
 import * as userActions from '../../store/components/user'
 import * as usersDataActions from '../../store/users'
 import Loading from '../Loading'
+import UserCard from '../UserCard'
+import ViewBar from '../ViewBar'
 
 
 const User = () => {
@@ -29,9 +31,16 @@ const User = () => {
         rendered.set()
     }
 
+    const viewBarViews = [
+        {header: 'Lists', content: <div>Lists Content</div>},
+        {header: 'Followers', content: <div>Followers Content</div>},
+        {header: 'Following', content: <div>Following Content</div>},
+    ]
+
     return (
-        <div className='user'>
-            user
+        <div className='user space-col-big'>
+            <UserCard username={username} />
+            <ViewBar views={viewBarViews} viewBarName={`User/${username}`}/>
         </div>
     )
 }
