@@ -1,10 +1,11 @@
-.list-card:hover {
-  cursor: pointer;
+.list-card__title {
+  width: auto;
+  display: inline-block;
 }
 
-.list-card__title {
-  font-size: var(--size__text-2);
-  font-weight: bold;
+.list-card__title:hover {
+  cursor: pointer;
+  color: var(--color__theme-1)
 }
 
 .card-fade {

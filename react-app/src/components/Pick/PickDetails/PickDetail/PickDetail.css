@@ -1,0 +1,9 @@
+.pick-detail > *:not(.pick-detail > *:first-child) {
+  margin-top: var(--size__sml-space);
+}
+
+.pick-detail__scroll {
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+}

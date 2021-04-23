@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './Modal.css'
 import { removeActive } from '../../store/components/modal'
-import * as pickActions from '../../store/picks'
-import * as mediaActions from '../../store/media'
 
 const Modal = ({ content, width='auto', height='auto'}) => {
     const dispatch = useDispatch()
@@ -16,8 +14,6 @@ const Modal = ({ content, width='auto', height='auto'}) => {
 
     const closeModal = () => {
         modalVisible.rmv()
-        dispatch(pickActions.stagePick(null));
-        dispatch(mediaActions.clearSearchResults());
     }
 
     useEffect(() => {

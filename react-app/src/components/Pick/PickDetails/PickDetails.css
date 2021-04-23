@@ -1,6 +1,10 @@
 .pick-details {
   display: grid;
   grid-template: auto / repeat(2, calc(50% - var(--size__med-space)));
+  grid-template-areas:
+    "release-date budget"
+    "cast cast"
+    "crew crew";
   column-gap: var(--size__big-space);
   row-gap: var(--size__med-space);
 }

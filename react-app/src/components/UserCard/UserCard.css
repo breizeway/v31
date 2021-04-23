@@ -1,0 +1,16 @@
+.user-card__bio {
+  display: flex;
+  height: 100px;
+}
+
+.user-card__bio > *:first-child {
+  margin-right: var(--size__med-space);
+}
+
+.user-card__name-follow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}

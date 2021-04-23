@@ -6,6 +6,9 @@ import dropDownReducer from './dropDown';
 import listReducer from './list';
 import calendarReducer from './calendar';
 import pickReducer from './pick';
+import userReducer from './user';
+import userCardReducer from './userCard';
+import viewBarReducer from './viewBar';
 
 
 const componentReducer = combineReducers({
@@ -14,6 +17,9 @@ const componentReducer = combineReducers({
     List: listReducer,
     Calendar: calendarReducer,
     Pick: pickReducer,
+    User: userReducer,
+    UserCard: userCardReducer,
+    ViewBar: viewBarReducer,
 });
 
 export default componentReducer

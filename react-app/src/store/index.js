@@ -6,6 +6,7 @@ import listsReducer from './lists';
 // import picksReducer from './picks';
 import locationReducer from './location';
 import mediaReducer from './media';
+import usersReducer from './users';
 
 import componentReducer from './components'
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     location: locationReducer,
     media: mediaReducer,
     components: componentReducer,
+    users: usersReducer,
 });
 
 let enhancer;

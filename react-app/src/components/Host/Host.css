@@ -1,8 +1,16 @@
-.list-card-host__data {
+.host {
+  display: inline-flex;
+}
+
+.host:hover {
+  cursor: pointer;
+}
+
+.host__data {
   display: flex;
   align-items: center;
 }
 
-.list-card-host__username {
+.host__username {
   margin-left: var(--size__sml-space)
 }

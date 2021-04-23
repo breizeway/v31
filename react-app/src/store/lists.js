@@ -206,7 +206,6 @@ const listsReducer = (state = initialState, action) => {
     let pick
     let pickId
     let listId
-    let pickDate
     let pickDateSort
     switch (action.type) {
         case ADD_LISTS:
@@ -263,10 +262,8 @@ const listsReducer = (state = initialState, action) => {
             newState = JSON.parse(JSON.stringify(state))
             pick = action.pick
             parentList = pick.parent_list
-            console.log('   :::PARENTLIST:::   ', parentList);
             pickId = action.pick.id
             listId = action.pick.list_id
-            pickDate = action.pick.date
             pickDateSort = action.pick.date_sort
             const pickDay = makeDay(new Date())
 

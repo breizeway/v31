@@ -65,6 +65,8 @@ const ProfileImg = ({ url, length, userId, username }) => {
                 backgroundColor: color,
                 width: `${length}px`,
                 height: `${length}px`,
+                minWidth: `${length}px`,
+                minHeight: `${length}px`,
                 borderRadius: `${length/2}px`,
                 fontSize: `${length * 0.4}px`,
                 color: light ? 'black' : 'white'
