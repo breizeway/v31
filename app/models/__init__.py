@@ -2,4 +2,4 @@ from .db import db
 from .user import User
 from .list import List
 from .pick import Pick
-from .follows import follows
+from .follows import Follow

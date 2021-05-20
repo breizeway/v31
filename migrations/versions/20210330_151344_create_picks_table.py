@@ -28,6 +28,7 @@ def upgrade():
     sa.Column('media_id', sa.Integer(), nullable=False),
     sa.Column('imdb_id', sa.String(length=50), nullable=True),
     sa.Column('list_id', sa.Integer(), nullable=False),
+    sa.Column('created', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['list_id'], ['lists.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
