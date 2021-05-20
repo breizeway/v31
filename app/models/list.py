@@ -14,6 +14,7 @@ class List(db.Model):
     editorial = db.Column(db.Text)
     published = db.Column(db.Boolean, nullable=False, default=False)
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    created = db.Column(db.DateTime, default=db.func.now(), nullable=False)
 
     host = db.relationship('User', back_populates='lists')
     picks = db.relationship('Pick',

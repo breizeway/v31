@@ -18,6 +18,7 @@ class Pick(db.Model):
     media_id = db.Column(db.Integer, nullable=False)
     imdb_id = db.Column(db.String(50))
     list_id = db.Column(db.Integer, ForeignKey("lists.id"), nullable=False)
+    created = db.Column(db.DateTime, default=db.func.now(), nullable=False)
 
     parent_list = db.relationship('List', back_populates='picks')
 

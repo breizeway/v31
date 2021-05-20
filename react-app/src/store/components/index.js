@@ -2,7 +2,7 @@ import { combineReducers} from 'redux';
 
 
 import modalReducer from './modal';
-import dropDownReducer from './dropDown';
+import dropDownReducer from './DropDown';
 import listReducer from './list';
 import calendarReducer from './calendar';
 import pickReducer from './pick';
