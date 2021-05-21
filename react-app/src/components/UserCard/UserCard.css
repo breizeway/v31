@@ -1,16 +1,25 @@
+.user-card {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.user-card:not(.user-card:first-child) {
+  margin-top: var(--size__med-space);
+}
+
 .user-card__bio {
   display: flex;
-  height: 80px;
+  height: 50px;
+  align-items: center;
+}
+
+.user-card__bio:hover {
+  cursor: pointer;
 }
 
 .user-card__bio > *:first-child {
   margin-right: var(--size__med-space);
-}
-
-.user-card__name-follow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
 }

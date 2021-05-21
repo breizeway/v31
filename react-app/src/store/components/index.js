@@ -2,12 +2,12 @@ import { combineReducers} from 'redux';
 
 
 import modalReducer from './modal';
-import dropDownReducer from './DropDown';
+import dropDownReducer from './dropDown';
 import listReducer from './list';
 import calendarReducer from './calendar';
 import pickReducer from './pick';
 import userReducer from './user';
-import userCardReducer from './userCard';
+import userHeaderReducer from './userHeader';
 import viewBarReducer from './viewBar';
 
 
@@ -18,7 +18,7 @@ const componentReducer = combineReducers({
     Calendar: calendarReducer,
     Pick: pickReducer,
     User: userReducer,
-    UserCard: userCardReducer,
+    UserHeader: userHeaderReducer,
     ViewBar: viewBarReducer,
 });
 

@@ -6,9 +6,10 @@ import './User.css'
 import * as userActions from '../../store/components/user'
 import * as usersDataActions from '../../store/users'
 import Loading from '../Loading'
-import UserCard from '../UserCard'
+import UserHeader from '../UserHeader'
 import ViewBar from '../ViewBar'
 import ListsRepeater from '../ListsRepeater'
+import UserCards from '../UserCards'
 
 
 const User = () => {
@@ -34,13 +35,13 @@ const User = () => {
 
     const viewBarViews = [
         {header: 'Lists', content: <ListsRepeater dir={[{ listsType: 'user', listsTitle: ''},]} />},
-        {header: 'Followers', content: <div>followers go here...</div>},
-        {header: 'Following', content: <div>folowwing goes here...</div>},
+        {header: 'Followers', content: <UserCards users={user?.followed_by} />},
+        {header: 'Following', content: <UserCards users={user?.following} />},
     ]
 
     return (
         <div className='user space-col-big'>
-            <UserCard username={username} />
+            <UserHeader user={user} />
             <ViewBar views={viewBarViews} viewBarName={`User/${username}`}/>
         </div>
     )

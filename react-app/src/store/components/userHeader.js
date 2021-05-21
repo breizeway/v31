@@ -1,4 +1,4 @@
-const SET_RENDERED = 'UserCard/setRendered'
+const SET_RENDERED = 'UserHeader/setRendered'
 
 export const setRendered = username  => {
     return {
@@ -11,7 +11,7 @@ const defaultState = {
     rendered: new Set(),
 }
 
-const userCardReducer = (state = defaultState, action) => {
+const userHeaderReducer = (state = defaultState, action) => {
     let newState
     switch (action.type) {
         case SET_RENDERED:
@@ -24,4 +24,4 @@ const userCardReducer = (state = defaultState, action) => {
 }
 
 
-export default userCardReducer
+export default userHeaderReducer
