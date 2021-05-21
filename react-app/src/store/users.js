@@ -1,3 +1,5 @@
+import * as sessionActions from './session'
+
 const ADD_USER = 'users/addUser'
 
 const addUser = user => {
@@ -21,6 +23,25 @@ export const runAddUserFromUsername = username => async dispatch => {
         const user = await response.json();
         dispatch(addUser(user))
         return user
+    }
+}
+
+export const runFollow = (sessionUserId, followUserId, following, sessionUsername) => async dispatch => {
+    const response = await fetch(`/api/users/follow`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            session_user_id: sessionUserId,
+            follow_user_id: followUserId,
+            following,
+        }),
+    })
+    if (response.ok) {
+        const follow = await response.json();
+        dispatch(sessionActions.restore())
+        return follow
     }
 }
 

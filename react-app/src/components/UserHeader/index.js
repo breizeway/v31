@@ -1,32 +1,32 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import './UserCard.css'
+import './UserHeader.css'
 import ProfileImg from '../images/ProfileImg'
 import UserFollow from '../UserFollow'
 
 
-const UserCard = ({ user }) => {
-    const history = useHistory()
+const UserHeader = ({ user }) => {
 
     const sessionUser = useSelector(state => state.session.user)
 
     return (
-        <div className='user-card'>
-            <div className='user-card__bio' onClick={() => history.push(`/u/${user.username}`)}>
+        <div className='user-header'>
+            <div className='user-header__bio'>
                 <ProfileImg
                     url={user.profile_img}
-                    length={50}
+                    length={80}
                     userId={user.id}
                     username={user.username}
                 />
-                <div>{user.username}</div>
+                <div className='user-header__name-follow'>
+                    <div className='header-1'>{user.username}</div>
+                    <UserFollow sessionUser={sessionUser} followUser={user} />
+                </div>
             </div>
-            <UserFollow sessionUser={sessionUser} followUser={user} />
         </div>
     )
 }
 
 
-export default UserCard
+export default UserHeader

@@ -1,0 +1,16 @@
+.user-header__bio {
+  display: flex;
+  height: 80px;
+}
+
+.user-header__bio > *:first-child {
+  margin-right: var(--size__med-space);
+}
+
+.user-header__name-follow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
