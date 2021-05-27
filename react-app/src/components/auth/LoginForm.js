@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import './UpForms.css'
 import * as sessionActions from '../../store/session'
+import TextButton from '../buttons/TextButton'
 
 
 const LoginForm = ({ goTo=null }) => {
@@ -29,6 +30,11 @@ const LoginForm = ({ goTo=null }) => {
 
     const updatePassword = (e) => {
         setPassword(e.target.value)
+    }
+
+    const logInAsDemo = async () => {
+        const user = await dispatch(sessionActions.login('demo', 'password'))
+        if (user.errors) setErrors(user.errors)
     }
 
     const redirect = goTo ? goTo : () => history.push(lastLocation)
@@ -64,9 +70,10 @@ const LoginForm = ({ goTo=null }) => {
                     />
                 </div>
                 <div>
-                    <div className='button-big'>
-                        <input type='submit' className='button' value='Log In' />
-                    </div>
+                    <input type='submit' className='button' value='Log In' />
+                </div>
+                <div>
+                    <TextButton className='button' content='Demo User' action={logInAsDemo} />
                 </div>
             </form>
             <div className='form-footer'>

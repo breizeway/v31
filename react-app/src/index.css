@@ -36,6 +36,8 @@
   --size__med-space: 16px;
   --size__sml-space: 8px;
   --size__mni-space: 4px;
+
+  --transition__std: .2s;
 }
 
 @media (prefers-color-scheme: dark) {
