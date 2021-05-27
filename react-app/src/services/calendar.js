@@ -1,7 +1,7 @@
 export default class Calendar {
     constructor(listStartDate) {
         this.view = 'month'
-        this.viewOptions = ['month', 'week', 'day']
+        this.viewOptions = ['month', 'week']
         this.originalDate = this._getDate(listStartDate)
         this.rootDate = new Date(this.originalDate)
         this.viewStart = this._getViewStart()

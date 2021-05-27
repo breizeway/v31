@@ -12,7 +12,6 @@ const PickDetails = ({ listId, pickId}) => {
 
     const data = chosenPick || pick
     const mediaData = data.media_data
-    console.log('   :::mediaData:::   ', mediaData);
 
     const crewSort = {Director: 0, Screenplay: 1, Producer: 1, 'Executive Producer': 1}
     const cast = mediaData.credits?.cast || []
@@ -20,19 +19,24 @@ const PickDetails = ({ listId, pickId}) => {
 
     const releventCrew = crew
         .filter(member => {
-        const positions = Object.keys(crewSort)
-        return positions.includes(member.job)
+            const positions = Object.keys(crewSort)
+            return positions.includes(member.job)
+        })
+        .sort((a, b) => {
+            const sortA = a.job === 'Director' ? 0 : 1
+            const sortB = b.job === 'Director' ? 0 : 1
+            return sortA - sortB
         })
 
     const budget = (() => {
-        const lessThanMil = mediaData.budget < 1000000
+        const budgetLessThanMil = mediaData.budget < 1000000
         const budgetInMil = mediaData.budget / 1000000
         const budgetNum = `${Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
-            minimumFractionDigits: lessThanMil ? 1 : 0,
-        }).format(lessThanMil ? mediaData.budget : budgetInMil)}`
-        const suffix = `${(lessThanMil ? '' : ' million')}`
+            minimumFractionDigits: budgetLessThanMil ? 1 : 0,
+        }).format(budgetLessThanMil ? mediaData.budget : budgetInMil)}`
+        const suffix = `${(budgetLessThanMil ? '' : ' million')}`
         return budgetNum + suffix
     })()
 
