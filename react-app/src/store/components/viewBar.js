@@ -1,6 +1,6 @@
 const SET_RENDERED = 'ViewBar/setRendered'
 const SET_ACTIVE = 'ViewBar/setView'
-// const REMOVE_ACTIVE = 'ViewBar/removeActive'
+
 
 export const setRendered = viewBarName  => {
     return {
@@ -16,14 +16,6 @@ export const setView = (viewBarName, index)  => {
         index,
     }
 }
-
-// export const removeActive = (viewBarName, viewName)  => {
-//     return {
-//         type: REMOVE_ACTIVE,
-//         viewBarName,
-//         viewName,
-//     }
-// }
 
 const defaultState = {
     rendered: new Set(),

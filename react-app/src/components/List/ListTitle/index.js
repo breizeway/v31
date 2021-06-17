@@ -19,7 +19,6 @@ const ListTitle = () => {
     const history = useHistory()
     const { listId } = useParams()
 
-    // makes sure a rerender happens when the set changes size
     useSelector(state => state.components.List.editMode.size)
     const editMode = {
         val: useSelector(state => state.components.List.editMode.has(listId)),

@@ -13,7 +13,6 @@ const NavMenu = () => {
             >
                 <div className='logo-div-b'
                     style={{
-                        // backgroundImage: 'url(./assets/logo.png)',
                         width: '32px',
                         height: '100%',
                         backgroundRepeat: 'no-repeat',

@@ -12,8 +12,6 @@ const NewList = () => {
 
     const [title, setTitle] = useState('')
     const [editorial, setEditorial] = useState('')
-    // const [startDate, setStartDate] = useState(new Date())
-    // const [endDate, setEndDate] = useState(new Date())
     const [newList, setNewList] = useState(null)
 
     const submit = async e => {
@@ -47,22 +45,6 @@ const NewList = () => {
                         placeholder='editorial'
                     ></textarea>
                 </div>
-                {/* <div className='form-field'>
-                    <input
-                        type='date'
-                        value={startDate}
-                        onChange={e => setStartDate(e.target.value)}
-                        placeholder='start date'
-                    ></input>
-                </div>
-                <div className='form-field'>
-                    <input
-                        type='date'
-                        value={endDate}
-                        onChange={e => setEndDate(e.target.value)}
-                        placeholder='end date'
-                    ></input>
-                </div> */}
                 <div>
                     <div className='button-big'>
                         <input type='submit' value='Add' />

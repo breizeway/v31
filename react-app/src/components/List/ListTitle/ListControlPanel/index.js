@@ -10,7 +10,6 @@ import * as listActions from '../../../../store/components/list'
 const ListControlPanel = () => {
     const dispatch = useDispatch()
     const { listId } = useParams()
-    // const list = useSelector(state => state.lists.all[listId])
 
     const published = {
         val: useSelector(state => state.components.List.published[listId]),

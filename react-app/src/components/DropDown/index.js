@@ -29,14 +29,6 @@ const DropDown = ({ options, justify }) => {
 
         root.addEventListener('click', closeDropDown)
 
-        //
-        // const rowsThatShouldPreventClose = document.querySelectorAll('.dropdown__panel-row')
-        // rowsThatShouldPreventClose.forEach(row => {
-        //     row.addEventListener('click', e => {
-        //         console.log(e.target)
-        //     })
-        // })
-
         return () => removeListener()
     }, [dropDownVisible])
 

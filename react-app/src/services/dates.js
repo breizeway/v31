@@ -47,19 +47,6 @@ const weekDayName = weekDay => {
     }
 }
 
-// const weekDayNameShort = weekDay => {
-//     switch (weekDay) {
-//         case 0: return 'Sun'
-//         case 1: return 'Mon'
-//         case 2: return 'Tue'
-//         case 3: return 'Wed'
-//         case 4: return 'Thu'
-//         case 5: return 'Fri'
-//         case 6: return 'Sat'
-//         default: return Error('Not a week day. Number must be between 0 and 6.')
-//     }
-// }
-
 export const makeDay = date => {
     const newDate = new Date(date)
     const year = newDate.getFullYear()
@@ -105,7 +92,6 @@ const dateFromSort = dateSort => {
     )
 }
 
-// move to class
 export const getPriorSunday = date => {
     const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const weekDay = baseDate.getDay()
@@ -113,7 +99,6 @@ export const getPriorSunday = date => {
     return new Date(baseDate.setDate(monthDay - weekDay))
 }
 
-/// move to class
 export const getFirstSundayOfMonth = date => {
     const baseDate = typeof date === 'string' ? dateFromSort(date) : new Date(date)
     const firstOfMonth = new Date(baseDate.setDate(1))
@@ -134,7 +119,6 @@ export const formatDateRange = (startDate, endDate, startOnly=false) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-// move to class
 export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
     const dates = [
         typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate),
@@ -147,7 +131,6 @@ export const formatDateRangeShort = (startDate, endDate, startOnly=false) => {
     return `${formatted[0]} - ${formatted[1]}`
 }
 
-// move to class
 export const makeDays = (date, numDays=1, viewId) => {
     const result = []
     for (let i = 0; i < numDays; i++) {
@@ -168,7 +151,6 @@ export const makeDays = (date, numDays=1, viewId) => {
             return result
         }
 
-// move to class
 export const getCalendarLabel = (startDate, endDate, viewId) => {
     let startBaseDate = typeof startDate === 'string' ? dateFromSort(startDate) : new Date(startDate)
     switch (viewId) {
