@@ -33,7 +33,6 @@ const ViewBar = ({ views, viewBarName }) => {
                         onClick={() => viewIndex.set(i)}
                         style={{
                             borderBottom: i === viewIndex.val ? '3px solid var(--color__theme-1)' : '3px solid #00000000',
-                            // fontSize: i === viewIndex.val ? 'larger' : null,
                         }}
                     >
                         {view.header}

@@ -39,7 +39,6 @@ export const runCommitPick = (stagedPick) => async dispatch => {
         })
     })
     const pick = await response.json()
-    console.log('   :::committed PICK:::   ', pick);
     dispatch(addPicks([pick]))
     dispatch(listActions.setMediaPick(pick))
     return pick

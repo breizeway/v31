@@ -76,17 +76,6 @@ def get_user_lists():
     num = request.json['num']
 
     user_id = request.json['data']['user_id']
-    # session_id = None
-    # print('   :::CURRENT_USER:::   ', current_user.to_dict())
-    # if current_user:
-    #     session_id = current_user.to_dict()['id']
-
-    # def published_vals():
-    #     if not current_user:
-    #         return [True]
-    #     elif user_id == session_id:
-    #         return [True, False]
-    #     return [True]
 
     lists = db.session.query(List) \
                       .join(Pick, isouter=True) \
@@ -108,7 +97,6 @@ def get_user_lists():
 def new_list():
     form = ListForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('   :::FORM:::   ', form.data, form.validate_on_submit())
     if form.validate_on_submit():
         new_list = List(
             title=form.data['title'],
@@ -149,22 +137,3 @@ def edit_list():
         db.session.commit()
 
     return lst.to_dict()
-
-    # user_id = request.json['user_id']
-
-    # sql = text(f'''
-    #     select
-    #         a.id
-    #     from
-    #         lists a
-    #       left join
-    #         picks b
-    #           on a.id = b.list_id
-    #     where
-    #         a.user_id = {user_id}
-    # ''')
-    # lists = db.engine.execute(sql)
-    # # print('   :::LISTS.items:::   ', lists.items())
-    # names = [row.items() for row in lists]
-    # print('   :::LISTS_ARR:::   ', names)
-    # return {'test': 'test'}

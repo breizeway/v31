@@ -3,7 +3,6 @@ import { makeDay } from '../services/dates'
 
 const ADD_LISTS = 'lists/addLists'
 const UPDATE_DATES = 'lists/updateDates'
-// const ADD_LISTS_MEDIA = 'lists/addListsMedia'
 const DELETE_LISTS = 'lists/deleteLists'
 const SET_FRAME = 'lists/setFrame'
 const SET_MEDIA_PICK = 'lists/setMediaPick'
@@ -22,13 +21,6 @@ const updateDates = list => {
         list
     }
 }
-
-// const addListsMedia = lists => {
-//     return {
-//         type: ADD_LISTS_MEDIA,
-//         lists
-//     }
-// }
 
 const deleteLists = listIds => {
     return {
@@ -58,8 +50,7 @@ export const removePick = pick => {
     }
 }
 
-export const runAddLists = (listIds/*, addMedia=false*/) => async dispatch => {
-    // if (addMedia) dispatch(runAddListsMedia(listIds))
+export const runAddLists = (listIds) => async dispatch => {
     const response = await fetch(`/api/lists/`, {
         method: 'PUT',
         headers: {
@@ -93,26 +84,6 @@ export const runUpdateDates = listId => async dispatch => {
     const { lists } = await response.json()
     dispatch(updateDates(lists[0]))
 }
-
-// export const runAddListsMedia = listIds => async dispatch => {
-//     const response = await fetch(`/api/lists/`, {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             ids: listIds,
-//             media: true,
-//         }),
-//     })
-//     const { lists_media } = await response.json()
-//     dispatch(addListsMedia(lists_media))
-
-//     const picks = lists_media.reduce((picks, list) => {
-//         return picks.concat(list.picks)
-//     }, [])
-//     dispatch(pickActions.addPicksMedia(picks))
-// }
 
 export const runDeleteLists = listIds => async dispatch => {
     const response = await fetch(`/api/lists/`, {

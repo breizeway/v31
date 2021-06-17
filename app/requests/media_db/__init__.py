@@ -44,5 +44,6 @@ def config():
 
     response = requests.get(url, headers=headers)
     json = response.json()
+    # leave print; just used to view config data for tmdb api
     print('   :::CONFIG:::   ', json)
     return json

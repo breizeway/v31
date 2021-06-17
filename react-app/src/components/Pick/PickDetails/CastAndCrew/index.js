@@ -7,8 +7,6 @@ import './CastAndCrew.css'
 const CastAndCrew = ({ member }) => {
     const imgBaseUrl = useSelector(state => state.media.imgBaseUrl)
     const src = `${imgBaseUrl}w185${member.profile_path}`
-    // w45 w185
-
 
     return (
         <div className='cast-and-crew'>
