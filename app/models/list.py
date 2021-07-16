@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import date
@@ -61,3 +62,10 @@ class List(db.Model):
         list_dict['picks'] = {pick.to_dict()['id']: pick.to_dict_media() for pick in self.picks}
         list_dict['picks_by_date'] = {pick.to_dict()['date_sort']: pick.to_dict_media() for pick in self.picks}
         return list_dict
+
+
+def get_list_start_dates():
+    return db.session.query(Pick.list_id,
+                            func.min(Pick.date).label('start_date')) \
+                      .group_by(Pick.list_id) \
+                      .subquery()

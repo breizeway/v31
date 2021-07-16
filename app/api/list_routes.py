@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user
 from datetime import date
-from sqlalchemy import func, text
+from sqlalchemy import and_, func
 
-from app.models import Pick, List, db
+from app.models import Pick, List, db, get_list_start_dates
 from app.forms import ListForm
 
 
@@ -38,12 +38,14 @@ def delete_lists():
 def get_my_lists():
     num = request.json['num']
 
+    list_start_dates = get_list_start_dates()
+
     user_id = current_user.to_dict()['id']
     lists = db.session.query(List) \
-                      .join(Pick, isouter=True) \
+                      .join(list_start_dates,
+                            and_(List.id == list_start_dates.c.list_id)) \
                       .filter(List.user_id == user_id) \
-                      .group_by(List.id, Pick.id) \
-                      .order_by(func.max(Pick.date)) \
+                      .order_by(list_start_dates.c.start_date) \
                       .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
@@ -57,11 +59,13 @@ def get_my_lists():
 def get_next_lists():
     num = request.json['num']
 
+    list_start_dates = get_list_start_dates()
+
     lists = db.session.query(List) \
-                      .join(Pick, isouter=True) \
+                      .join(list_start_dates,
+                            and_(List.id == list_start_dates.c.list_id)) \
                       .filter(List.published == True) \
-                      .group_by(List.id, Pick.id) \
-                      .order_by(func.max(Pick.date)) \
+                      .order_by(list_start_dates.c.start_date) \
                       .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
@@ -75,14 +79,16 @@ def get_next_lists():
 def get_user_lists():
     num = request.json['num']
 
+    list_start_dates = get_list_start_dates()
+
     user_id = request.json['data']['user_id']
 
     lists = db.session.query(List) \
-                      .join(Pick, isouter=True) \
-                      .filter(List.published.in_([True, False]),
+                      .join(list_start_dates,
+                            and_(List.id == list_start_dates.c.list_id)) \
+                      .filter(List.published == True,
                               List.user_id == user_id) \
-                      .group_by(List.id, Pick.id) \
-                      .order_by(func.max(Pick.date)) \
+                      .order_by(list_start_dates.c.start_date) \
                       .limit(num) \
                       .all()
     frame = {lst.to_dict()['id']: [pickId
