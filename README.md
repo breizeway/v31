@@ -1,5 +1,9 @@
+#### Disclaimer (5/4/23)
+> I just wanted to note that this app is old and outdated, having served as my final project in bootcamp. It hasn't been live since Heroku ended free distros, and it's hard to find much motivation to get it up and running again. I'm leaving the repo here in the public for posterity.
+
 ![](assets/images/2021-05-31_13.45.05_screen_kpcusi.png)
 # Video Thirty One
+
 Video Thirty One is a book club for films where friends can create and follow curated collections of films they want to watch. The live site can be found [here](https://pick-list.herokuapp.com/).
 
 ## Why I built it
